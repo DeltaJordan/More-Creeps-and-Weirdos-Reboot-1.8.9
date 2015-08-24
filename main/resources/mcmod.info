@@ -1,0 +1,16 @@
+[
+{
+  "modid": "creeps",
+  "name": "More Creeps And Weirdos",
+  "description": "Example placeholder mod.",
+  "version": "Beta 0.1",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/wip-mods/2506162-more-creeps-and-weirdos-rebooted-wip#c6": "",
+  "authorList": [freakstritch (original Creator), Astromojang],
+  "credits": "freakstritch, for making the original mod, Forge for the source stuffs.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
