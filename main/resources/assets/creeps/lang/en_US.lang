@@ -1,5 +1,4 @@
 < en_US.lang - English localization file for the mod More Creeps And Weirdos >
 
-item.blorp_cola.name=Blorp Cola
-item.empty_can.name=Empty Can
+item.creeps_blorp_cola.name=Blorp Cola
 itemGroup.creepTab=More Creeps And Weirdos

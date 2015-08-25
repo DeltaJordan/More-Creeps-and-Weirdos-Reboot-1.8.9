@@ -1,27 +1,34 @@
 package creeps.item;
 
-import creeps.CreepMain;
+import creeps.Reference;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemBlorpCola extends Item{
 	
 
 	
-	public ItemBlorpCola()
-    {
-        this.maxStackSize = 24;
-        this.setUnlocalizedName("blorp_cola");
-        CreepMain.namesList.add(this);
-
-	    
-       
-        
-    }
+	private final String name = "blorp_cola";
+	public ItemBlorpCola(){
+		
+	GameRegistry.registerItem(this, name);
+	setUnlocalizedName(Reference.MOD_ID + "_" + name);
+	setCreativeTab(CreativeTabs.tabMisc);
+	
+	}
+	
+	public String getName(){
+		
+	return name;
+	
+	}
+	
 	
 	public EnumAction getItemUseAction(ItemStack stack)
     {

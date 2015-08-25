@@ -7,6 +7,7 @@ import creeps.item.ItemBlorpCola;
 import creeps.proxys.CommonProxy;
 import creeps.tabs.CreepCreativeTab;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Reference.MOD_ID,
 name = Reference.MOD_NAME,
@@ -28,7 +30,6 @@ public class CreepMain {
 	@SidedProxy(clientSide = "creeps.proxys.ClientProxy", serverSide = "creeps.proxys.CommonProxy")
 	public static CommonProxy proxy;
 	public static Item ItemBlorpCola;
-	public static Item ItemEmptyCan;
 	public static List<Item> namesList = new ArrayList<Item>();
 	public static CreativeTabs creepTab = new CreepCreativeTab(CreativeTabs.getNextID(), "creepTab");
     
@@ -38,7 +39,7 @@ public class CreepMain {
 	    CreepMain.proxy.preInit(e);
 	    
 	    
-	    ItemBlorpCola = new ItemBlorpCola().setUnlocalizedName("blorp_cola");
+	   
 	    
 	    GameRegistry.registerItem(ItemBlorpCola = new ItemBlorpCola(), "blorp_cola");
 	    
@@ -48,10 +49,27 @@ public class CreepMain {
 	public void init(FMLInitializationEvent e) {
 	    CreepMain.proxy.init(e);
 	    
+	    if(e.getSide() == Side.CLIENT)
+	    {
+	        	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+	        		
+	        	renderItem.getItemModelMesher().register(ItemBlorpCola, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBlorpCola) ItemBlorpCola).getName(), "inventory"));
+	    }
+	    
+	    //CreativeTab Items
 	    ItemBlorpCola.setCreativeTab(creepTab);
 	   
+	    //CreativeTab Blocks
 	    
-	    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(ItemBlorpCola, 0, new ModelResourceLocation("MODID:blorp_cola", "inventory"));
+	    
+	    //CreativeTab Armor
+	    
+	    
+	    //CreativeTab Tools
+	    
+	    
+	    //CreativeTab Misc.
+	    
 	    
 	    }
 	    
@@ -61,6 +79,6 @@ public class CreepMain {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 	    CreepMain.proxy.postInit(e);
-	    System.out.println("Building Creeps and Installing Weirdos");
+	    System.out.println("Built Creeps and Installed Weirdos");
 	}
 }
