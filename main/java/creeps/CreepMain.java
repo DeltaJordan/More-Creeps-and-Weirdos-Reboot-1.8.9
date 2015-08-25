@@ -61,6 +61,6 @@ public class CreepMain {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 	    CreepMain.proxy.postInit(e);
-	    System.out.println("More Creeps and Weirdos has Loaded");
+	    System.out.println("Building Creeps and Installing Weirdos");
 	}
 }
