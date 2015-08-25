@@ -4,7 +4,6 @@ import creeps.Reference;
 import creeps.api.ILocation;
 import creeps.network.PacketHandler;
 import creeps.network.packet.SoundPacket;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
