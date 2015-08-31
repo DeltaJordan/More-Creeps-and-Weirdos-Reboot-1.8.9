@@ -8,12 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 
-public class ItemBlorpCola extends Item{
-	
 
-	
-	private final String name = "blorp_cola";
-	public ItemBlorpCola(){
+public class ItemBandAid extends Item{
+	private final String name = "bandaid";
+	public ItemBandAid(){
 		
 	
 	setUnlocalizedName(Reference.MOD_ID + "_" + name);
@@ -28,7 +26,7 @@ public class ItemBlorpCola extends Item{
 	
 	public EnumAction getItemUseAction(ItemStack stack)
     {
-        return EnumAction.DRINK;
+        return EnumAction.NONE;
     }
 	
 
@@ -48,7 +46,7 @@ public class ItemBlorpCola extends Item{
 
         if (!worldIn.isRemote)
         {
-            playerIn.heal(2);
+            playerIn.heal(4);
         }
      
         
@@ -62,7 +60,7 @@ public class ItemBlorpCola extends Item{
      */
     public int getMaxItemUseDuration(ItemStack stack)
     {
-        return 32;
+        return 1;
     }
 
   
@@ -73,7 +71,7 @@ public class ItemBlorpCola extends Item{
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
         playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-        worldIn.playSoundAtEntity(playerIn, "creeps:blorpcola", 1.0F, 0.6F);
+        worldIn.playSoundAtEntity(playerIn, "creeps:bandaid", 1.0F, 0.6F);
         
         return itemStackIn;
     }

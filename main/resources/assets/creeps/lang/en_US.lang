@@ -1,4 +1,9 @@
 < en_US.lang - English localization file for the mod More Creeps And Weirdos >
 
 item.creeps_blorp_cola.name=Blorp Cola
+item.creeps_battery.name=Battery
+item.creeps_arm_sword.name=Arm Sword
+item.creeps_welcome.name=Weclome To MCAW
+item.creeps_bandaid.name=Band-Aid
+item.creeps_donut.name=Donut
 itemGroup.creepTab=More Creeps And Weirdos
