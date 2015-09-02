@@ -73,6 +73,7 @@ public class ItemDonut extends Item{
 	    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	    {
 	        playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+	        worldIn.playSoundAtEntity(playerIn, "creeps:chew", 1.0F, 1.0F);
 	        
 	        return itemStackIn;
 	    }

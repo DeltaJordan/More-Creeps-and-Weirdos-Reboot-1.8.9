@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import net.minecraftforge.fml.common.registry.*;
 import creeps.item.ItemBlorpCola;
 import creeps.item.ItemBattery;
 import creeps.item.ItemArmSword;
@@ -14,12 +14,15 @@ import creeps.item.ItemDonut;
 import creeps.proxys.CommonProxy;
 import creeps.tabs.CreepCreativeTab;
 import creeps.api.CreepEventHandler;
+import creeps.entity.EntityMummy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -71,7 +74,7 @@ public class CreepMain {
 	    //CreepEventHandler; still debugging
 	    if(e.getSide() == Side.CLIENT){
 	    FMLCommonHandler.instance().bus().register(new CreepEventHandler());
-    	System.out.println("More Creeps and Weirdos Event Handler Initialized");
+    	logger.info("Event Handler Initialized");
 	    }
 	    
 	    //Register Items
@@ -88,20 +91,28 @@ public class CreepMain {
 	public void init(FMLInitializationEvent e) {
 	    CreepMain.proxy.init(e);
 	    
+	    proxy.registerRenderers();
+	    
+	  //Entities ClientRender
+	    EntityRegistry.registerGlobalEntityID(EntityMummy.class, "Mummy", EntityRegistry.findGlobalUniqueEntityId(), 0x98FB98, 0x98FB98);
+	    
 	    if(e.getSide() == Side.CLIENT)
 	    {
 	    	
-	        	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-	        		
-	        	renderItem.getItemModelMesher().register(ItemBlorpCola, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBlorpCola) ItemBlorpCola).getName(), "inventory"));
-	        	renderItem.getItemModelMesher().register(ItemBattery, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBattery) ItemBattery).getName(), "inventory"));
-	        	renderItem.getItemModelMesher().register(ItemArmSword, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemArmSword) ItemArmSword).getName(), "inventory"));
-	        	renderItem.getItemModelMesher().register(ItemWelcome, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemWelcome) ItemWelcome).getName(), "inventory"));
-	        	renderItem.getItemModelMesher().register(ItemBandAid, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBandAid) ItemBandAid).getName(), "inventory"));
-	        	renderItem.getItemModelMesher().register(ItemDonut, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemDonut) ItemDonut).getName(), "inventory"));
+			
+			
+			 
+			//Items
+			RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();	
+			renderItem.getItemModelMesher().register(ItemBlorpCola, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBlorpCola) ItemBlorpCola).getName(), "inventory"));
+			renderItem.getItemModelMesher().register(ItemBattery, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBattery) ItemBattery).getName(), "inventory"));
+			renderItem.getItemModelMesher().register(ItemArmSword, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemArmSword) ItemArmSword).getName(), "inventory"));
+			renderItem.getItemModelMesher().register(ItemWelcome, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemWelcome) ItemWelcome).getName(), "inventory"));
+			renderItem.getItemModelMesher().register(ItemBandAid, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBandAid) ItemBandAid).getName(), "inventory"));
+			renderItem.getItemModelMesher().register(ItemDonut, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemDonut) ItemDonut).getName(), "inventory"));
 	    }
 	    
-	    
+	    //Mobs
 	    
 	    
 	    //CreativeTab Items
@@ -132,6 +143,11 @@ public class CreepMain {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 	    CreepMain.proxy.postInit(e);
+	  //Add Entity Spawn
+	    EntityRegistry.addSpawn(EntityMummy.class, 8, 1, 12, EnumCreatureType.MONSTER, BiomeGenBase.desert);
+	    EntityRegistry.addSpawn(EntityMummy.class, 8, 1, 12, EnumCreatureType.MONSTER, BiomeGenBase.beach);
+	    EntityRegistry.addSpawn(EntityMummy.class, 8, 1, 12, EnumCreatureType.MONSTER, BiomeGenBase.desertHills);
+	    
 	    logger.info("Its time to Creep out the world! At least right after its been Weirded out...");
 	}
 }

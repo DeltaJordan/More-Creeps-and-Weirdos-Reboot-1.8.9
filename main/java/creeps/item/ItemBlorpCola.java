@@ -15,7 +15,7 @@ public class ItemBlorpCola extends Item{
 	private final String name = "blorp_cola";
 	public ItemBlorpCola(){
 		
-	
+	maxStackSize = 24;
 	setUnlocalizedName(Reference.MOD_ID + "_" + name);
 	}
 	
@@ -28,7 +28,7 @@ public class ItemBlorpCola extends Item{
 	
 	public EnumAction getItemUseAction(ItemStack stack)
     {
-        return EnumAction.DRINK;
+        return EnumAction.NONE;
     }
 	
 
@@ -62,7 +62,7 @@ public class ItemBlorpCola extends Item{
      */
     public int getMaxItemUseDuration(ItemStack stack)
     {
-        return 32;
+        return 1;
     }
 
   
@@ -73,7 +73,7 @@ public class ItemBlorpCola extends Item{
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
         playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-        worldIn.playSoundAtEntity(playerIn, "creeps:blorpcola", 1.0F, 0.6F);
+        worldIn.playSoundAtEntity(playerIn, "creeps:blorpcola", 1.0F, 1.0F);
         
         return itemStackIn;
     }

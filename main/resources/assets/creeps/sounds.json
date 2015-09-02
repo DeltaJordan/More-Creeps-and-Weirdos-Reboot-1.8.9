@@ -35,6 +35,40 @@
 	"sounds": [
 	{"name": "bandaid","stream": false}
 				]
+	},
+"chew":{
+	"category": "player",
+	"sounds": [
+	{"name": "chew","stream": false}
+				]
+	},
+"mininggembad":{
+	"category": "player",
+	"sounds": [
+	{"name": "mininggembad","stream": false}
+				]
+	},
+"mummy":{
+	"category": "hostile",
+	"sounds": [
+	{"name": "mummy1","stream": false},
+	{"name": "mummy2","stream": false},
+	{"name": "mummy3","stream": false},
+	{"name": "mummy4","stream": false}
+				]
+	},
+"mummyhurt":{
+	"category": "hostile",
+	"sounds": [
+	{"name": "mummyhurt1","stream": false},
+	{"name": "mummyhurt2","stream": false}
+				]
+	},
+"mummydeath":{
+	"category": "hostile",
+	"sounds": [
+	{"name": "mummydeath","stream": false}
+				]
 	}
 }
 

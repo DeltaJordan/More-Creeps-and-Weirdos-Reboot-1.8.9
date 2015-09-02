@@ -32,7 +32,7 @@ public class ItemWelcome extends Item{
 	    public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	    {
 	    	
-	        worldIn.playSoundAtEntity(playerIn, "creeps:welcome", 1.0F, 0.6F);
+	        worldIn.playSoundAtEntity(playerIn, "creeps:welcome", 1.0F, 1.0F);
 	      
 	        return itemStackIn;
 	    }

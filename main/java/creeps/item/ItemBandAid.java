@@ -13,8 +13,9 @@ public class ItemBandAid extends Item{
 	private final String name = "bandaid";
 	public ItemBandAid(){
 		
-	
-	setUnlocalizedName(Reference.MOD_ID + "_" + name);
+		setUnlocalizedName(Reference.MOD_ID + "_" + name);
+		this.maxStackSize = 24;
+		
 	}
 	
 	public String getName(){
@@ -71,7 +72,7 @@ public class ItemBandAid extends Item{
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
         playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-        worldIn.playSoundAtEntity(playerIn, "creeps:bandaid", 1.0F, 0.6F);
+        worldIn.playSoundAtEntity(playerIn, "creeps:bandaid", 1.0F, 1.0F);
         
         return itemStackIn;
     }

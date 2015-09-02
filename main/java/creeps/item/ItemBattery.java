@@ -4,6 +4,7 @@ import creeps.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 
 public class ItemBattery extends Item{
@@ -18,32 +19,23 @@ public class ItemBattery extends Item{
 	return name;
 	
 	}
-	
-	public int getMaxItemUseDuration(ItemStack stack)
-    {
-        return 2;
-    }
-	
-	public ItemStack onItemRightClick(World worldIn, ItemStack itemStackIn, EntityPlayer playerIn)
-    {
-		 playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-		if (!playerIn.capabilities.isCreativeMode)
-        {
-            --itemStackIn.stackSize;
-        }
-        
-        
-        	if (playerIn.getHealth() <= 5){
-    	        playerIn.inventory.clear();
-    	        playerIn.setHealth(playerIn.getHealth()-playerIn.getHealth());
-    	        }
-    	        else{
-    	        playerIn.setHealth(playerIn.getHealth()-5);
-    	        }
-        
 
-		return itemStackIn;
+    /**
+     * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+     */
+    public ItemStack onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn)
+    {    
+    	
+         if (!worldIn.isRemote)
+         {
+             playerIn.setHealth(playerIn.getHealth()-1);
+         }
+      
+         
+         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+         worldIn.playSoundAtEntity(playerIn, "creeps:mininggembad", 1.0F, 1.0F);
+         return stack;
 		
-    }
+	}
 	
 }
