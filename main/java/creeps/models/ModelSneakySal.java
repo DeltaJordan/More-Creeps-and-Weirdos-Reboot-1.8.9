@@ -3,9 +3,10 @@ package creeps.models;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
 
-public class ModelSneakySal extends ModelBase
-{
+public class ModelSneakySal extends ModelBase{
+	
   //fields
     ModelRenderer Shape1;
     ModelRenderer Shape2;
@@ -27,31 +28,31 @@ public class ModelSneakySal extends ModelBase
     
       Shape1 = new ModelRenderer(this, 32, 0);
       Shape1.addBox(0F, 0F, 0F, 8, 1, 8);
-      Shape1.setRotationPoint(-3F, 3F, -2F);
+      Shape1.setRotationPoint(1F, 8F, 2F);
       Shape1.setTextureSize(64, 32);
       Shape1.mirror = true;
       setRotation(Shape1, 0F, 0F, 0F);
       Shape2 = new ModelRenderer(this, 44, 9);
       Shape2.addBox(0F, 0F, 0F, 5, 2, 5);
-      Shape2.setRotationPoint(-1.5F, 1F, -0.5F);
+      Shape2.setRotationPoint(1F, 8F, 2F);
       Shape2.setTextureSize(64, 32);
       Shape2.mirror = true;
       setRotation(Shape2, 0F, 0F, 0F);
       Shape3 = new ModelRenderer(this, 0, 10);
       Shape3.addBox(0F, 0F, 0F, 1, 1, 3);
-      Shape3.setRotationPoint(1.5F, 6F, -4F);
+      Shape3.setRotationPoint(1F, 8F, 2F);
       Shape3.setTextureSize(64, 32);
       Shape3.mirror = true;
       setRotation(Shape3, 0F, 0F, 0.1858931F);
       Shape4 = new ModelRenderer(this, 8, 10);
       Shape4.addBox(0F, 0F, 0F, 4, 1, 4);
-      Shape4.setRotationPoint(-8F, 14F, 0F);
+      Shape4.setRotationPoint(-5F, 10F, 2F);
       Shape4.setTextureSize(64, 32);
       Shape4.mirror = true;
       setRotation(Shape4, 0F, 0F, 0F);
       Shape5 = new ModelRenderer(this, 0, 16);
       Shape5.addBox(0F, 0F, 0F, 3, 1, 3);
-      Shape5.setRotationPoint(-3F, 23F, -3F);
+      Shape5.setRotationPoint(-1F, 17F, 2F);
       Shape5.setTextureSize(64, 32);
       Shape5.mirror = true;
       setRotation(Shape5, 0F, 0F, 0F);
@@ -62,8 +63,8 @@ public class ModelSneakySal extends ModelBase
       Shape6.mirror = true;
       setRotation(Shape6, 0F, 0F, 0F);
       head = new ModelRenderer(this, 0, 0);
-      head.addBox(0F, 0F, 0F, 6, 4, 6);
-      head.setRotationPoint(-2F, 4F, -1F);
+      head.addBox(-3F, -4F, -3F, 6, 4, 6);
+      head.setRotationPoint(1F, 8F, 2F);
       head.setTextureSize(64, 32);
       head.mirror = true;
       setRotation(head, 0F, 0F, 0F);
@@ -126,7 +127,23 @@ public class ModelSneakySal extends ModelBase
   
   public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e)
   {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
+	  super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
+		this.head.rotateAngleY = f3 / (180F / (float)Math.PI);
+		this.head.rotateAngleX = f4 / (180F / (float)Math.PI);
+		this.Shape1.rotateAngleX = f4 / (180F / (float)Math.PI);
+		this.Shape1.rotateAngleY = f3 / (180F / (float)Math.PI);
+		this.Shape2.rotateAngleX = f4 / (180F / (float)Math.PI);
+		this.Shape2.rotateAngleY = f3 / (180F / (float)Math.PI);
+		this.Shape3.rotateAngleX = f4 / (180F / (float)Math.PI);
+		this.Shape3.rotateAngleY = f3 / (180F / (float)Math.PI);
+		this.leftleg.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
+		this.rightleg.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
+		this.Shape5.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
+		this.Shape6.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
+		this.rightarm.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 2.0F * f1 * 0.5F;
+		this.Shape4.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 2.0F * f1 * 0.5F;
+		this.leftarm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
+		
   }
 
 }

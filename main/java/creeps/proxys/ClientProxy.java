@@ -1,7 +1,9 @@
 package creeps.proxys;
 
+import creeps.CreepMain;
 import creeps.entity.EntityMummy;
 import creeps.models.ModelMummy;
+import creeps.recipes.CraftingHandler;
 import creeps.render.RenderMummy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -15,6 +17,7 @@ public class ClientProxy extends CommonProxy{
 	    @Override
 	    public void preInit(FMLPreInitializationEvent e) {
 	        super.preInit(e);
+	        
 	    }
 
 	    @Override
@@ -26,6 +29,9 @@ public class ClientProxy extends CommonProxy{
 	    @Override
 	    public void postInit(FMLPostInitializationEvent e) {
 	        super.postInit(e);
+	        CraftingHandler.Recipes();
+	        CreepMain.logger.info("Crafting Handler Loaded");
+	        CreepMain.logger.info("Added 1 recipe: Medicine");
 	    }
 	
 	    @Override

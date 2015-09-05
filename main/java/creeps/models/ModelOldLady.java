@@ -4,10 +4,8 @@ import net.minecraft.client.model.*;
 import net.minecraft.entity.*;
 import net.minecraft.util.*;
 
-public class OldLadyModel {
+public class ModelOldLady extends ModelBase{
 	
-public static class ModelNew extends ModelBase
-{
 ModelRenderer bob;
 ModelRenderer head;
 ModelRenderer body;
@@ -18,7 +16,7 @@ ModelRenderer leftleg;
 ModelRenderer helm;
 ModelRenderer cane;
 
-public ModelNew()
+public ModelOldLady()
 {
 textureWidth = 64;
 textureHeight = 32;
@@ -102,23 +100,22 @@ model.rotateAngleY = y;
 model.rotateAngleZ = z;
 }
 
-public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e)
-
-{
-super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
-this.head.rotateAngleY = f3 / (180F / (float)Math.PI);
-this.head.rotateAngleX = f4 / (180F / (float)Math.PI);
-this.bob.rotateAngleX = f3 / (180F / (float)Math.PI);
-this.bob.rotateAngleY = f4 / (180F / (float)Math.PI);
-this.helm.rotateAngleX = f3 / (180F / (float)Math.PI);
-this.helm.rotateAngleY = f4 / (180F / (float)Math.PI);
-this.leftleg.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
-this.rightleg.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
-this.rightarm.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 2.0F * f1 * 0.5F;
-this.leftarm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
-this.cane.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 2.0F * f1 * 0.5F;
+public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity e){
+	
+	super.setRotationAngles(f, f1, f2, f3, f4, f5, e);
+	this.head.rotateAngleY = f3 / (180F / (float)Math.PI);
+	this.head.rotateAngleX = f4 / (180F / (float)Math.PI);
+	this.bob.rotateAngleX = f3 / (180F / (float)Math.PI);
+	this.bob.rotateAngleY = f4 / (180F / (float)Math.PI);
+	this.helm.rotateAngleX = f3 / (180F / (float)Math.PI);
+	this.helm.rotateAngleY = f4 / (180F / (float)Math.PI);
+	this.leftleg.rotateAngleX = MathHelper.cos(f * 1.0F) * -1.0F * f1;
+	this.rightleg.rotateAngleX = MathHelper.cos(f * 1.0F) * 1.0F * f1;
+	this.rightarm.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 2.0F * f1 * 0.5F;
+	this.leftarm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
+	this.cane.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 2.0F * f1 * 0.5F;
 }
 
 }
 
-}
+

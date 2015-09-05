@@ -69,6 +69,14 @@
 	"sounds": [
 	{"name": "mummydeath","stream": false}
 				]
+	},
+"medicine":{
+	"category": "hostile",
+	"sounds": [
+	{"name": "medicine1","stream": false},
+	{"name": "medicine2","stream": false},
+	{"name": "medicine3","stream": false}
+				]
 	}
 }
 

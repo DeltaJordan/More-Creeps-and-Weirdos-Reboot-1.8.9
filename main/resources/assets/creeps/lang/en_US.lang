@@ -6,5 +6,6 @@ item.creeps_arm_sword.name=Arm Sword
 item.creeps_welcome.name=Weclome To MCAW
 item.creeps_bandaid.name=Band-Aid
 item.creeps_donut.name=Donut
+item.creeps_medicine.name=Medicine
 entity.Mummy.name=Mummy
 itemGroup.creepTab=More Creeps And Weirdos

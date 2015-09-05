@@ -1,0 +1,29 @@
+BETA 0.4
+Added Medicine, With working crafting recipe; the first item craftable without cheats!
+Mummy will spawn in cave, but its a little random. Turns out the only way to add non-random cave spawn is to make it only spawn in caves, and we can't have that...
+Welcome Item has a new icon.
+Added CHANGELOG.txt
+
+BETA 0.3
+Added:
+Mummy, which was also the first mob in More Creeps And Weirdos Original. Also, now I know how to make mobs, so there will be more added faster. Known problems: Mummies don't spawn in caves; Mummies don't burn in daytime due to AI problems. Spawn in places with sand and drop wool (0-2), sand(0-2), sandstone(0-2), and Band-Aids(0-6)
+
+Fixed: [Closes Ticket #1 by RickWeek84]
+Sounds are all low pitched - My bad!
+No Donut sound. - Didn't know there was one :P
+The Blorp Cola and Band-Aid must be a stack of 24 and not 64 - Easy fix! (Thank goodness...)
+When you right-click on the battery you should take half a heart and play a sound. - Fixed because I don't know (I just recompiled it and bingo, it was fixed... wtf?)
+
+BETA 0.2:
+Added:
+Arm Sword; Unobtainable without cheats or Creeps Creative Tab
+Band-Aid; needs recipe, Unobtainable without cheats or Creeps Creative Tab
+Donuts; Unobtainable without cheats or Creeps Creative Tab
+Welcome; Unobtainable without cheats or Creeps Creative Tab, Voice low (help!)
+Battery; Unobtainable without cheats or Creeps Creative Tab
+New console load text: "Its time to Creep out the world! At least right after its been Weirded out..."
+
+BETA 0.1:
+Initial Release
+Blorp Cola working perfectly
+Creeps Creative Tab working

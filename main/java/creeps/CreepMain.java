@@ -1,7 +1,5 @@
 package creeps;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.minecraftforge.fml.common.registry.*;
@@ -11,6 +9,7 @@ import creeps.item.ItemArmSword;
 import creeps.item.ItemWelcome;
 import creeps.item.ItemBandAid;
 import creeps.item.ItemDonut;
+import creeps.item.ItemMedicine;
 import creeps.proxys.CommonProxy;
 import creeps.tabs.CreepCreativeTab;
 import creeps.api.CreepEventHandler;
@@ -51,16 +50,14 @@ public class CreepMain {
 	public static Item ItemWelcome;
 	public static Item ItemBandAid;
 	public static Item ItemDonut;
+	public static Item ItemMedicine;
 	
 	//define MOD_ID
 	public static final String modid = "More Creeps and Weirdos";
 	
 	//Tool Materials
     public static ToolMaterial FLESH = EnumHelper.addToolMaterial("FLESH", 0, 32, 1.0F, 2.0F, 22);
-	
-	//I forgot...
-	public static List<Item> namesList = new ArrayList<Item>();
-	
+		
 	//CreativeTabs
 	public static CreativeTabs creepTab = new CreepCreativeTab(CreativeTabs.getNextID(), "creepTab");
     
@@ -84,6 +81,7 @@ public class CreepMain {
 	    GameRegistry.registerItem(ItemWelcome = new ItemWelcome(), "welcome");
 	    GameRegistry.registerItem(ItemBandAid = new ItemBandAid(), "bandaid");
 	    GameRegistry.registerItem(ItemDonut = new ItemDonut(), "donut");
+	    GameRegistry.registerItem(ItemMedicine = new ItemMedicine(), "medicine");
 	    
 	}
 
@@ -110,6 +108,7 @@ public class CreepMain {
 			renderItem.getItemModelMesher().register(ItemWelcome, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemWelcome) ItemWelcome).getName(), "inventory"));
 			renderItem.getItemModelMesher().register(ItemBandAid, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemBandAid) ItemBandAid).getName(), "inventory"));
 			renderItem.getItemModelMesher().register(ItemDonut, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemDonut) ItemDonut).getName(), "inventory"));
+			renderItem.getItemModelMesher().register(ItemMedicine, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + ((ItemMedicine) ItemMedicine).getName(), "inventory"));
 	    }
 	    
 	    //Mobs
@@ -122,6 +121,7 @@ public class CreepMain {
 	    ItemWelcome.setCreativeTab(creepTab);
 	    ItemBandAid.setCreativeTab(creepTab);
 	    ItemDonut.setCreativeTab(creepTab);
+	    ItemMedicine.setCreativeTab(creepTab);
 	   
 	    //CreativeTab Blocks
 	    
@@ -143,7 +143,8 @@ public class CreepMain {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 	    CreepMain.proxy.postInit(e);
-	  //Add Entity Spawn
+	  
+	    //Add Entity Spawn Biomes
 	    EntityRegistry.addSpawn(EntityMummy.class, 8, 1, 12, EnumCreatureType.MONSTER, BiomeGenBase.desert);
 	    EntityRegistry.addSpawn(EntityMummy.class, 8, 1, 12, EnumCreatureType.MONSTER, BiomeGenBase.beach);
 	    EntityRegistry.addSpawn(EntityMummy.class, 8, 1, 12, EnumCreatureType.MONSTER, BiomeGenBase.desertHills);
