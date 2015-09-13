@@ -1,45 +1,43 @@
 package creeps.proxys;
 
-import creeps.CreepMain;
-import creeps.entity.EntityMummy;
-import creeps.models.ModelMummy;
-import creeps.recipes.CraftingHandler;
-import creeps.render.RenderMummy;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import creeps.Log;
+import creeps.config.Config;
+import creeps.entity.EntityGrowbotgregg;
+import creeps.entity.EntityMummy;
+import creeps.recipes.CraftingHandler;
+import creeps.render.RenderGrowbotGregg;
+import creeps.render.RenderMummy;
 
-public class ClientProxy extends CommonProxy{
+public class ClientProxy extends CommonProxy {
 
-	    @Override
-	    public void preInit(FMLPreInitializationEvent e) {
-	        super.preInit(e);
-	        
-	    }
+    @Override
+    public void postInit(FMLPostInitializationEvent e) {
+	super.postInit(e);
+	CraftingHandler.Recipes();
+	Log.info("Crafting Handler Loaded");
+	Log.info("Added 1 recipe: Medicine");
+    }
 
-	    @Override
-	    public void init(FMLInitializationEvent e) {
-	        super.init(e);
-	     
-	    }
+    @Override
+    public void load() {
+	super.load();
 
-	    @Override
-	    public void postInit(FMLPostInitializationEvent e) {
-	        super.postInit(e);
-	        CraftingHandler.Recipes();
-	        CreepMain.logger.info("Crafting Handler Loaded");
-	        CreepMain.logger.info("Added 1 recipe: Medicine");
-	    }
-	
-	    @Override
-		public void registerRenderers()
-		{
-			float shadowSize = 0.0F;
-			RenderManager rm = Minecraft.getMinecraft().getRenderManager();
-			RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class, new RenderMummy(rm, new ModelMummy(), shadowSize));
-		}
-	
+	/**
+	 * Method: if(Config.MODEnabled){
+	 * RenderRegistry.registerEntityRenderingHandler(MOBCLASS.class, new
+	 * MOBRENDER()); }
+	 */
+
+	if (Config.mummyEnabled) {
+	    RenderingRegistry.registerEntityRenderingHandler(EntityMummy.class,
+		    new RenderMummy());
 	}
+	if (Config.growbotgreggEnabled) {
+	    RenderingRegistry.registerEntityRenderingHandler(
+		    EntityGrowbotgregg.class, new RenderGrowbotGregg());
+	}
+    }
+
+}
