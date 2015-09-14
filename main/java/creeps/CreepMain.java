@@ -84,21 +84,14 @@ public class CreepMain {
 	if (e.getSide() == Side.CLIENT) {
 	    renderItems();
 	}
-
-	// CreativeTab Blocks
-
-	// CreativeTab Armor
-
-	// CreativeTab Tools
-
-	// CreativeTab Misc.
-
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
 	CreepMain.proxy.postInit(e);
 	// Add Entity Spawn Biomes
+	// Debuged values
+	// gotta add spawns for OldLady SneakySal and Thief
 	EntityRegistry.addSpawn(EntityMummy.class, 50, 10, 120,
 		EnumCreatureType.MONSTER, BiomeGenBase.desert);
 	EntityRegistry.addSpawn(EntityMummy.class, 50, 10, 120,

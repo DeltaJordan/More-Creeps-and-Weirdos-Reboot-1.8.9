@@ -16,4 +16,7 @@ public class Reference {
 
     public static final String MUMMY_TEXTURE_NAME = "mummy.png";
     public static final String GROWBOTGREGG_TEXTURE_NAME = "growbotgregg.png";
+    public static final String OLD_LADY_TEXTURE_NAME = "oldlady.png";
+    public static final String SNEAKY_SAL_TEXTURE_NAME = "sneakysal.png";
+    public static final String THIEF_TEXTURE_NAME = "thief.png";
 }

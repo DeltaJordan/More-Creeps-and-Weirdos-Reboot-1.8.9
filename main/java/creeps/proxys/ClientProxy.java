@@ -6,9 +6,15 @@ import creeps.Log;
 import creeps.config.Config;
 import creeps.entity.EntityGrowbotgregg;
 import creeps.entity.EntityMummy;
+import creeps.entity.EntityOldLady;
+import creeps.entity.EntitySneakySal;
+import creeps.entity.EntityThief;
 import creeps.recipes.CraftingHandler;
 import creeps.render.RenderGrowbotGregg;
 import creeps.render.RenderMummy;
+import creeps.render.RenderOldLady;
+import creeps.render.RenderSneakySal;
+import creeps.render.RenderThief;
 
 public class ClientProxy extends CommonProxy {
 
@@ -38,6 +44,17 @@ public class ClientProxy extends CommonProxy {
 	    RenderingRegistry.registerEntityRenderingHandler(
 		    EntityGrowbotgregg.class, new RenderGrowbotGregg());
 	}
+	if (Config.oldLadyEnabled) {
+	    RenderingRegistry.registerEntityRenderingHandler(
+		    EntityOldLady.class, new RenderOldLady());
+	}
+	if (Config.sneakySalEnabled) {
+	    RenderingRegistry.registerEntityRenderingHandler(
+		    EntitySneakySal.class, new RenderSneakySal());
+	}
+	if (Config.thiefEnabled) {
+	    RenderingRegistry.registerEntityRenderingHandler(EntityThief.class,
+		    new RenderThief());
+	}
     }
-
 }

@@ -18,6 +18,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.world.World;
 
+/**
+ * Please review AI as you wish.
+ */
 public class EntityGrowbotgregg extends EntityMob {
 
     public EntityGrowbotgregg(World w) {

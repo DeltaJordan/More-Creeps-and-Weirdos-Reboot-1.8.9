@@ -14,8 +14,13 @@ public enum MobInfo {
     MUMMY(EntityMummy.class, "Mummy", Config.mummyEnabled,
 	    Config.mummyMaxHealth, Config.mummyMaxDamage), GROWBOTGREGG(
 	    EntityGrowbotgregg.class, "Growbot Gregg",
-	    Config.growbotgreggEnabled, Config.growbotgreggMaxDamage,
-	    Config.growbotgreggMaxHealth);
+	    Config.growbotgreggEnabled, Config.growbotgreggMaxHealth,
+	    Config.growbotgreggMaxDamage), OLDLADY(EntityOldLady.class,
+	    "OldLady", Config.oldLadyEnabled, Config.oldLadyMaxHealth, 0), SNEAKYSAL(
+	    EntitySneakySal.class, "sneakysal", Config.sneakySalEnabled,
+	    Config.sneakySalMaxHealth, Config.sneakySalMaxDamage), THIEF(
+	    EntityThief.class, "Thief", Config.thiefEnabled,
+	    Config.thiefMaxHealth, Config.thiefMaxDamage);
 
     final Class<? extends EntityLiving> clz;
     final String name;
