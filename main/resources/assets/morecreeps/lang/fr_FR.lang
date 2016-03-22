@@ -1,0 +1,49 @@
+#Other
+itemGroup.creepsTab=More Creeps And Weirdos Unofficial
+
+#Items
+item.blorpCola.name=Blorp Cola
+item.bandAid.name=Band Aid
+item.gooDonut.name=Goo Donut
+item.money.name=Money
+item.raygun.name=Raygun
+item.shrinkray.name=Shrink Ray
+item.shrinkshrink.name=Shrink shrink
+item.limbs.name=Limbs
+item.babyJarEmpty.name=Baby Jar (Empty)
+item.babyJarFull.name=Baby Jar (Full)
+item.mobilephone.name=Mobile Phone
+item.growray.name=Growray
+item.frisbee.name=Frisbee
+item.rayray.name=Ray ray
+item.guineapigRadio.name=Guinea Pig Radio
+item.evilEgg.name=Evil Egg
+item.rocket.name=Rocket
+item.atomPacket.name=Atom Packet
+item.ram16k.name=Ram 16K
+item.battery.name=Battery
+item.horseHeadGem.name=Horse Head Gem
+item.armyGem.name=Army Gem
+item.gun.name=Gun
+item.bullet.name=Bullet
+item.lifeGem.name=Life Gem
+item.lolly.name=Lolly
+item.armSword.name=Arm Sword
+item.donut.name=Donut
+item.extinguisher.name=Extinguisher
+item.zebrahide.name=Zebrahide
+item.fireGem.name=Fire Gem
+item.earthGem.name=Earth Gem
+item.miningGem.name=Mining Gem
+item.healingGem.name=Healing Gem
+item.skyGem.name=Sky Gem
+item.gemSword.name=Gem Sword
+item.moopsWorm.name=Moops Worm
+item.cavemanClub.name=Caveman Club
+item.popsicle.name=Popsicle
+item.zebraHelmet.name=Zebra Helmet
+item.zebraBody.name=Zebra Chestplate
+item.zebraLegs.name=Zebra Legs
+item.zebraBoots.name=Zebra Boots
+
+#Entity

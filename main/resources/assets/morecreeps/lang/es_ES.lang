@@ -1,0 +1,49 @@
+#Other
+itemGroup.creepsTab=More Creeps And Weirdos Unofficial
+
+#Items
+item.blorpCola.name=Blorp Cola
+item.bandAid.name=Tirita
+item.gooDonut.name=Goo Rosquilla
+item.money.name=Dinero
+item.raygun.name=Pistola de Rayos
+item.shrinkray.name=Pistola de Encoger
+item.shrinkshrink.name=Encoger encoger
+item.limbs.name=Extremidades
+item.babyJarEmpty.name=Bote de Bebé (Vacío)
+item.babyJarFull.name=Bote de Bebé (Lleno)
+item.mobilephone.name=Móvil
+item.growray.name=Pistola de Crecer
+item.frisbee.name=Frisbee
+item.rayray.name=Rayo rayo
+item.guineapigRadio.name=Radio de Cabayo
+item.evilEgg.name=Malo Huevo
+item.rocket.name=Rocket
+item.atomPacket.name=Paquete de Átomo
+item.ram16k.name=RAM 16K
+item.battery.name=Pila
+item.horseHeadGem.name=Gema de Cabeza de Caballo
+item.armyGem.name=Gema de Ejército
+item.gun.name=Arma
+item.bullet.name=Bala
+item.lifeGem.name=Gema de Vida
+item.lolly.name=Piruleta
+item.armSword.name=Espada de Brazos
+item.donut.name=Rosquilla
+item.extinguisher.name=Extintor
+item.zebrahide.name=Piel de Cebra
+item.fireGem.name=Gema de Fuego
+item.earthGem.name=Gema de Suelo
+item.miningGem.name=Mining Gema de Minando
+item.healingGem.name=Healing Gem
+item.skyGem.name=Sky Gem
+item.gemSword.name=Gem Sword
+item.moopsWorm.name=Moops Worm
+item.cavemanClub.name=Caveman Club
+item.popsicle.name=Popsicle
+item.zebraHelmet.name=Zebra Helmet
+item.zebraBody.name=Zebra Chestplate
+item.zebraLegs.name=Zebra Legs
+item.zebraBoots.name=Zebra Boots
+
+#Entity
