@@ -1,14 +1,16 @@
 package fr.elias.morecreeps.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import fr.elias.morecreeps.client.models.CREEPSModelDoghouse;
-import fr.elias.morecreeps.common.entity.CREEPSEntityDoghouse;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import fr.elias.morecreeps.client.models.CREEPSModelDoghouse;
+import fr.elias.morecreeps.common.entity.CREEPSEntityDigBug;
+import fr.elias.morecreeps.common.entity.CREEPSEntityDoghouse;
 
 public class CREEPSRenderDoghouse extends RenderLiving
 {

@@ -1,7 +1,5 @@
 package fr.elias.morecreeps.common.recipes;
 
-import java.util.logging.Level;
-
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -65,7 +63,6 @@ public class CREEPSRecipeHandler {
                 {
                     "* *", "* *", '*', MoreCreepsAndWeirdos.zebrahide
                 });
-        MoreCreepsAndWeirdos.log(Level.INFO, "13 Weird Recipes Loaded");
 	}
 
 }

@@ -30,6 +30,7 @@ public class CREEPSModelCastleKing extends ModelBase
 
     public CREEPSModelCastleKing(float f, float f1)
     {
+        float f2 = 0.0F;
         crown = new ModelRenderer(this, 40, 2);
         crown.addBox(-3F, -12F, -3F, 6, 4, 6, 0.0F);
         crown.setRotationPoint(0.0F, 4F, 0.0F);

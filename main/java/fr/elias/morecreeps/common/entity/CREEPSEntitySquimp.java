@@ -100,7 +100,7 @@ public class CREEPSEntitySquimp extends EntityWaterMob
                 for (int j = 0; j < 3; j++)
                 {
                     double d = entityplayer.posX - posX;
-                    double d1 = (entityplayer.getEntityBoundingBox().minY + (double)(entityplayer.height / 2.0F)) - (posY + (double)(height / 2.0F));
+                    double d1 = (entityplayer.getBoundingBox().minY + (double)(entityplayer.height / 2.0F)) - (posY + (double)(height / 2.0F));
                     double d2 = (entityplayer.posZ - posZ) + 0.5D;
                     renderYawOffset = rotationYaw = (-(float)Math.atan2(d, d2) * 180F) / (float)Math.PI;
                     worldObj.playSoundAtEntity(this, "morecreeps:desertlizardfireball", getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
@@ -158,11 +158,11 @@ public class CREEPSEntitySquimp extends EntityWaterMob
     public boolean getCanSpawnHere()
     {
     	int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.snow && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0 && l > 8;
+        return i1 != Blocks.snow && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0 && l > 8;
     }
 
     /**

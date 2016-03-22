@@ -102,7 +102,7 @@ public class CREEPSEntityBum extends EntityMob
                 timetopee = rand.nextInt(600) + 600;
                 bumrotation = 999F;
                 int j = MathHelper.floor_double(posX);
-                int k = MathHelper.floor_double(getEntityBoundingBox().minY);
+                int k = MathHelper.floor_double(getBoundingBox().minY);
                 int l = MathHelper.floor_double(posZ);
 
                 for (int i1 = -1; i1 < 2; i1++)
@@ -194,11 +194,11 @@ public class CREEPSEntityBum extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(getPosition());
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(10) == 0 && l > 8;
+        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(10) == 0 && l > 8;
     }
 
     /**
@@ -229,7 +229,7 @@ public class CREEPSEntityBum extends EntityMob
     {
         if (entity instanceof EntityPlayer)
         {
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(32D, 32D, 32D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(32D, 32D, 32D));
 
             for (int j = 0; j < list.size(); j++)
             {

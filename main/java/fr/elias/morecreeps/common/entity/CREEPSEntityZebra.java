@@ -55,7 +55,7 @@ public class CREEPSEntityZebra extends EntityAnimal
     public String name;
     public String texture;
     public double moveSpeed;
-    public float health;
+    public double health;
     static final String Names[] =
     {
         "Stanley", "Cid", "Hunchy", "The Heat", "Herman the Hump", "Dr. Hump", "Little Lousie", "Spoony G", "Mixmaster C", "The Maestro",
@@ -96,7 +96,7 @@ public class CREEPSEntityZebra extends EntityAnimal
     public void applyEntityAttributes()
     {
     	super.applyEntityAttributes();
-    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(basehealth);
+    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
     	this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
     }
 
@@ -389,7 +389,6 @@ public class CREEPSEntityZebra extends EntityAnimal
             if (health > basehealth)
             {
                 health = basehealth;
-                this.setHealth(health);
             }
 
             tamedcookies--;
@@ -505,7 +504,7 @@ public class CREEPSEntityZebra extends EntityAnimal
             fallDistance = -25F;
         }
 
-        if ((double)f < 3.1000000000000001D && entity.getEntityBoundingBox().maxY > this.getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
+        if ((double)f < 3.1000000000000001D && entity.getBoundingBox().maxY > this.getBoundingBox().minY && entity.getBoundingBox().minY < this.getBoundingBox().maxY)
         {
             //attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack);
@@ -518,12 +517,12 @@ public class CREEPSEntityZebra extends EntityAnimal
     public boolean getCanSpawnHere()
     {
     	int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
         int j1 = worldObj.countEntities(CREEPSEntityNonSwimmer.class);
-        return (i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0 && l > 7 && j1 < 15;
+        return (i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0 && l > 7 && j1 < 15;
     }
 
     public void confetti()

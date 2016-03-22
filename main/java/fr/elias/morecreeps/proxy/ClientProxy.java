@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -161,8 +162,11 @@ import fr.elias.morecreeps.common.entity.CREEPSEntityEvilScientist;
 import fr.elias.morecreeps.common.entity.CREEPSEntityEvilSnowman;
 import fr.elias.morecreeps.common.entity.CREEPSEntityFloob;
 import fr.elias.morecreeps.common.entity.CREEPSEntityFloobShip;
+import fr.elias.morecreeps.common.entity.CREEPSEntityFrisbee;
 import fr.elias.morecreeps.common.entity.CREEPSEntityG;
+import fr.elias.morecreeps.common.entity.CREEPSEntityGooDonut;
 import fr.elias.morecreeps.common.entity.CREEPSEntityGooGoat;
+import fr.elias.morecreeps.common.entity.CREEPSEntityGrow;
 import fr.elias.morecreeps.common.entity.CREEPSEntityGuineaPig;
 import fr.elias.morecreeps.common.entity.CREEPSEntityHippo;
 import fr.elias.morecreeps.common.entity.CREEPSEntityHorseHead;
@@ -172,10 +176,12 @@ import fr.elias.morecreeps.common.entity.CREEPSEntityKid;
 import fr.elias.morecreeps.common.entity.CREEPSEntityLawyerFromHell;
 import fr.elias.morecreeps.common.entity.CREEPSEntityLolliman;
 import fr.elias.morecreeps.common.entity.CREEPSEntityManDog;
+import fr.elias.morecreeps.common.entity.CREEPSEntityMoney;
 import fr.elias.morecreeps.common.entity.CREEPSEntityNonSwimmer;
 import fr.elias.morecreeps.common.entity.CREEPSEntityPreacher;
 import fr.elias.morecreeps.common.entity.CREEPSEntityPyramidGuardian;
 import fr.elias.morecreeps.common.entity.CREEPSEntityRatMan;
+import fr.elias.morecreeps.common.entity.CREEPSEntityRay;
 import fr.elias.morecreeps.common.entity.CREEPSEntityRobotTed;
 import fr.elias.morecreeps.common.entity.CREEPSEntityRobotTodd;
 import fr.elias.morecreeps.common.entity.CREEPSEntityRockMonster;
@@ -243,7 +249,14 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityRocketGiraffe.class, new CREEPSRenderRocketGiraffe(new CREEPSModelRocketGiraffe(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityRockMonster.class, new CREEPSRenderRockMonster(new CREEPSModelRockMonster(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntitySchlump.class, new CREEPSRenderSchlump(new CREEPSModelSchlump(), 0.5F));
+		
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityShrink.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), MoreCreepsAndWeirdos.shrinkshrink, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityRay.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), MoreCreepsAndWeirdos.rayray, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityGrow.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), MoreCreepsAndWeirdos.shrinkshrink, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityMoney.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), MoreCreepsAndWeirdos.money, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityGooDonut.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), MoreCreepsAndWeirdos.goodonut, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityFrisbee.class, new RenderSnowball(Minecraft.getMinecraft().getRenderManager(), MoreCreepsAndWeirdos.frisbee, Minecraft.getMinecraft().getRenderItem()));
+		
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntitySneakySal.class, new CREEPSRenderSneakySal(new CREEPSModelSneakySal(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntitySnowDevil.class, new CREEPSRenderSnowDevil(new CREEPSModelSnowDevil(), new CREEPSModelSnowDevil(0.5F), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntitySquimp.class, new CREEPSRenderSquimp(new CREEPSModelSquimp(), 0.5F));
@@ -252,6 +265,76 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityTowel.class, new CREEPSRenderTowel(new CREEPSModelTowel(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityTrophy.class, new CREEPSRenderTrophy(new CREEPSModelTrophy(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(CREEPSEntityZebra.class, new CREEPSRenderZebra(new CREEPSModelZebra(), 0.5F));
+	}
+	
+	public void renderModelItem()
+	{
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partBubble, 0, new ModelResourceLocation("morecreeps:partBubble", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partWhite, 0, new ModelResourceLocation("morecreeps:partWhite", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partRed, 0, new ModelResourceLocation("morecreeps:partRed", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partBlack, 0, new ModelResourceLocation("morecreeps:partBlack", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partYellow, 0, new ModelResourceLocation("morecreeps:partYellow", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partBlue, 0, new ModelResourceLocation("morecreeps:partBlue", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partShrink, 0, new ModelResourceLocation("morecreeps:partShrink", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.partBarf, 0, new ModelResourceLocation("morecreeps:partBarf", "inventory"));
+
+		
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_hell, 0, new ModelResourceLocation("morecreeps:a_hell", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_pig, 0, new ModelResourceLocation("morecreeps:a_pig", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_pyramid, 0, new ModelResourceLocation("morecreeps:a_pyramid", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_floob, 0, new ModelResourceLocation("morecreeps:a_floob", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_rockmonster, 0, new ModelResourceLocation("morecreeps:a_rockmonster", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_bubble, 0, new ModelResourceLocation("morecreeps:a_bubble", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_hotdog, 0, new ModelResourceLocation("morecreeps:a_hotdog", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_camel, 0, new ModelResourceLocation("morecreeps:a_camel", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_zebra, 0, new ModelResourceLocation("morecreeps:a_zebra", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_nonswimmer, 0, new ModelResourceLocation("morecreeps:a_nonswimmer", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.a_caveman, 0, new ModelResourceLocation("morecreeps:a_caveman", "inventory"));
+		
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.zebrahelmet, 0, new ModelResourceLocation("morecreeps:zebraHelmet", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.zebrabody, 0, new ModelResourceLocation("morecreeps:zebraBody", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.zebralegs, 0, new ModelResourceLocation("morecreeps:zebraLegs", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.zebraboots, 0, new ModelResourceLocation("morecreeps:zebraBoots", "inventory"));
+		
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.blorpcola, 0, new ModelResourceLocation("morecreeps:blorpCola", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.bandaid, 0, new ModelResourceLocation("morecreeps:bandAid", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.goodonut, 0, new ModelResourceLocation("morecreeps:gooDonut", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.money, 0, new ModelResourceLocation("morecreeps:money", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.raygun, 0, new ModelResourceLocation("morecreeps:raygun", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.shrinkray, 0, new ModelResourceLocation("morecreeps:shrinkray", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.shrinkshrink, 0, new ModelResourceLocation("morecreeps:shrinkshrink", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.limbs, 0, new ModelResourceLocation("morecreeps:limbs", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.babyjarempty, 0, new ModelResourceLocation("morecreeps:babyJarEmpty", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.babyjarfull, 0, new ModelResourceLocation("morecreeps:babyJarFull", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.mobilephone, 0, new ModelResourceLocation("morecreeps:mobilephone", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.growray, 0, new ModelResourceLocation("morecreeps:growray", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.frisbee, 0, new ModelResourceLocation("morecreeps:frisbee", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.rayray, 0, new ModelResourceLocation("morecreeps:rayray", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.guineapigradio, 0, new ModelResourceLocation("morecreeps:guineapigRadio", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.evilegg, 0, new ModelResourceLocation("morecreeps:evilEgg", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.rocket, 0, new ModelResourceLocation("morecreeps:rocket", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.atompacket, 0, new ModelResourceLocation("morecreeps:atomPacket", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.ram16k, 0, new ModelResourceLocation("morecreeps:ram16k", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.battery, 0, new ModelResourceLocation("morecreeps:battery", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.horseheadgem, 0, new ModelResourceLocation("morecreeps:horseHeadGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.armygem, 0, new ModelResourceLocation("morecreeps:armyGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.gun, 0, new ModelResourceLocation("morecreeps:gun", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.bullet, 0, new ModelResourceLocation("morecreeps:bullet", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.lifegem, 0, new ModelResourceLocation("morecreeps:lifeGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.lolly, 0, new ModelResourceLocation("morecreeps:lolly", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.armsword, 0, new ModelResourceLocation("morecreeps:armSword", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.donut, 0, new ModelResourceLocation("morecreeps:donut", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.extinguisher, 0, new ModelResourceLocation("morecreeps:extinguisher", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.zebrahide, 0, new ModelResourceLocation("morecreeps:zebrahide", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.firegem, 0, new ModelResourceLocation("morecreeps:fireGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.earthgem, 0, new ModelResourceLocation("morecreeps:earthGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.mininggem, 0, new ModelResourceLocation("morecreeps:miningGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.healinggem, 0, new ModelResourceLocation("morecreeps:healingGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.skygem, 0, new ModelResourceLocation("morecreeps:skyGem", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.gemsword, 0, new ModelResourceLocation("morecreeps:gemSword", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.moopsworm, 0, new ModelResourceLocation("morecreeps:moopsWorm", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.cavemanclub, 0, new ModelResourceLocation("morecreeps:cavemanClub", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(MoreCreepsAndWeirdos.popsicle, 0, new ModelResourceLocation("morecreeps:popsicle", "inventory"));
 	}
 	
 	public void shrinkBlast(World world, Entity entity, Random rand)
@@ -332,7 +415,7 @@ public class ClientProxy extends CommonProxy
         {
             for (int j = 0; j < 50; j++)
             {
-                CREEPSFxBlood creepsfxblood = new CREEPSFxBlood(world, player.posX, player.posY - 0.20000000298023224D, player.posZ, MoreCreepsAndWeirdos.partBarf, 0.85F);
+                CREEPSFxBlood creepsfxblood = new CREEPSFxBlood(world, player.posX, player.posY + 0.60000000298023224D, player.posZ, MoreCreepsAndWeirdos.partBarf, 0.85F);
                 creepsfxblood.motionX += d * 0.25D;
                 creepsfxblood.motionZ += d1 * 0.25D;
                 Minecraft.getMinecraft().effectRenderer.addEffect(creepsfxblood);

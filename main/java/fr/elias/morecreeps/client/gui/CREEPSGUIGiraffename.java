@@ -86,7 +86,7 @@ public class CREEPSGUIGiraffename extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l = (new Random()).nextLong();
             String s = namescreen.getText();
             giraffe.name = s;
             mc.displayGuiScreen(null);

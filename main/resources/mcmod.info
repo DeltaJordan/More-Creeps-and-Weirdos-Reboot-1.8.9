@@ -2,13 +2,13 @@
 {
   "modid": "morecreeps",
   "name": "More Creeps And Weirdos Unofficial",
-  "description": "The unoffical update to More Creeps and Weirdos is finally here!",
+  "description": "This is the unofficial update of More Creeps And Weirdos",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["Astromojang, elias54"],
-  "credits": "freakstritch for making this awesome mod.",
+  "authorList": ["freakstritch (original author)"],
+  "credits": "freakstritch for making this awesome mod !",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

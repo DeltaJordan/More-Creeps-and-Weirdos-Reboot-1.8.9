@@ -1,14 +1,16 @@
 package fr.elias.morecreeps.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import fr.elias.morecreeps.client.models.CREEPSModelCaveman;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCaveman;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import fr.elias.morecreeps.client.models.CREEPSModelCaveman;
+import fr.elias.morecreeps.common.entity.CREEPSEntityCastleKing;
+import fr.elias.morecreeps.common.entity.CREEPSEntityCaveman;
 
 public class CREEPSRenderCaveman extends RenderLiving
 {

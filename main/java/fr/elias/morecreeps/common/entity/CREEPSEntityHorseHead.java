@@ -191,7 +191,7 @@ public class CREEPSEntityHorseHead extends EntityAnimal
 
             if (onGround && !isJumping)
             {
-                isJumping = ObfuscationReflectionHelper.getPrivateValue(EntityLivingBase.class, entityplayer, "isJumping");
+                isJumping = ObfuscationReflectionHelper.getPrivateValue(EntityLivingBase.class, entityplayer, 40);
                 if (isJumping)
                 {
                     motionY += 0.37000000476837158D;
@@ -300,11 +300,11 @@ public class CREEPSEntityHorseHead extends EntityAnimal
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return (i1 == Blocks.sand || i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(25) == 0 && l > 7;
+        return (i1 == Blocks.sand || i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(25) == 0 && l > 7;
     }
 
     /**

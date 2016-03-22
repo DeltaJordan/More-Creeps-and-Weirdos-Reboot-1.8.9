@@ -125,7 +125,7 @@ public class CREEPSEntityDigBug extends EntityMob
         if (digstage == 0 && posY < 90D && digtimer-- < 1)
         {
             int i = MathHelper.floor_double(posX);
-            int i1 = MathHelper.floor_double(getEntityBoundingBox().minY);
+            int i1 = MathHelper.floor_double(getBoundingBox().minY);
             int i2 = MathHelper.floor_double(posZ);
             Block l2 = worldObj.getBlockState(new BlockPos(i, i1 - 1, i2)).getBlock();
             holedepth = rand.nextInt(2) + 3;
@@ -152,7 +152,7 @@ public class CREEPSEntityDigBug extends EntityMob
         if (digstage == 1)
         {
             int j = MathHelper.floor_double(posX);
-            int j1 = MathHelper.floor_double(getEntityBoundingBox().minY);
+            int j1 = MathHelper.floor_double(getBoundingBox().minY);
             int j2 = MathHelper.floor_double(posZ);
             worldObj.setBlockToAir(new BlockPos(j, j1, j2));
             worldObj.setBlockToAir(new BlockPos(j, j1 + 1, j2));
@@ -263,7 +263,7 @@ public class CREEPSEntityDigBug extends EntityMob
 
             digtimer = 50;
             List list = null;
-            list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(5D, 1.0D, 5D));
+            list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(5D, 1.0D, 5D));
 
             for (int k1 = 0; k1 < list.size(); k1++)
             {
@@ -421,7 +421,7 @@ public class CREEPSEntityDigBug extends EntityMob
         motionX = (d / (double)f1) * 0.40000000000000002D * 0.10000000192092896D + motionX * 0.18000000098023225D;
         motionZ = (d1 / (double)f1) * 0.40000000000000002D * 0.070000001920928964D + motionZ * 0.18000000098023225D;
 
-        if ((double)f < 2D - (1.0D - (double)modelsize) && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY)
+        if ((double)f < 2D - (1.0D - (double)modelsize) && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY)
         {
             attackTime = 10;
             entity.motionX = -(motionX * 3D);
@@ -475,12 +475,12 @@ public class CREEPSEntityDigBug extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         //int l = worldObj.getFullBlockLightValue(i, j, k);
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
         int j1 = worldObj.countEntities(CREEPSEntityDigBug.class);
-        return (i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.double_stone_slab && i1 != Blocks.stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(25) == 0 && /*l > 10 &&*/ j1 < 10;
+        return (i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.double_stone_slab && i1 != Blocks.stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(25) == 0 && /*l > 10 &&*/ j1 < 10;
     }
 
     /**
@@ -495,7 +495,7 @@ public class CREEPSEntityDigBug extends EntityMob
     {
         if (entity instanceof EntityPlayer)
         {
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(32D, 32D, 32D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(32D, 32D, 32D));
 
             for (int j = 0; j < list.size(); j++)
             {
@@ -523,15 +523,9 @@ public class CREEPSEntityDigBug extends EntityMob
         
         public void updateTask()
         {
-        	try{
         	EntityLivingBase target = CREEPSEntityDigBug.this.getAttackTarget();
         	float f = getDistanceToEntity(target);
         	attackEntity(target, f);
-        	}
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
         }
         
         public boolean shouldExecute()

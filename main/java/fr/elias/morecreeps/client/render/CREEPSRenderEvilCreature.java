@@ -1,15 +1,17 @@
 package fr.elias.morecreeps.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import fr.elias.morecreeps.client.models.CREEPSModelEvilCreature;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilCreature;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import fr.elias.morecreeps.client.models.CREEPSModelEvilCreature;
+import fr.elias.morecreeps.common.entity.CREEPSEntityDoghouse;
+import fr.elias.morecreeps.common.entity.CREEPSEntityEvilCreature;
 
 public class CREEPSRenderEvilCreature extends RenderLiving
 {
@@ -21,7 +23,7 @@ public class CREEPSRenderEvilCreature extends RenderLiving
     {
         super(Minecraft.getMinecraft().getRenderManager(), creepsmodelevilcreature, f);
         modelBipedMain = creepsmodelevilcreature;
-        setScaleAmount(creepsmodelevilcreature);
+        scaleAmount = creepsmodelevilcreature;
     }
 
     /**
@@ -45,13 +47,5 @@ public class CREEPSRenderEvilCreature extends RenderLiving
 	protected ResourceLocation getEntityTexture(Entity entity) {
 
 		return getEntityTexture((CREEPSEntityEvilCreature) entity);
-	}
-
-	public ModelBase getScaleAmount() {
-		return scaleAmount;
-	}
-
-	public void setScaleAmount(ModelBase scaleAmount) {
-		this.scaleAmount = scaleAmount;
 	}
 }

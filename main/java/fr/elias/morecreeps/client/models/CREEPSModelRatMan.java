@@ -47,6 +47,7 @@ public class CREEPSModelRatMan extends ModelBase
         heldItemLeft = false;
         heldItemRight = false;
         isSneak = false;
+        float f2 = 0.0F;
         body = new ModelRenderer(this, 12, 16);
         body.addBox(-3F, 0.0F, -2F, 6, 12, 4, 0.0F);
         body.setRotationPoint(0.0F, 3F, -3F);

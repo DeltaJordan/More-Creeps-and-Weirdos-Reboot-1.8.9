@@ -102,7 +102,7 @@ public class CREEPSEntityBubbleScum extends EntityCreature
         motionX = (d / (double)f1) * 0.40000000000000002D * 0.16000000192092895D + motionX * 0.18000000098023225D;
         motionZ = (d1 / (double)f1) * 0.40000000000000002D * 0.12000000192092895D + motionZ * 0.18000000098023225D;
 
-        if ((double)f < 2D && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY)
+        if ((double)f < 2D && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY)
         {
             attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 1);
@@ -256,9 +256,9 @@ public class CREEPSEntityBubbleScum extends EntityCreature
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
-        return worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && rand.nextInt(5) == 0;
+        return worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && rand.nextInt(5) == 0;
     }
 
     /**

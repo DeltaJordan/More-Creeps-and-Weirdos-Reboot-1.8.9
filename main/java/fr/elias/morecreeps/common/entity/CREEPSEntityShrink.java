@@ -910,7 +910,7 @@ public class CREEPSEntityShrink extends EntityThrowable
         motionZ *= f3;
         setPosition(posX, posY, posZ);
     }
-    /*public void vibratePlayer(EntityPlayer player)
+    public void vibratePlayer(EntityPlayer player)
     {
     	player.posY += rand.nextGaussian() * 0.34999999999999998D * (double)vibrate;
         vibrate *= -1;
@@ -918,7 +918,7 @@ public class CREEPSEntityShrink extends EntityThrowable
         double d3 = MathHelper.cos((player.rotationYaw * (float)Math.PI) / 180F);
         player.posX += (double)((float)vibrate * 0.25F) * d1;
         player.posZ += (double)((float)vibrate * 0.25F) * d3;
-    }*/
+    }
     
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.

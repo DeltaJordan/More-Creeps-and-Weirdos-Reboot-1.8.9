@@ -209,16 +209,10 @@ public class CREEPSEntityHippo extends EntityMob
 		
 		public void updateTask()
 		{
-			try{
 			double d0 = CREEPSEntityHippo.this.getDistanceSqToEntity(CREEPSEntityHippo.this.getAttackTarget());
 			if(d0 < 256D)
 			{
 				attackEntity(CREEPSEntityHippo.this.getAttackTarget(), (float)d0);
-			}
-			}
-			catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
 			}
 		}
 
@@ -230,11 +224,11 @@ public class CREEPSEntityHippo extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         //int l = worldObj.getFullBlockLightValue(i, j, k);
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return (i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(35) == 0; //&& l > 7;
+        return (i1 == Blocks.grass || i1 == Blocks.dirt) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(35) == 0; //&& l > 7;
     }
 
     /**

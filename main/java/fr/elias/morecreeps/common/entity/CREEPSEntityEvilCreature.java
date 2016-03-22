@@ -91,7 +91,7 @@ public class CREEPSEntityEvilCreature extends EntityMob
         {
             jumping = false;
             worldObj.playSoundAtEntity(this, "morecreeps:evilcreaturejump", 1.0F * (modelsize / 3F), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F + (3F - modelsize) * 2.0F);
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(18D, 18D, 18D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(18D, 18D, 18D));
 
             for (int i = 0; i < list.size(); i++)
             {
@@ -119,7 +119,7 @@ public class CREEPSEntityEvilCreature extends EntityMob
         int attackTime = 20;
         if(attackTime-- < 0)
         {
-            if ((double)f < 3D - (2D - (double)modelsize) && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY)
+            if ((double)f < 3D - (2D - (double)modelsize) && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY)
             {
             	attackTime = 20;
                 entity.motionY += 0.76999998092651367D;
@@ -141,7 +141,6 @@ public class CREEPSEntityEvilCreature extends EntityMob
 		}
         public void updateTask()
         {
-        	try{
         	--attackTime;
             EntityLivingBase entitylivingbase = this.evilcreature.getAttackTarget();
             double d0 = this.evilcreature.getDistanceSqToEntity(entitylivingbase);
@@ -167,11 +166,6 @@ public class CREEPSEntityEvilCreature extends EntityMob
                 this.evilcreature.getNavigator().clearPathEntity();
                 this.evilcreature.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 0.5D);
             //}
-        	}
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
         }
     }
     

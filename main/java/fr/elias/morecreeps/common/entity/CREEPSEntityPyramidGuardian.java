@@ -134,7 +134,7 @@ public class CREEPSEntityPyramidGuardian extends EntityMob
             if(!worldObj.isRemote)
             {
                 int i = MathHelper.floor_double(posX);
-                int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+                int j = MathHelper.floor_double(getBoundingBox().minY);
                 int k = MathHelper.floor_double(posZ);
                 byte byte0 = 35;
                 byte byte1 = 35;

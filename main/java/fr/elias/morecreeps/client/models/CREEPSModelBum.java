@@ -27,6 +27,7 @@ public class CREEPSModelBum extends ModelBase
 
     public CREEPSModelBum(float f, float f1)
     {
+        float f2 = 0.0F;
         bipedHead = new ModelRenderer(this, 0, 0);
         bipedHead.addBox(-4F, -8F, -4F, 8, 8, 8, f);
         bipedHead.setRotationPoint(0.0F, 0.0F + f1, 0.0F);

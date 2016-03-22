@@ -3,11 +3,16 @@ package fr.elias.morecreeps.client.render;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 import fr.elias.morecreeps.client.models.CREEPSModelEvilLight;
 import fr.elias.morecreeps.client.render.layers.LayerEvilLightGlow;
+import fr.elias.morecreeps.common.entity.CREEPSEntityEvilChicken;
 import fr.elias.morecreeps.common.entity.CREEPSEntityEvilLight;
+import fr.elias.morecreeps.common.entity.CREEPSEntityFloobShip;
 
 public class CREEPSRenderEvilLight extends RenderLiving
 {

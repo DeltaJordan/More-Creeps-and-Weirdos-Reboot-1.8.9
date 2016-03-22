@@ -1,10 +1,16 @@
 {
 "blorpcola": {
-	"category": "player",
-	"sounds": [
-	{"name": "blorpcola","stream": false}
-				]
-	},
+    "category": "player",
+    "sounds": [
+    {"name": "blorpcola","stream": false}
+                ]
+    },
+"barf": {
+    "category": "player",
+    "sounds": [
+    {"name": "barf","stream": false}
+                ]
+    },
 "welcome":{
 	"category": "master",
 	"sounds":[
@@ -28,12 +34,6 @@
 	{"name":"welcome18", "stream":false},
 	{"name":"welcome19", "stream":false},
 	{"name":"welcome20", "stream":false}
-		]
-	},
-"achievement":{
-	"category": "master",
-	"sounds":[
-	{"name":"achievement", "stream":false}
 		]
 	},
 "bandaid":{
@@ -93,42 +93,6 @@
 	{"name": "bullet3","stream": false},
 	{"name": "bullet4","stream": false},
 	{"name": "bullet5","stream": false}
-				]
-	},
-"ducky":{
-"category": "neutral",
-	"sounds": [
-	{"name": "ducky","stream": false}
-				]
-	},
-"duckyhurt":{
-"category": "neutral",
-	"sounds": [
-	{"name": "ducky","stream": false}
-				]
-	},
-"duckydeath":{
-"category": "neutral",
-	"sounds": [
-	{"name": "duckydeath","stream": false}
-				]
-	},
-"duckyfound":{
-"category": "neutral",
-	"sounds": [
-	{"name": "duckyfound","stream": false}
-				]
-	},
-"bather":{
-"category": "neutral",
-	"sounds": [
-	{"name": "bather","stream": false}
-				]
-	},
-"bathing":{
-"category": "neutral",
-	"sounds": [
-	{"name": "bathing","stream": true}
 				]
 	},
 "old":{
@@ -1097,7 +1061,7 @@
 	{"name":"ggpig10", "stream":false}
 		]
 	},
-"ggpigangery":{
+"ggpigangry":{
 	"category": "master",
 	"sounds":[
 	{"name":"ggpigangry", "stream":false}
@@ -1494,7 +1458,7 @@
 	"category": "master",
 	"sounds":[
 	{"name":"hotdogpickup", "stream":false}
-		]
+	         ]
 	},
 "hotdogputdown":{
 	"category": "master",

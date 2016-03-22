@@ -1,8 +1,5 @@
 package fr.elias.morecreeps.client.config;
 
-import java.util.logging.Level;
-
-import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -67,10 +64,23 @@ public class CREEPSConfig {
 	
 	private static boolean unlimitedSpawn;
 	
+	public static int shrink_projectile_ID,
+					  ray_projectile_ID,
+					  money_projectile_ID,
+					  bullet_projectile_ID,
+					  grow_projectile_ID,
+					  gdonut_projectile_ID,
+					  frisbee_projectile_ID,
+					  foam_projectile_ID;
+	
+	public static int armyguy_ID,
+					  armyguyArm_ID;
+	
 	public static void preInit(FMLPreInitializationEvent event){
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		String spawnNbr = "Spawn Number";
+		String entityID = "Entity";
 		String mobProperty = "Mob Property";
 		String itemProperty = "Item Property";
 		String worldGen = "World Gen";
@@ -127,7 +137,18 @@ public class CREEPSConfig {
 	        jailActive = config.get(worldGen, "Enable Jail", true).getBoolean();
 	        Blood = config.get(mobProperty, "Enable blood", true).getBoolean();
 	        sblorpmaxsize = config.get(mobProperty, "Blorp Max Size", 6).getInt();
-	        
+	        /////////////////PROJECTILE START/////////////////////////
+	        shrink_projectile_ID = config.get(entityID, "Shrink Projectile ID", 925).getInt();
+	        ray_projectile_ID = config.get(entityID, "Ray Projectile ID", 926).getInt();
+	        money_projectile_ID = config.get(entityID, "Money Projectile ID", 927).getInt();
+	        bullet_projectile_ID = config.get(entityID, "Bullet Projectile ID", 928).getInt();
+	        grow_projectile_ID = config.get(entityID, "Grow Projectile ID", 929).getInt();
+	        gdonut_projectile_ID = config.get(entityID, "Goo Donut Projectile ID", 930).getInt();
+	        frisbee_projectile_ID = config.get(entityID, "Frisbee Projectile ID", 931).getInt();
+	        foam_projectile_ID = config.get(entityID, "Foam Projectile ID", 932).getInt();
+	        /////////////////PROJECTILE END///////////////////////////
+	        armyguy_ID = config.get(entityID, "Army Guy ID", 934).getInt();
+	        armyguyArm_ID = config.get(entityID, "Army Guy Arm ID", 935).getInt();
 			config.save();
 		} finally{
 			if(config.hasChanged())
@@ -136,7 +157,6 @@ public class CREEPSConfig {
 			}
 		}
 		CREEPSConfig.applySpawnLimit();
-		MoreCreepsAndWeirdos.log(Level.INFO, "Config Loaded");
 	}
 	
 	public static void applySpawnLimit()

@@ -27,6 +27,8 @@ import fr.elias.morecreeps.common.entity.CREEPSEntityHotdog;
 public class CREEPSGUIHotdogTraining extends GuiScreen
 {
     private CREEPSEntityHotdog hotdog;
+    private GuiTextField namescreen;
+    private boolean field_28217_m;
     private float xSize_lo;
     private float ySize_lo;
 
@@ -259,6 +261,7 @@ public class CREEPSGUIHotdogTraining extends GuiScreen
     public boolean checkBones()
     {
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
         int i = 0;
 
@@ -275,6 +278,7 @@ public class CREEPSGUIHotdogTraining extends GuiScreen
         if (i >= 5)
         {
             int k = 5;
+            boolean flag = false;
             label0:
 
             for (int i1 = 0; i1 < aitemstack.length; i1++)
@@ -285,6 +289,8 @@ public class CREEPSGUIHotdogTraining extends GuiScreen
                 {
                     continue;
                 }
+
+                int l = itemstack1.stackSize;
 
                 do
                 {
@@ -370,6 +376,7 @@ public class CREEPSGUIHotdogTraining extends GuiScreen
         drawString(fontRendererObj, buildStat(hotdog.skillhealing), (width / 2 - 107) + k, height / 4 + 95 + byte0, 0xff8d13);
         drawString(fontRendererObj, buildStat(hotdog.skillspeed), width / 2 + 16 + k, height / 4 + 95 + byte0, 0xff8d13);
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
         int l = 0;
 

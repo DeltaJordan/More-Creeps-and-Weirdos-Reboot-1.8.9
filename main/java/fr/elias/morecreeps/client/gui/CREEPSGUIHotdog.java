@@ -144,7 +144,7 @@ public class CREEPSGUIHotdog extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l = (new Random()).nextLong();
             String s1 = namescreen.getText();
             hotdog.name = s1;
             mc.displayGuiScreen(null);
@@ -158,11 +158,12 @@ public class CREEPSGUIHotdog extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l1 = (new Random()).nextLong();
             String s2 = namescreen.getText();
             hotdog.name = s2;
             hotdog.wanderstate = 0;
-            hotdog.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            double moveSpeed = hotdog.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveSpeed = hotdog.speedboost <= 0 ? hotdog.baseSpeed : hotdog.baseSpeed + 0.5F;
             mc.displayGuiScreen(null);
         }
 
@@ -171,7 +172,8 @@ public class CREEPSGUIHotdog extends GuiScreen
             String s = namescreen.getText();
             hotdog.name = s;
             hotdog.wanderstate = 1;
-            hotdog.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            double moveSpeed = hotdog.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveSpeed = 0.0F;
             mc.displayGuiScreen(null);
         }
 
@@ -183,11 +185,12 @@ public class CREEPSGUIHotdog extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l2 = (new Random()).nextLong();
             String s3 = namescreen.getText();
             hotdog.name = s3;
             hotdog.wanderstate = 2;
-            hotdog.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            double moveSpeed = hotdog.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveSpeed = hotdog.speedboost <= 0 ? hotdog.baseSpeed : hotdog.baseSpeed + 0.5F;
             mc.displayGuiScreen(null);
         }
 

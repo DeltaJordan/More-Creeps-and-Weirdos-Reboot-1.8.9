@@ -245,7 +245,7 @@ public class CREEPSEntityRocket extends Entity
         }
 
         Entity entity = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
         double d3 = 0.0D;
 
         for (int j = 0; j < list.size(); j++)
@@ -264,7 +264,7 @@ public class CREEPSEntityRocket extends Entity
             }
 
             float f4 = 0.3F;
-            AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f4, f4, f4);
+            AxisAlignedBB axisalignedbb = entity1.getBoundingBox().expand(f4, f4, f4);
             MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
             if (movingobjectposition1 == null)
@@ -401,7 +401,7 @@ public class CREEPSEntityRocket extends Entity
     {
         EntityPlayer entityplayer = worldObj.getClosestPlayerToEntity(this, 50D);
         List list = null;
-        list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(5D, 5D, 5D));
+        list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(5D, 5D, 5D));
 
         for (int i = 0; i < list.size(); i++)
         {

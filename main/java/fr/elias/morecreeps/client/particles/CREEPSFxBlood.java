@@ -19,11 +19,12 @@ public class CREEPSFxBlood extends EntityFX
         particleGreen = 1.0F;
         particleGravity = 2.0F;
         particleScale *= f;
+        particleMaxAge = 90;
     }
 
     public int getFXLayer()
     {
-        return 2;
+        return 1;
     }
 
     /**
@@ -41,7 +42,8 @@ public class CREEPSFxBlood extends EntityFX
         float f8 = (float)this.particleTextureIndexY / 16.0F;
         float f9 = f8 + 0.01560938F;
         float f10 = 0.1F * this.particleScale;
-
+        super.func_180434_a(p_180434_1_, p_180434_2_, p_180434_3_, p_180434_4_, p_180434_5_, p_180434_6_, p_180434_7_, p_180434_8_);
+    
         if (this.particleIcon != null)
         {
             f6 = this.particleIcon.getMinU();

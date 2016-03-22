@@ -5,25 +5,27 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
-public class CREEPSEntityFrisbee extends EntityItem implements IProjectile
+public class CREEPSEntityFrisbee extends EntityThrowable implements IProjectile
 {
     private int field_20056_b;
     private int field_20055_c;
     private int field_20054_d;
     private int field_20053_e;
-    private boolean field_20052_f;
     public int field_20057_a;
     private EntityLivingBase field_20051_g;
     private int field_20050_h;
     private int field_20049_i;
     protected double initialVelocity;
     double bounceFactor;
+    public int lifespan;
 
     public CREEPSEntityFrisbee(World world)
     {
@@ -31,7 +33,7 @@ public class CREEPSEntityFrisbee extends EntityItem implements IProjectile
         setSize(0.25F, 0.25F);
         initialVelocity = 1.0D;
         bounceFactor = 0.14999999999999999D;
-        setDefaultPickupDelay();
+        lifespan = 120;
     }
     /**
      * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
@@ -151,17 +153,24 @@ public class CREEPSEntityFrisbee extends EntityItem implements IProjectile
             motionX *= 0.25D;
             motionZ *= 0.25D;
         }
+		if(onGround && lifespan--<0)
+		{
+			if(!worldObj.isRemote)
+			this.dropItem(MoreCreepsAndWeirdos.frisbee, 1);
+			setDead();
+		}
     }
 
-    public void onCollideWithPlayer(EntityPlayer entityplayer)
+    /*public void onCollideWithPlayer(EntityPlayer entityplayer)
     {
-        if (field_20052_f && field_20051_g == entityplayer && field_20057_a <= 0 && entityplayer.inventory.addItemStackToInventory(new ItemStack(MoreCreepsAndWeirdos.frisbee, 1, 0)))
+        if (onGround && field_20051_g == entityplayer && field_20057_a <= 0 && !worldObj.isRemote)
         {
             worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             setDead();
             entityplayer.onItemPickup(this, 1);
+            entityplayer.inventory.addItemStackToInventory(new ItemStack(MoreCreepsAndWeirdos.frisbee, 1, 0));
         }
-    }
+    }*/
 
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
@@ -173,7 +182,6 @@ public class CREEPSEntityFrisbee extends EntityItem implements IProjectile
         nbttagcompound.setShort("zTile", (short)field_20054_d);
         nbttagcompound.setByte("inTile", (byte)field_20053_e);
         nbttagcompound.setByte("shake", (byte)field_20057_a);
-        nbttagcompound.setByte("inGround", (byte)(field_20052_f ? 1 : 0));
     }
 
     /**
@@ -186,11 +194,9 @@ public class CREEPSEntityFrisbee extends EntityItem implements IProjectile
         field_20054_d = nbttagcompound.getShort("zTile");
         field_20053_e = nbttagcompound.getByte("inTile") & 0xff;
         field_20057_a = nbttagcompound.getByte("shake") & 0xff;
-        field_20052_f = nbttagcompound.getByte("inGround") == 1;
     }
-
-    public ItemStack getEntityItem()
-    {
-    	return new ItemStack(MoreCreepsAndWeirdos.frisbee, 1, 0);
-    }
+	@Override
+	protected void onImpact(MovingObjectPosition p_70184_1_)
+	{
+	}
 }

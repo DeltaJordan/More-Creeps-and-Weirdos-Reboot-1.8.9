@@ -100,11 +100,11 @@ public class CREEPSEntityRobotTodd extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(getPosition());
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.double_stone_slab && i1 != Blocks.stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(10) == 0 && l > 8;
+        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.double_stone_slab && i1 != Blocks.stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(10) == 0 && l > 8;
     }
 
     /**
@@ -164,7 +164,6 @@ public class CREEPSEntityRobotTodd extends EntityMob
 		}
         public void updateTask()
         {
-        	try{
         	--attackTime;
             EntityLivingBase entitylivingbase = this.robot.getAttackTarget();
             double d0 = this.robot.getDistanceSqToEntity(entitylivingbase);
@@ -190,11 +189,6 @@ public class CREEPSEntityRobotTodd extends EntityMob
                 this.robot.getNavigator().clearPathEntity();
                 this.robot.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 0.5D);
             }
-        	}
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
         }
     }
     

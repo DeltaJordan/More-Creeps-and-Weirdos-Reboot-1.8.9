@@ -237,4 +237,8 @@ public class CREEPSModelArmyGuy extends ModelBase
     {
         bipedCloak.render(f);
     }
+    public void postRenderArm(float p_178718_1_)
+    {
+        this.bipedRightArm.postRender(p_178718_1_);
+    }
 }

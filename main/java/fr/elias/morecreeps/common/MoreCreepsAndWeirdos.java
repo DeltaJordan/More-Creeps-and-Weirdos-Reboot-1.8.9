@@ -1,126 +1,37 @@
 package fr.elias.morecreeps.common;
 
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.stats.Achievement;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import fr.elias.morecreeps.client.config.CREEPSConfig;
 import fr.elias.morecreeps.client.gui.handler.CREEPSGuiHandler;
-import fr.elias.morecreeps.client.render.CREEPSRenderArmyGuy;
-import fr.elias.morecreeps.client.render.CREEPSRenderArmyGuyArm;
-import fr.elias.morecreeps.client.render.CREEPSRenderAtom;
-import fr.elias.morecreeps.client.render.CREEPSRenderBabyMummy;
-import fr.elias.morecreeps.client.render.CREEPSRenderBigBaby;
-import fr.elias.morecreeps.client.render.CREEPSRenderBlackSoul;
-import fr.elias.morecreeps.client.render.CREEPSRenderBlorp;
-import fr.elias.morecreeps.client.render.CREEPSRenderBubbleScum;
-import fr.elias.morecreeps.client.render.CREEPSRenderBum;
-import fr.elias.morecreeps.client.render.CREEPSRenderCamel;
-import fr.elias.morecreeps.client.render.CREEPSRenderCamelJockey;
-import fr.elias.morecreeps.client.render.CREEPSRenderCastleCritter;
-import fr.elias.morecreeps.client.render.CREEPSRenderCastleGuard;
-import fr.elias.morecreeps.client.render.CREEPSRenderCastleKing;
-import fr.elias.morecreeps.client.render.CREEPSRenderCaveman;
-import fr.elias.morecreeps.client.render.CREEPSRenderDesertLizard;
-import fr.elias.morecreeps.client.render.CREEPSRenderDigBug;
-import fr.elias.morecreeps.client.render.CREEPSRenderDoghouse;
-import fr.elias.morecreeps.client.render.CREEPSRenderEvilChicken;
-import fr.elias.morecreeps.client.render.CREEPSRenderEvilCreature;
-import fr.elias.morecreeps.client.render.CREEPSRenderEvilLight;
-import fr.elias.morecreeps.client.render.CREEPSRenderEvilPig;
-import fr.elias.morecreeps.client.render.CREEPSRenderEvilScientist;
-import fr.elias.morecreeps.client.render.CREEPSRenderEvilSnowman;
-import fr.elias.morecreeps.client.render.CREEPSRenderFloob;
-import fr.elias.morecreeps.client.render.CREEPSRenderFloobShip;
-import fr.elias.morecreeps.client.render.CREEPSRenderG;
-import fr.elias.morecreeps.client.render.CREEPSRenderGooGoat;
-import fr.elias.morecreeps.client.render.CREEPSRenderGuineaPig;
-import fr.elias.morecreeps.client.render.CREEPSRenderHippo;
-import fr.elias.morecreeps.client.render.CREEPSRenderHorseHead;
-import fr.elias.morecreeps.client.render.CREEPSRenderHotdog;
-import fr.elias.morecreeps.client.render.CREEPSRenderHunchback;
-import fr.elias.morecreeps.client.render.CREEPSRenderHunchbackSkeleton;
-import fr.elias.morecreeps.client.render.CREEPSRenderInvisibleMan;
-import fr.elias.morecreeps.client.render.CREEPSRenderKid;
-import fr.elias.morecreeps.client.render.CREEPSRenderLawyerFromHell;
-import fr.elias.morecreeps.client.render.CREEPSRenderLolliman;
-import fr.elias.morecreeps.client.render.CREEPSRenderManDog;
-import fr.elias.morecreeps.client.render.CREEPSRenderNonSwimmer;
-import fr.elias.morecreeps.client.render.CREEPSRenderPreacher;
-import fr.elias.morecreeps.client.render.CREEPSRenderPrisoner;
-import fr.elias.morecreeps.client.render.CREEPSRenderPyramidGuardian;
-import fr.elias.morecreeps.client.render.CREEPSRenderRatMan;
-import fr.elias.morecreeps.client.render.CREEPSRenderRobotTed;
-import fr.elias.morecreeps.client.render.CREEPSRenderRobotTodd;
-import fr.elias.morecreeps.client.render.CREEPSRenderRockMonster;
-import fr.elias.morecreeps.client.render.CREEPSRenderRocketGiraffe;
-import fr.elias.morecreeps.client.render.CREEPSRenderSchlump;
-import fr.elias.morecreeps.client.render.CREEPSRenderSneakySal;
-import fr.elias.morecreeps.client.render.CREEPSRenderSnowDevil;
-import fr.elias.morecreeps.client.render.CREEPSRenderSquimp;
-import fr.elias.morecreeps.client.render.CREEPSRenderThief;
-import fr.elias.morecreeps.client.render.CREEPSRenderTombstone;
-import fr.elias.morecreeps.client.render.CREEPSRenderTowel;
-import fr.elias.morecreeps.client.render.CREEPSRenderTrophy;
-import fr.elias.morecreeps.client.render.CREEPSRenderZebra;
 import fr.elias.morecreeps.common.entity.CREEPSEntityArmyGuy;
 import fr.elias.morecreeps.common.entity.CREEPSEntityArmyGuyArm;
-import fr.elias.morecreeps.common.entity.CREEPSEntityAtom;
-import fr.elias.morecreeps.common.entity.CREEPSEntityBabyMummy;
-import fr.elias.morecreeps.common.entity.CREEPSEntityBigBaby;
-import fr.elias.morecreeps.common.entity.CREEPSEntityBlackSoul;
-import fr.elias.morecreeps.common.entity.CREEPSEntityBlorp;
-import fr.elias.morecreeps.common.entity.CREEPSEntityBubbleScum;
-import fr.elias.morecreeps.common.entity.CREEPSEntityBum;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCamel;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCamelJockey;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCastleCritter;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCastleGuard;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCastleKing;
-import fr.elias.morecreeps.common.entity.CREEPSEntityCaveman;
-import fr.elias.morecreeps.common.entity.CREEPSEntityDesertLizard;
-import fr.elias.morecreeps.common.entity.CREEPSEntityDigBug;
-import fr.elias.morecreeps.common.entity.CREEPSEntityDoghouse;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilChicken;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilCreature;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilLight;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilPig;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilScientist;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilSnowman;
-import fr.elias.morecreeps.common.entity.CREEPSEntityFloob;
-import fr.elias.morecreeps.common.entity.CREEPSEntityFloobShip;
-import fr.elias.morecreeps.common.entity.CREEPSEntityG;
-import fr.elias.morecreeps.common.entity.CREEPSEntityGooGoat;
-import fr.elias.morecreeps.common.entity.CREEPSEntityGuineaPig;
-import fr.elias.morecreeps.common.entity.CREEPSEntityHippo;
-import fr.elias.morecreeps.common.entity.CREEPSEntityHorseHead;
-import fr.elias.morecreeps.common.entity.CREEPSEntityHotdog;
-import fr.elias.morecreeps.common.entity.CREEPSEntityHunchback;
-import fr.elias.morecreeps.common.entity.CREEPSEntityHunchbackSkeleton;
-import fr.elias.morecreeps.common.entity.CREEPSEntityInvisibleMan;
-import fr.elias.morecreeps.common.entity.CREEPSEntityKid;
-import fr.elias.morecreeps.common.entity.CREEPSEntityLawyerFromHell;
-import fr.elias.morecreeps.common.entity.CREEPSEntityLolliman;
-import fr.elias.morecreeps.common.entity.CREEPSEntityManDog;
-import fr.elias.morecreeps.common.entity.CREEPSEntityNonSwimmer;
-import fr.elias.morecreeps.common.entity.CREEPSEntityPreacher;
-import fr.elias.morecreeps.common.entity.CREEPSEntityPrisoner;
-import fr.elias.morecreeps.common.entity.CREEPSEntityPyramidGuardian;
-import fr.elias.morecreeps.common.entity.CREEPSEntityRatMan;
-import fr.elias.morecreeps.common.entity.CREEPSEntityRobotTed;
-import fr.elias.morecreeps.common.entity.CREEPSEntityRobotTodd;
-import fr.elias.morecreeps.common.entity.CREEPSEntityRockMonster;
-import fr.elias.morecreeps.common.entity.CREEPSEntityRocketGiraffe;
-import fr.elias.morecreeps.common.entity.CREEPSEntitySchlump;
-import fr.elias.morecreeps.common.entity.CREEPSEntitySneakySal;
-import fr.elias.morecreeps.common.entity.CREEPSEntitySnowDevil;
-import fr.elias.morecreeps.common.entity.CREEPSEntitySquimp;
-import fr.elias.morecreeps.common.entity.CREEPSEntityThief;
-import fr.elias.morecreeps.common.entity.CREEPSEntityTombstone;
-import fr.elias.morecreeps.common.entity.CREEPSEntityTowel;
-import fr.elias.morecreeps.common.entity.CREEPSEntityTrophy;
-import fr.elias.morecreeps.common.entity.CREEPSEntityZebra;
+import fr.elias.morecreeps.common.entity.CREEPSEntityBullet;
+import fr.elias.morecreeps.common.entity.CREEPSEntityFoam;
+import fr.elias.morecreeps.common.entity.CREEPSEntityFrisbee;
+import fr.elias.morecreeps.common.entity.CREEPSEntityGooDonut;
+import fr.elias.morecreeps.common.entity.CREEPSEntityGrow;
+import fr.elias.morecreeps.common.entity.CREEPSEntityMoney;
+import fr.elias.morecreeps.common.entity.CREEPSEntityRay;
+import fr.elias.morecreeps.common.entity.CREEPSEntityShrink;
 import fr.elias.morecreeps.common.items.CREEPSItemArmSword;
 import fr.elias.morecreeps.common.items.CREEPSItemArmorZebra;
 import fr.elias.morecreeps.common.items.CREEPSItemArmyGem;
@@ -159,31 +70,6 @@ import fr.elias.morecreeps.common.items.CREEPSItemSkyGem;
 import fr.elias.morecreeps.common.recipes.CREEPSRecipeHandler;
 import fr.elias.morecreeps.common.world.WorldGenStructures;
 import fr.elias.morecreeps.proxy.CommonProxy;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.stats.Achievement;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid="morecreeps", name="More Creeps And Weirdos Unofficial", version="1.0.0")
 public class MoreCreepsAndWeirdos
@@ -196,71 +82,8 @@ public class MoreCreepsAndWeirdos
 	public static MoreCreepsAndWeirdos instance;
 	
 	public static Random rand = new Random();
-	static int localID = 0;
 	
-	private static Logger log = Logger.getLogger(Reference.NAME);
-	
-	private static ArrayList<String> mobs = new ArrayList<String>();
-	
-    static CREEPSRenderArmyGuy creepsarmyrender;
-    static CREEPSRenderArmyGuyArm creepsarmyarmrender;
-    static CREEPSRenderAtom creepsatomrender;
-    static CREEPSRenderBabyMummy creepsbmummyrender;
-    static CREEPSRenderBigBaby creepsbbabyrender;
-    static CREEPSRenderBlackSoul creepsbsoulrender;
-    static CREEPSRenderBlorp creepsblorprender;
-    static CREEPSRenderBubbleScum creepsbscumrender;
-    static CREEPSRenderBum creepsbumrender;
-    static CREEPSRenderCamel creepscamelrender;
-    static CREEPSRenderCamelJockey creepscjockeyrender;
-    static CREEPSRenderCastleCritter creepsccritterrender;
-    static CREEPSRenderCastleGuard creepscguardrender;
-    static CREEPSRenderCastleKing creepsckingrender;
-    static CREEPSRenderCaveman creepscmanrender;
-    static CREEPSRenderDesertLizard creepsdlizardrender;
-    static CREEPSRenderDigBug creepsdbugrender;
-    static CREEPSRenderDoghouse creepsdhouserender;
-    static CREEPSRenderEvilChicken creepsechickenrender;
-    static CREEPSRenderEvilCreature creepsecreaturerender;
-    static CREEPSRenderEvilLight creepselightrender;
-    static CREEPSRenderEvilPig creepsepigrender;
-    static CREEPSRenderEvilScientist creepsescientistrender;
-    static CREEPSRenderEvilSnowman creepsesnowmanrender;
-    static CREEPSRenderFloob creepsfloobrender;
-    static CREEPSRenderFloobShip creepsfshiprender;
-    static CREEPSRenderG creepsgrender;
-    static CREEPSRenderGooGoat creepsggoatrender;
-    static CREEPSRenderGuineaPig creepsgpigrender;
-    static CREEPSRenderHippo creepshipporender;
-    static CREEPSRenderHorseHead creepshheadrender;
-    static CREEPSRenderHotdog creepshdogrender;
-    static CREEPSRenderHunchback creepshbackrender;
-    static CREEPSRenderHunchbackSkeleton creepshbacksrender;
-    static CREEPSRenderInvisibleMan creepsimanrender;
-    static CREEPSRenderKid creepskidrender;
-    static CREEPSRenderLawyerFromHell creepslawyerrender;
-    static CREEPSRenderLolliman creepslmanrender;
-    static CREEPSRenderManDog creepsmdogrender;
-    static CREEPSRenderNonSwimmer creepsnonswimmerrender;
-    static CREEPSRenderPreacher creepspreacherrender;
-    static CREEPSRenderPrisoner creepsprisonerrender;
-    static CREEPSRenderPyramidGuardian creepspguardrender;
-    static CREEPSRenderRatMan creepsrmanrender;
-    static CREEPSRenderRobotTodd creepsrtoddrender;
-    static CREEPSRenderRobotTed creepsrtedrender;
-    static CREEPSRenderRocketGiraffe creepsrgirafferender;
-    static CREEPSRenderRockMonster creepsrmonsterrender;
-    static CREEPSRenderSchlump creepsshlumprender;
-    static CREEPSRenderSneakySal creepsssalrender;
-    static CREEPSRenderSnowDevil creepssdevilrender;
-    static CREEPSRenderSquimp creepssquimprender;
-    static CREEPSRenderThief creepsthiefrender;
-    static CREEPSRenderTombstone creepststonerender;
-    static CREEPSRenderTowel creepstowelrender;
-    static CREEPSRenderTrophy creepstrophyrender;
-    static CREEPSRenderZebra creepszebrarender;
-    
-    
+    private int count;
     
     public int spittime = 500;
     
@@ -398,7 +221,7 @@ public class MoreCreepsAndWeirdos
     public static Achievement achieve50caveman;
     
     public static CreativeTabs creepsTab = new CreativeTabs("creepsTab"){public Item getTabIconItem()
-    {return MoreCreepsAndWeirdos.money;}};
+    {return MoreCreepsAndWeirdos.a_floob;}};
     
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -425,177 +248,118 @@ public class MoreCreepsAndWeirdos
 		GameRegistry.registerItem(partShrink, "partShrink");
 		GameRegistry.registerItem(partBarf, "partBarf");
 		
-        zebrahelmet = (new CREEPSItemArmorZebra(zebraARMOR, 5, 0)).setUnlocalizedName("ZebraHelmet");
-        zebrabody = (new CREEPSItemArmorZebra(zebraARMOR, 5, 1)).setUnlocalizedName("ZebraBody");
-        zebralegs = (new CREEPSItemArmorZebra(zebraARMOR, 5, 2)).setUnlocalizedName("ZebraLegs");
-        zebraboots = (new CREEPSItemArmorZebra(zebraARMOR, 5, 3)).setUnlocalizedName("ZebraBoots");
-        GameRegistry.registerItem(zebrahelmet, "ZebraHelmet");
-        GameRegistry.registerItem(zebrabody, "ZebraBody");
-        GameRegistry.registerItem(zebralegs, "ZebraLegs");
-        GameRegistry.registerItem(zebraboots, "ZebraBoots");
+        zebrahelmet = (new CREEPSItemArmorZebra(zebraARMOR, 5, 0)).setUnlocalizedName("zebraHelmet");
+        zebrabody = (new CREEPSItemArmorZebra(zebraARMOR, 5, 1)).setUnlocalizedName("zebraBody");
+        zebralegs = (new CREEPSItemArmorZebra(zebraARMOR, 5, 2)).setUnlocalizedName("zebraLegs");
+        zebraboots = (new CREEPSItemArmorZebra(zebraARMOR, 5, 3)).setUnlocalizedName("zebraBoots");
+        GameRegistry.registerItem(zebrahelmet, "zebraHelmet");
+        GameRegistry.registerItem(zebrabody, "zebraBody");
+        GameRegistry.registerItem(zebralegs, "zebraLegs");
+        GameRegistry.registerItem(zebraboots, "zebraBoots");
         
-		a_hell = new Item().setUnlocalizedName("HellAchievement");
-		a_pig =  new Item().setUnlocalizedName("GuineaPigAchievement");
-		a_pyramid = new Item().setUnlocalizedName("PyramidAchievement");
-		a_floob = new Item().setUnlocalizedName("FloobicideAchievement");
-		a_rockmonster = new Item().setUnlocalizedName("RockMonsterAchievement");
-		a_bubble = new Item().setUnlocalizedName("BubbleAchievement");
-		a_hotdog = new Item().setUnlocalizedName("HotdogAchievement");
-		a_camel = new Item().setUnlocalizedName("CamelAchievement");
-		a_zebra = new Item().setUnlocalizedName("ZebraAchievement");
-		a_nonswimmer = new Item().setUnlocalizedName("NonswimmerAchievement");
-		a_caveman = new Item().setUnlocalizedName("CavemanAchievement");
-		GameRegistry.registerItem(a_hell, "HellAchievement");
-		GameRegistry.registerItem(a_pig, "GuineaPigAchievement");
-		GameRegistry.registerItem(a_pyramid, "PyramidAchievement");
-		GameRegistry.registerItem(a_floob, "FloobicideAchievement");
-		GameRegistry.registerItem(a_rockmonster, "RockMonsterAchievement");
-		GameRegistry.registerItem(a_bubble, "BubbleAchievement");
-		GameRegistry.registerItem(a_hotdog, "HotdogAchievement");
-		GameRegistry.registerItem(a_camel, "CamelAchievement");
-		GameRegistry.registerItem(a_zebra, "ZebraAchievement");
-		GameRegistry.registerItem(a_nonswimmer, "NonswimmerAchievement");
-		GameRegistry.registerItem(a_caveman, "CavemanAchievement");
+		a_hell = new Item().setUnlocalizedName("a_hell");
+		a_pig =  new Item().setUnlocalizedName("a_pig");
+		a_pyramid = new Item().setUnlocalizedName("a_pyramid");
+		a_floob = new Item().setUnlocalizedName("a_floob");
+		a_rockmonster = new Item().setUnlocalizedName("a_rockmonster");
+		a_bubble = new Item().setUnlocalizedName("a_bubble");
+		a_hotdog = new Item().setUnlocalizedName("a_hotdog");
+		a_camel = new Item().setUnlocalizedName("a_camel");
+		a_zebra = new Item().setUnlocalizedName("a_zebra");
+		a_nonswimmer = new Item().setUnlocalizedName("a_nonswimmer");
+		a_caveman = new Item().setUnlocalizedName("a_caveman");
+		GameRegistry.registerItem(a_hell, "a_hell");
+		GameRegistry.registerItem(a_pig, "a_pig");
+		GameRegistry.registerItem(a_pyramid, "a_pyramid");
+		GameRegistry.registerItem(a_floob, "a_floob");
+		GameRegistry.registerItem(a_rockmonster, "a_rockmonster");
+		GameRegistry.registerItem(a_bubble, "a_bubble");
+		GameRegistry.registerItem(a_hotdog, "a_hotdog");
+		GameRegistry.registerItem(a_camel, "a_camel");
+		GameRegistry.registerItem(a_zebra, "a_zebra");
+		GameRegistry.registerItem(a_nonswimmer, "a_nonswimmer");
+		GameRegistry.registerItem(a_caveman, "a_caveman");
 		
-		blorpcola = new CREEPSItemBlorpCola().setCreativeTab(creepsTab).setUnlocalizedName("blorpcola");
-		bandaid = new CREEPSItemBandAid().setCreativeTab(creepsTab).setUnlocalizedName("bandaid");
-		goodonut = new CREEPSItemGooDonut().setCreativeTab(creepsTab).setUnlocalizedName("goodonut");
+		blorpcola = new CREEPSItemBlorpCola().setCreativeTab(creepsTab).setUnlocalizedName("blorpCola");
+		bandaid = new CREEPSItemBandAid().setCreativeTab(creepsTab).setUnlocalizedName("bandAid");
+		goodonut = new CREEPSItemGooDonut().setCreativeTab(creepsTab).setUnlocalizedName("gooDonut");
 		money = new CREEPSItemMoney().setCreativeTab(creepsTab).setUnlocalizedName("money");
 		raygun = new CREEPSItemRayGun().setCreativeTab(creepsTab).setUnlocalizedName("raygun");
 		shrinkray = new CREEPSItemShrinkRay().setCreativeTab(creepsTab).setUnlocalizedName("shrinkray");
 		shrinkshrink = new Item().setCreativeTab(creepsTab).setUnlocalizedName("shrinkshrink");
 		limbs = new CREEPSItemLimbs().setCreativeTab(creepsTab).setUnlocalizedName("limbs");
-		babyjarempty = new CREEPSItemBabyJarEmpty().setCreativeTab(creepsTab).setUnlocalizedName("babyjarempty");
-		babyjarfull = new CREEPSItemBabyJarFull().setCreativeTab(creepsTab).setUnlocalizedName("babyjarfull");
+		babyjarempty = new CREEPSItemBabyJarEmpty().setCreativeTab(creepsTab).setUnlocalizedName("babyJarEmpty");
+		babyjarfull = new CREEPSItemBabyJarFull().setCreativeTab(creepsTab).setUnlocalizedName("babyJarFull");
 		mobilephone = new CREEPSItemMobilePhone().setCreativeTab(creepsTab).setUnlocalizedName("mobilephone");
 		growray = new CREEPSItemGrowRay().setCreativeTab(creepsTab).setUnlocalizedName("growray");
 		frisbee = new CREEPSItemFrisbee().setCreativeTab(creepsTab).setUnlocalizedName("frisbee");
 		rayray = new CREEPSItemRayRay().setCreativeTab(creepsTab).setUnlocalizedName("rayray");
-		guineapigradio = new CREEPSItemGuineaPigRadio().setCreativeTab(creepsTab).setUnlocalizedName("guineapigradio");
-		evilegg = new CREEPSItemEvilEgg().setCreativeTab(creepsTab).setUnlocalizedName("evilegg");
+		guineapigradio = new CREEPSItemGuineaPigRadio().setCreativeTab(creepsTab).setUnlocalizedName("guineapigRadio");
+		evilegg = new CREEPSItemEvilEgg().setCreativeTab(creepsTab).setUnlocalizedName("evilEgg");
 		rocket = new Item().setCreativeTab(creepsTab).setUnlocalizedName("rocket");
-		atompacket = new CREEPSItemAtom().setCreativeTab(creepsTab).setUnlocalizedName("atompacket");
+		atompacket = new CREEPSItemAtom().setCreativeTab(creepsTab).setUnlocalizedName("atomPacket");
 		ram16k = new Item().setCreativeTab(creepsTab).setUnlocalizedName("ram16k");
 		battery = new CREEPSItemBattery().setCreativeTab(creepsTab).setUnlocalizedName("battery");
-		horseheadgem = new CREEPSItemHorseHeadGem().setCreativeTab(creepsTab).setUnlocalizedName("horseheadgem");
-		armygem = new CREEPSItemArmyGem().setCreativeTab(creepsTab).setUnlocalizedName("armygem");
+		horseheadgem = new CREEPSItemHorseHeadGem().setCreativeTab(creepsTab).setUnlocalizedName("horseHeadGem");
+		armygem = new CREEPSItemArmyGem().setCreativeTab(creepsTab).setUnlocalizedName("armyGem");
 		gun = new CREEPSItemGun().setCreativeTab(creepsTab).setUnlocalizedName("gun");
 		bullet = new CREEPSItemBullet().setCreativeTab(creepsTab).setUnlocalizedName("bullet");
-		lifegem = new CREEPSItemLifeGem().setCreativeTab(creepsTab).setUnlocalizedName("lifegem");
+		lifegem = new CREEPSItemLifeGem().setCreativeTab(creepsTab).setUnlocalizedName("lifeGem");
 		lolly = new CREEPSItemLolly().setCreativeTab(creepsTab).setUnlocalizedName("lolly");
-		armsword = new CREEPSItemArmSword().setCreativeTab(creepsTab).setUnlocalizedName("armsword");
+		armsword = new CREEPSItemArmSword().setCreativeTab(creepsTab).setUnlocalizedName("armSword");
 		donut = new CREEPSItemDonut().setCreativeTab(creepsTab).setUnlocalizedName("donut");
 		extinguisher = new CREEPSItemExtinguisher().setCreativeTab(creepsTab).setUnlocalizedName("extinguisher");
 		zebrahide = new Item().setCreativeTab(creepsTab).setUnlocalizedName("zebrahide");
-		firegem = new CREEPSItemFireGem().setCreativeTab(creepsTab).setUnlocalizedName("firegem");
-		earthgem = new CREEPSItemEarthGem().setCreativeTab(creepsTab).setUnlocalizedName("earthgem");
-		mininggem = new CREEPSItemEarthGem().setCreativeTab(creepsTab).setUnlocalizedName("mininggem");
-		healinggem = new CREEPSItemHealingGem().setCreativeTab(creepsTab).setUnlocalizedName("healinggem");
-		skygem = new CREEPSItemSkyGem().setCreativeTab(creepsTab).setUnlocalizedName("skygem");
-		gemsword = new CREEPSItemGemSword().setCreativeTab(creepsTab).setUnlocalizedName("gemsword");
-		moopsworm = new CREEPSItemMoopsWorm().setCreativeTab(creepsTab).setUnlocalizedName("moopsworm");
-		cavemanclub = new CREEPSItemCavemanClub().setCreativeTab(creepsTab).setUnlocalizedName("cavemanclub");
+		firegem = new CREEPSItemFireGem().setCreativeTab(creepsTab).setUnlocalizedName("fireGem");
+		earthgem = new CREEPSItemEarthGem().setCreativeTab(creepsTab).setUnlocalizedName("earthGem");
+		mininggem = new CREEPSItemEarthGem().setCreativeTab(creepsTab).setUnlocalizedName("miningGem");
+		healinggem = new CREEPSItemHealingGem().setCreativeTab(creepsTab).setUnlocalizedName("healingGem");
+		skygem = new CREEPSItemSkyGem().setCreativeTab(creepsTab).setUnlocalizedName("skyGem");
+		gemsword = new CREEPSItemGemSword().setCreativeTab(creepsTab).setUnlocalizedName("gemSword");
+		moopsworm = new CREEPSItemMoopsWorm().setCreativeTab(creepsTab).setUnlocalizedName("moopsWorm");
+		cavemanclub = new CREEPSItemCavemanClub().setCreativeTab(creepsTab).setUnlocalizedName("cavemanClub");
 		popsicle = new CREEPSItemPopsicle().setCreativeTab(creepsTab).setUnlocalizedName("popsicle");
 
-		registerItem(blorpcola);
-		registerItem(bandaid);
-		registerItem(goodonut);
-		registerItem(money);
-		registerItem(raygun);
-		registerItem(shrinkray);
-		registerItem(shrinkshrink);
-		registerItem(limbs);
-		registerItem(babyjarempty);
-		registerItem(babyjarfull);
-		registerItem(mobilephone);
-		registerItem(growray);
-		registerItem(frisbee);
-		registerItem(rayray);
-		registerItem(guineapigradio);
-		registerItem(evilegg);
-		registerItem(rocket);
-		registerItem(atompacket);
-		registerItem(ram16k);
-		registerItem(battery);
-		registerItem(horseheadgem);
-		registerItem(armygem);
-		registerItem(gun);
-		registerItem(bullet);
-		registerItem(lifegem);
-		registerItem(lolly);
-		registerItem(armsword);
-		registerItem(donut);
-		registerItem(extinguisher);
-		registerItem(zebrahide);
-		registerItem(firegem);
-		registerItem(earthgem);
-		registerItem(mininggem);
-		registerItem(healinggem);
-		registerItem(skygem);
-		registerItem(gemsword);
-		registerItem(moopsworm);
-		registerItem(cavemanclub);
-		registerItem(popsicle);
-		
-		registerCreepsMob(CREEPSEntityArmyGuy.class, creepsarmyrender);
-		registerCreepsNonMob(CREEPSEntityArmyGuyArm.class, creepsarmyrender);
-		registerCreepsNonMob(CREEPSEntityAtom.class, creepsatomrender);
-		registerCreepsMob(CREEPSEntityBabyMummy.class, creepsbmummyrender);
-		registerCreepsMob(CREEPSEntityBigBaby.class, creepsbbabyrender);
-		registerCreepsMob(CREEPSEntityBlackSoul.class, creepsbsoulrender);
-		registerCreepsMob(CREEPSEntityBlorp.class, creepsblorprender);
-		registerCreepsMob(CREEPSEntityBubbleScum.class, creepsbscumrender);
-		registerCreepsMob(CREEPSEntityBum.class, creepsbumrender);
-		registerCreepsMob(CREEPSEntityCamel.class, creepscamelrender);
-		registerCreepsMob(CREEPSEntityCamelJockey.class, creepscjockeyrender);
-		registerCreepsMob(CREEPSEntityCastleCritter.class, creepsccritterrender);
-		registerCreepsMob(CREEPSEntityCastleGuard.class, creepscguardrender);
-		registerCreepsMob(CREEPSEntityCastleKing.class, creepsckingrender);
-		registerCreepsMob(CREEPSEntityCaveman.class, creepscmanrender);
-		registerCreepsMob(CREEPSEntityDesertLizard.class, creepsdlizardrender);
-		registerCreepsMob(CREEPSEntityDigBug.class, creepsdbugrender);
-		registerCreepsNonMob(CREEPSEntityDoghouse.class, creepsdhouserender);
-		registerCreepsMob(CREEPSEntityEvilChicken.class, creepsechickenrender);
-		registerCreepsMob(CREEPSEntityEvilCreature.class, creepsecreaturerender);
-		registerCreepsMob(CREEPSEntityEvilLight.class, creepselightrender);
-		registerCreepsMob(CREEPSEntityEvilPig.class, creepsepigrender);
-		registerCreepsMob(CREEPSEntityEvilScientist.class, creepsescientistrender);
-		registerCreepsMob(CREEPSEntityEvilSnowman.class, creepsesnowmanrender);
-		registerCreepsMob(CREEPSEntityFloob.class, creepsfloobrender);
-		registerCreepsMob(CREEPSEntityFloobShip.class, creepsfshiprender);
-		registerCreepsMob(CREEPSEntityG.class, creepsgrender);
-		registerCreepsMob(CREEPSEntityGooGoat.class, creepsggoatrender);
-		registerCreepsMob(CREEPSEntityGuineaPig.class, creepsgpigrender);
-		registerCreepsMob(CREEPSEntityHippo.class, creepshipporender);
-		registerCreepsMob(CREEPSEntityHorseHead.class, creepshheadrender);
-		registerCreepsMob(CREEPSEntityHotdog.class, creepshdogrender);
-		registerCreepsMob(CREEPSEntityHunchback.class, creepshbackrender);
-		registerCreepsMob(CREEPSEntityHunchbackSkeleton.class, creepshbacksrender);
-		registerCreepsMob(CREEPSEntityInvisibleMan.class, creepsimanrender);
-		registerCreepsMob(CREEPSEntityKid.class, creepskidrender);
-		registerCreepsMob(CREEPSEntityLawyerFromHell.class, creepslawyerrender);
-		registerCreepsMob(CREEPSEntityLolliman.class, creepslmanrender);
-		registerCreepsMob(CREEPSEntityManDog.class, creepsmdogrender);
-		registerCreepsMob(CREEPSEntityNonSwimmer.class, creepsnonswimmerrender); 
-		registerCreepsMob(CREEPSEntityPreacher.class, creepspreacherrender);
-		registerCreepsMob(CREEPSEntityPrisoner.class, creepsprisonerrender);
-		registerCreepsMob(CREEPSEntityPyramidGuardian.class, creepspguardrender);
-		registerCreepsMob(CREEPSEntityRatMan.class, creepsrmanrender);
-		registerCreepsMob(CREEPSEntityRobotTed.class, creepsrtedrender);
-		registerCreepsMob(CREEPSEntityRobotTodd.class, creepsrtoddrender);
-		registerCreepsMob(CREEPSEntityRocketGiraffe.class, creepsrgirafferender);
-		registerCreepsMob(CREEPSEntityRockMonster.class, creepsrmonsterrender);
-		registerCreepsMob(CREEPSEntitySchlump.class, creepsshlumprender);
-		registerCreepsMob(CREEPSEntitySneakySal.class, creepsssalrender);
-		registerCreepsMob(CREEPSEntitySnowDevil.class, creepssdevilrender);
-		registerCreepsMob(CREEPSEntitySquimp.class, creepssquimprender);
-		registerCreepsMob(CREEPSEntityThief.class, creepsthiefrender);
-		registerCreepsMob(CREEPSEntityTombstone.class, creepststonerender);
-		registerCreepsNonMob(CREEPSEntityTowel.class, creepstowelrender);
-		registerCreepsNonMob(CREEPSEntityTrophy.class, creepstrophyrender);
-		registerCreepsMob(CREEPSEntityZebra.class, creepszebrarender);
-		
-		
+
+		GameRegistry.registerItem(blorpcola, "blorpCola", "morecreeps");
+		GameRegistry.registerItem(bandaid, "bandAid", "morecreeps");
+		GameRegistry.registerItem(goodonut, "gooDonut", "morecreeps");
+		GameRegistry.registerItem(money, "money", "morecreeps");
+		GameRegistry.registerItem(raygun, "raygun", "morecreeps");
+		GameRegistry.registerItem(shrinkray, "shrinkray", "morecreeps");
+		GameRegistry.registerItem(shrinkshrink, "shrinkshrink", "morecreeps");
+		GameRegistry.registerItem(limbs, "limbs", "morecreeps");
+		GameRegistry.registerItem(babyjarempty, "babyJarEmpty", "morecreeps");
+		GameRegistry.registerItem(babyjarfull, "babyJarFull", "morecreeps");
+		GameRegistry.registerItem(mobilephone, "mobilephone", "morecreeps");
+		GameRegistry.registerItem(growray, "growray", "morecreeps");
+		GameRegistry.registerItem(frisbee, "frisbee", "morecreeps");
+		GameRegistry.registerItem(rayray, "rayray", "morecreeps");
+		GameRegistry.registerItem(guineapigradio, "guineapigRadio", "morecreeps");
+		GameRegistry.registerItem(evilegg, "evilEgg", "morecreeps");
+		GameRegistry.registerItem(rocket, "rocket", "morecreeps");
+		GameRegistry.registerItem(atompacket, "atomPacket", "morecreeps");
+		GameRegistry.registerItem(ram16k, "ram16k", "morecreeps");
+		GameRegistry.registerItem(battery, "battery", "morecreeps");
+		GameRegistry.registerItem(horseheadgem, "horseHeadGem", "morecreeps");
+		GameRegistry.registerItem(armygem, "armyGem", "morecreeps");
+		GameRegistry.registerItem(gun, "gun", "morecreeps");
+		GameRegistry.registerItem(bullet, "bullet", "morecreeps");
+		GameRegistry.registerItem(lifegem, "lifeGem", "morecreeps");
+		GameRegistry.registerItem(lolly, "lolly", "morecreeps");
+		GameRegistry.registerItem(armsword, "armSword", "morecreeps");
+		GameRegistry.registerItem(donut, "donut", "morecreeps");
+		GameRegistry.registerItem(extinguisher, "extinguisher", "morecreeps");
+		GameRegistry.registerItem(zebrahide, "zebrahide", "morecreeps");
+		GameRegistry.registerItem(firegem, "fireGem", "morecreeps");
+		GameRegistry.registerItem(earthgem, "earthGem", "morecreeps");
+		GameRegistry.registerItem(mininggem, "miningGem", "morecreeps");
+		GameRegistry.registerItem(healinggem, "healingGem", "morecreeps");
+		GameRegistry.registerItem(skygem, "skyGem", "morecreeps");
+		GameRegistry.registerItem(gemsword, "gemSword", "morecreeps");
+		GameRegistry.registerItem(moopsworm, "moopsWorm", "morecreeps");
+		GameRegistry.registerItem(cavemanclub, "cavemanClub", "morecreeps");
+		GameRegistry.registerItem(popsicle, "popsicle", "morecreeps");
 		
         aX = -2;
         aY = 15;
@@ -656,340 +420,59 @@ public class MoreCreepsAndWeirdos
         
         GameRegistry.registerWorldGenerator(new WorldGenStructures(), 0);
         MinecraftForge.EVENT_BUS.register(new CraftingHandlerEvent());
-        }
+    }
 	
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		// it's better like this :)
 		NetworkRegistry.INSTANCE.registerGuiHandler(MoreCreepsAndWeirdos.instance, new CREEPSGuiHandler());
+		// projectiles registry
+		EntityRegistry.registerModEntity(CREEPSEntityShrink.class, "ShrinkEnt", CREEPSConfig.shrink_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityRay.class, "RayEnt", CREEPSConfig.ray_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityMoney.class, "MoneyEnt", CREEPSConfig.money_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityBullet.class, "BulletEnt", CREEPSConfig.bullet_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityGrow.class, "GrowEnt", CREEPSConfig.grow_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityGooDonut.class, "GooDonutEnt", CREEPSConfig.gdonut_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityFrisbee.class, "FrisbeeEnt", CREEPSConfig.frisbee_projectile_ID, this, 40, 1, true);
+		EntityRegistry.registerModEntity(CREEPSEntityFoam.class, "FoamEnt", CREEPSConfig.foam_projectile_ID, this, 40, 1, true);
+		////////////////////////
+		EntityRegistry.registerModEntity(CREEPSEntityArmyGuyArm.class, "ArmyGuyArm", CREEPSConfig.armyguyArm_ID, this, 40, 1, true);
+		
+		addMob(CREEPSEntityArmyGuy.class, "ArmyGuy", CREEPSConfig.armyguy_ID, CREEPSConfig.sarmyguy, 1, 4, EnumCreatureType.CREATURE, allBiomes());
 		
 		proxy.render();
-		
-		
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(armygem, 0, new ModelResourceLocation("morecreeps:" 
-		+ armygem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(armsword, 0, new ModelResourceLocation("morecreeps:" 
-		+ armsword.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(atompacket, 0, new ModelResourceLocation("morecreeps:" 
-		+ atompacket.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.babyjarempty, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.babyjarempty.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.babyjarfull, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.babyjarfull.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.bandaid, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.bandaid.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.battery, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.battery.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.blorpcola, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.blorpcola.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.bullet, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.bullet.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.cavemanclub, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.cavemanclub.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.donut, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.donut.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.earthgem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.earthgem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.evilegg, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.evilegg.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.extinguisher, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.extinguisher.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.firegem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.firegem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.frisbee, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.frisbee.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.gemsword, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.gemsword.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.goodonut, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.goodonut.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.growray, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.growray.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.guineapigradio, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.guineapigradio.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.gun, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.gun.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.healinggem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.healinggem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.horseheadgem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.horseheadgem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.lifegem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.lifegem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.limbs, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.limbs.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.lolly, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.lolly.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.mininggem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.mininggem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.mobilephone, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.mobilephone.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.money, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.money.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.ram16k, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.ram16k.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.raygun, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.raygun.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.rayray, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.rayray.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.rocket, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.rocket.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.shrinkray, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.shrinkray.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.shrinkshrink, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.shrinkshrink.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.skygem, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.skygem.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.zebrabody, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.zebrabody.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.zebraboots, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.zebraboots.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.zebrahelmet, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.zebrahelmet.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.zebrahide, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.zebrahide.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.zebralegs, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.zebralegs.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_bubble, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_bubble.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_camel, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_camel.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_caveman, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_caveman.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_floob, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_floob.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_hell, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_hell.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_hotdog, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_hotdog.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_nonswimmer, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_nonswimmer.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_pig, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_pig.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_pyramid, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_pyramid.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_rockmonster, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_rockmonster.getUnlocalizedName(), "inventory"));
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(MoreCreepsAndWeirdos.a_zebra, 0, new ModelResourceLocation("morecreeps:" 
-		+ MoreCreepsAndWeirdos.a_zebra.getUnlocalizedName(), "inventory"));
-		
-		
-	    
-		
+		proxy.renderModelItem();
 		//Registers Recipes
 		CREEPSRecipeHandler.Init(event);
-		
 	}
 	
-	public Item registerItem(Item item)
+	public void addMob(Class <? extends EntityLiving> classz, String name, int id, int weightedProb, int min, int max, EnumCreatureType typeOfCreature, BiomeGenBase... biomes)
 	{
-		return GameRegistry.registerItem(item, item.getUnlocalizedName(), "morecreeps");
-	}
-	
-	public static void addMob(String name) {
-        mobs.add(name);
-    }
-	
-	//Thanks to DivineRPG creators for making their code public and giving me insight to make this <3
-	public static void registerCreepsMob(Class<? extends EntityLiving> entityClass, Render renderClass) {
-		
-		String entityName = entityClass.toString().substring(19);
-		System.out.print(entityName);
-		
-		int randomId = EntityRegistry.findGlobalUniqueEntityId();
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, randomId);
-		EntityRegistry.registerModEntity(entityClass, entityName, randomId, instance, 64, 20, true);
-		
-		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderClass);
-		createEgg(randomId);
-		
-		if (entityClass != CREEPSEntityArmyGuyArm.class &&  entityClass != CREEPSEntityAtom.class && entityClass != CREEPSEntityCastleCritter.class &&
-				entityClass != CREEPSEntityCastleGuard.class && entityClass != CREEPSEntityCastleKing.class &&
-				entityClass != CREEPSEntityDoghouse.class && entityClass != CREEPSEntityCastleGuard.class && 
-				entityClass != CREEPSEntityPrisoner.class && entityClass != CREEPSEntityPyramidGuardian.class && 
-				entityClass != CREEPSEntityRatMan.class && entityClass != CREEPSEntitySchlump.class &&
-				entityClass != CREEPSEntityTowel.class && entityClass != CREEPSEntityTrophy.class && 
-				entityClass != CREEPSEntityHunchbackSkeleton.class){
-		for (int i = 0; i < BiomeGenBase.getBiomeGenArray().length; i++) {
-			BiomeGenBase biome = BiomeGenBase.getBiomeGenArray()[i];
-			if (biome != null){
-				if (BiomeDictionary.isBiomeOfType(biome, Type.END)) {
-					
-					//EntityRegistry.addSpawn(entityClass, 2, 1, 4, EnumCreatureType.monster, biome);
-					//Maybe Someday?
-					
-				} else if (BiomeDictionary.isBiomeOfType(biome, Type.NETHER)) {
-					
-					//EntityRegistry.addSpawn(entityClass, 50, 1, 1, EnumCreatureType.monster, biome);
-					
-				}
-					if (BiomeDictionary.isBiomeOfType(biome, Type.SNOWY)) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-						
-					}
-					if (BiomeDictionary.isBiomeOfType(biome, Type.SANDY)) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-						
-					}
-					if (biome == BiomeGenBase.ocean || biome == BiomeGenBase.deepOcean) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-						
-					}
-					if (BiomeDictionary.isBiomeOfType(biome, Type.BEACH)) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-						
-					}
-					if (BiomeDictionary.isBiomeOfType(biome, Type.JUNGLE)) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-						
-					}
-					if(BiomeDictionary.isBiomeOfType(biome, Type.PLAINS)) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-						
-					}
-					
-					if(BiomeDictionary.isBiomeOfType(biome, Type.FOREST)) {
-						
-						EntityRegistry.addSpawn(entityClass, 50, 1, 5, EnumCreatureType.CREATURE, biome);
-                        
-                    }
-					
-				}
-			}
+		EntityRegistry.registerGlobalEntityID(classz, name, EntityRegistry.findGlobalUniqueEntityId(), 0x000000, 0xFFFFFF);
+		EntityRegistry.registerModEntity(classz, name, id, this, 40, 1, true);
+		if(weightedProb > 0)
+		{
+			EntityRegistry.addSpawn(classz, weightedProb, min, max, typeOfCreature, biomes);
 		}
 	}
-	@SuppressWarnings("unchecked")
-	private static void createEgg(int randomId){
-		EntityList.entityEggs.put(Integer.valueOf(randomId), new EntityList.EntityEggInfo(randomId, 0x000000, 0xFFFFFF));
-		
-	}
-	
-	public static void registerCreepsNonMob(Class<? extends EntityLiving> entityClass, Render renderClass) {
-		
-		String entityName = entityClass.toString().substring(19);
-		int randomId = EntityRegistry.findGlobalUniqueEntityId();
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, randomId);
-		EntityRegistry.registerModEntity(entityClass, entityName, randomId, instance, 64, 20, true);
-		
-		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderClass);
-	}
-	public static void log(Level logLevel, String message) {
-	
-		log.log(logLevel, message);
-	
+	public BiomeGenBase[] allBiomes()
+	{
+		return new BiomeGenBase[] {
+				BiomeGenBase.plains, 
+				BiomeGenBase.desert, 
+				BiomeGenBase.extremeHills, 
+				BiomeGenBase.forest, 
+				BiomeGenBase.taiga, 
+				BiomeGenBase.swampland, 
+				BiomeGenBase.icePlains, 
+				BiomeGenBase.iceMountains, 
+				BiomeGenBase.beach, 
+				BiomeGenBase.desertHills, 
+				BiomeGenBase.forestHills, 
+				BiomeGenBase.taigaHills, 
+				BiomeGenBase.extremeHillsEdge,
+				BiomeGenBase.jungle,
+				BiomeGenBase.stoneBeach
+		};
 	}
 }
-		
-
-	
-	
-	

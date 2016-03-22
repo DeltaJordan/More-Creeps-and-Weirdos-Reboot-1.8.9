@@ -19,11 +19,12 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import fr.elias.morecreeps.client.config.CREEPSConfig;
+import fr.elias.morecreeps.client.particles.CREEPSFxBlood;
+import fr.elias.morecreeps.client.particles.CREEPSFxSmoke;
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
 public class CREEPSEntityBullet extends Entity
 {
-	List<?> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
     protected int hitX;
     protected int hitY;
     protected int hitZ;
@@ -107,6 +108,7 @@ public class CREEPSEntityBullet extends Entity
             if (entityplayer != null)
             {
                 posY -= 1.7999999523162842D;
+                double d = (entityplayer.rotationPitch / 180F) * (float)Math.PI;
                 double d1 = entityplayer.posY - posY;
                 motionY += d1 / 20D;
 
@@ -244,7 +246,7 @@ public class CREEPSEntityBullet extends Entity
         }
 
         Entity entity = null;
-        
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
         double d = 0.0D;
 
         for (int j = 0; j < list.size(); j++)
@@ -376,6 +378,8 @@ public class CREEPSEntityBullet extends Entity
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         float f3 = 0.99F;
+        float f5 = 0.0F;
+
         if (handleWaterMovement())
         {
             for (int l = 0; l < 4; l++)
@@ -385,6 +389,7 @@ public class CREEPSEntityBullet extends Entity
             }
 
             f3 = 0.8F;
+            float f6 = 0.03F;
             setDead();
         }
 

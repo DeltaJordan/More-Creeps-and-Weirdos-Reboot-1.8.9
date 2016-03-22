@@ -81,7 +81,7 @@ public class CREEPSEntitySneakySal extends EntityMob
     public String texture;
     public double moveSpeed;
     public double attackStrength;
-    public float health;
+    public double health;
 
     public CREEPSEntitySneakySal(World world)
     {
@@ -115,7 +115,7 @@ public class CREEPSEntitySneakySal extends EntityMob
     public void applyEntityAttributes()
     {
     	super.applyEntityAttributes();
-    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(basehealth);
+    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
     	this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
     	this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(attackStrength);
     }
@@ -221,7 +221,7 @@ public class CREEPSEntitySneakySal extends EntityMob
             motionX = (d / (double)f1) * 0.40000000000000002D * 0.20000000192092895D + motionX * 0.18000000098023225D;
             motionZ = (d1 / (double)f1) * 0.40000000000000002D * 0.14000000192092896D + motionZ * 0.18000000098023225D;
 
-            if ((double)f < 2.7999999999999998D && entity.getEntityBoundingBox().maxY > this.getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
+            if ((double)f < 2.7999999999999998D && entity.getBoundingBox().maxY > this.getBoundingBox().minY && entity.getBoundingBox().minY < this.getBoundingBox().maxY)
             {
                 //attackTime = 10;
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) attackStrength);
@@ -287,7 +287,7 @@ public class CREEPSEntitySneakySal extends EntityMob
                 if (d2 < d * d && d2 > 3D)
                 {
                     double d4 = targetedEntity.posX - posX;
-                    double d5 = (targetedEntity.getEntityBoundingBox().minY + (double)(targetedEntity.height / 2.0F)) - (posY + (double)(height / 2.0F));
+                    double d5 = (targetedEntity.getBoundingBox().minY + (double)(targetedEntity.height / 2.0F)) - (posY + (double)(height / 2.0F));
                     double d6 = targetedEntity.posZ - posZ;
                     renderYawOffset = rotationYaw = (-(float)Math.atan2(d4, d6) * 180F) / (float)Math.PI;
                     worldObj.playSoundAtEntity(this, "morecreeps:bullet", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
@@ -402,11 +402,11 @@ public class CREEPSEntitySneakySal extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.snow && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0 && l > 8;
+        return i1 != Blocks.snow && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0 && l > 8;
     }
 
     /**

@@ -47,6 +47,7 @@ public class CREEPSModelCastleGuard extends ModelBase
 
     public CREEPSModelCastleGuard(float f, float f1)
     {
+        float f2 = 0.0F;
         bipedHead = new ModelRenderer(this, 0, 0);
         bipedHead.addBox(-2F, -9F, -4F, 4, 9, 7, 0.0F);
         bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);

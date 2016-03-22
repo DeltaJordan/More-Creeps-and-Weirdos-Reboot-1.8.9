@@ -22,7 +22,7 @@ public class CREEPSItemMoopsWorm extends Item
         setMaxDamage(16);
     }
 
-    public ItemStack onItemRightClick2(ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         entityplayer.swingItem();
         world.playSoundAtEntity(entityplayer, "morecreeps:armygem", 1.0F, 1.0F);
@@ -31,8 +31,6 @@ public class CREEPSItemMoopsWorm extends Item
         CREEPSEntityArmyGuy creepsentityarmyguy = new CREEPSEntityArmyGuy(world);
         creepsentityarmyguy.setLocationAndAngles(entityplayer.posX + d * 1.0D, entityplayer.posY + 1.0D, entityplayer.posZ + d1 * 1.0D, entityplayer.rotationYaw, 0.0F);
         creepsentityarmyguy.loyal = true;
-        creepsentityarmyguy.texture = new ResourceLocation(Reference.MOD_ID, 
-        		Reference.TEXTURE_PATH_ENTITES + Reference.TEXTURE_ARMY_GUY_LOYAL);;
         world.spawnEntityInWorld(creepsentityarmyguy);
         itemstack.damageItem(2, entityplayer);
         return itemstack;

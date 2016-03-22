@@ -98,7 +98,7 @@ public class CREEPSItemSkyGem extends Item
             	MoreCreepsAndWeirdos.proxy.smoke(world, player, random);
             }
             
-            boolean jumping = ObfuscationReflectionHelper.getPrivateValue(EntityLivingBase.class, player, 35);
+            boolean jumping = ObfuscationReflectionHelper.getPrivateValue(EntityLivingBase.class, player, "isJumping", "field_70703_bu");
             if (player.onGround && jumping)
             {
                 floatdir = 1;

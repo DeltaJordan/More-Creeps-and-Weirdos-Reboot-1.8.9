@@ -33,11 +33,12 @@ public class CREEPSItemArmyGem extends Item
         double d1 = MathHelper.cos((entityplayer.rotationYaw * (float)Math.PI) / 180F);
         CREEPSEntityArmyGuy creepsentityarmyguy = new CREEPSEntityArmyGuy(world);
         creepsentityarmyguy.setLocationAndAngles(entityplayer.posX + d * 1.0D, entityplayer.posY + 1.0D, entityplayer.posZ + d1 * 1.0D, entityplayer.rotationYaw, 0.0F);
-        creepsentityarmyguy.loyal = true;
-        creepsentityarmyguy.texture = new ResourceLocation(Reference.MOD_ID, 
-        		Reference.TEXTURE_PATH_ENTITES + Reference.TEXTURE_ARMY_GUY_LOYAL);
-        creepsentityarmyguy.setOwnerId(EntityPlayer.getUUID(entityplayer.getGameProfile()).toString());
-        world.spawnEntityInWorld(creepsentityarmyguy);
+        if(!world.isRemote)
+        {
+            creepsentityarmyguy.loyal = true;
+            System.out.println("[ITEM] ArmyGem is Loyal: " + creepsentityarmyguy.loyal);
+            world.spawnEntityInWorld(creepsentityarmyguy);
+        }
         itemstack.damageItem(2, entityplayer);
         return itemstack;
     }

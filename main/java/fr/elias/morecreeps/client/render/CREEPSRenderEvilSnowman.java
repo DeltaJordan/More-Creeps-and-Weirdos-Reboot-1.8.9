@@ -1,14 +1,17 @@
 package fr.elias.morecreeps.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import fr.elias.morecreeps.client.models.CREEPSModelEvilSnowman;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilSnowman;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import fr.elias.morecreeps.client.models.CREEPSModelEvilSnowman;
+import fr.elias.morecreeps.common.entity.CREEPSEntityEvilScientist;
+import fr.elias.morecreeps.common.entity.CREEPSEntityEvilSnowman;
 
 public class CREEPSRenderEvilSnowman extends RenderLiving
 {

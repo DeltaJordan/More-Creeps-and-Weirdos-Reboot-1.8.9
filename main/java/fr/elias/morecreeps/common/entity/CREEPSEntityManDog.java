@@ -360,24 +360,18 @@ public class CREEPSEntityManDog extends EntityMob
 		
 		public void updateTask()
 		{
-			try {
-				   float f = CREEPSEntityManDog.this.getDistanceToEntity(getAttackTarget());
-				   if(f < 256F)
-				   {
-				    attackEntity(CREEPSEntityManDog.this.getAttackTarget(), f);
-				    CREEPSEntityManDog.this.getLookHelper().setLookPositionWithEntity(CREEPSEntityManDog.this.entityToAttack, 10.0F, 10.0F);
-				    CREEPSEntityManDog.this.getNavigator().clearPathEntity();
-				    CREEPSEntityManDog.this.getMoveHelper().setMoveTo(CREEPSEntityManDog.this.entityToAttack.posX, CREEPSEntityManDog.this.entityToAttack.posY, CREEPSEntityManDog.this.entityToAttack.posZ, 0.5D);
-				   }
-				   if(f < 1F)
-				   {
-				    CREEPSEntityManDog.this.attackEntityAsMob(CREEPSEntityManDog.this.entityToAttack);
-				   }
-				}
-				catch (NullPointerException ex)
-				{
-				ex.printStackTrace();
-				}
+			float f = CREEPSEntityManDog.this.getDistanceToEntity(getAttackTarget());
+			if(f < 256F)
+			{
+				attackEntity(CREEPSEntityManDog.this.getAttackTarget(), f);
+				CREEPSEntityManDog.this.getLookHelper().setLookPositionWithEntity(CREEPSEntityManDog.this.entityToAttack, 10.0F, 10.0F);
+				CREEPSEntityManDog.this.getNavigator().clearPathEntity();
+				CREEPSEntityManDog.this.getMoveHelper().setMoveTo(CREEPSEntityManDog.this.entityToAttack.posX, CREEPSEntityManDog.this.entityToAttack.posY, CREEPSEntityManDog.this.entityToAttack.posZ, 0.5D);
+			}
+			if(f < 1F)
+			{
+				CREEPSEntityManDog.this.attackEntityAsMob(CREEPSEntityManDog.this.entityToAttack);
+			}
 		}
     }
     /**

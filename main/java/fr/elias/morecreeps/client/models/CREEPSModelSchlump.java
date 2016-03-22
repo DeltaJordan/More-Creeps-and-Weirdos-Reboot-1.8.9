@@ -788,6 +788,7 @@ public class CREEPSModelSchlump extends ModelBase
             f6 *= f6;
             f6 *= f6;
             f6 = 1.0F - f6;
+            float f7 = MathHelper.sin(f6 * (float)Math.PI);
             armR.rotateAngleZ = MathHelper.sin(swingProgress * (float)Math.PI) * -0.4F;
         }
 

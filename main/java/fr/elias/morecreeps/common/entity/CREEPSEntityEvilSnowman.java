@@ -72,7 +72,7 @@ public class CREEPSEntityEvilSnowman extends EntityMob
         }
 
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         Block l = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
         Block i1 = worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
@@ -171,7 +171,6 @@ public class CREEPSEntityEvilSnowman extends EntityMob
 		}
         public void updateTask()
         {
-        	try{
         	--attackTime;
             EntityLivingBase entitylivingbase = this.evilsnowman.getAttackTarget();
             double d0 = this.evilsnowman.getDistanceSqToEntity(entitylivingbase);
@@ -197,11 +196,6 @@ public class CREEPSEntityEvilSnowman extends EntityMob
                 this.evilsnowman.getNavigator().clearPathEntity();
                 this.evilsnowman.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 0.5D);
             }
-        	}
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
         }
     }
     

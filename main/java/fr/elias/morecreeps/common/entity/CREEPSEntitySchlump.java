@@ -163,7 +163,7 @@ public class CREEPSEntitySchlump extends EntityAnimal
     public boolean checkHouse()
     {
         boolean flag = false;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(16D, 16D, 16D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(16D, 16D, 16D));
         int i = 0;
 
         do
@@ -193,7 +193,7 @@ public class CREEPSEntitySchlump extends EntityAnimal
         }
 
         i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
 
         if (worldObj.canBlockSeeSky(new BlockPos(i, j, k)))
@@ -395,7 +395,7 @@ public class CREEPSEntitySchlump extends EntityAnimal
     {
         int i = 0;
         Object obj = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(6D, 6D, 6D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(6D, 6D, 6D));
 
         for (int j = 0; j < list.size(); j++)
         {
@@ -660,7 +660,7 @@ public class CREEPSEntitySchlump extends EntityAnimal
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         int i1 = Block.getIdFromBlock((worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock()));

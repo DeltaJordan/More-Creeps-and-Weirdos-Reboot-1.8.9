@@ -23,6 +23,7 @@ import fr.elias.morecreeps.common.entity.CREEPSEntityTrophy;
 public class CommonProxy
 {
 	public void render(){}
+	public void renderModelItem(){}
 	public void smoke(World world, EntityPlayer player, Random random){}
 	public void smoke2(World world, Entity entity, Random random){}
 	public void smoke3(World world, Entity entity, Random random){}

@@ -1,14 +1,16 @@
 package fr.elias.morecreeps.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import fr.elias.morecreeps.client.models.CREEPSModelEvilScientist;
-import fr.elias.morecreeps.common.entity.CREEPSEntityEvilScientist;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import fr.elias.morecreeps.client.models.CREEPSModelEvilScientist;
+import fr.elias.morecreeps.common.entity.CREEPSEntityEvilPig;
+import fr.elias.morecreeps.common.entity.CREEPSEntityEvilScientist;
 
 public class CREEPSRenderEvilScientist extends RenderLiving
 {

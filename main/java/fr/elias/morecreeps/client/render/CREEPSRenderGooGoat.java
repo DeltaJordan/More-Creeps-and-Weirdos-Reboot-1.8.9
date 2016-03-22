@@ -1,16 +1,18 @@
 package fr.elias.morecreeps.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import fr.elias.morecreeps.client.models.CREEPSModelGooGoat;
-import fr.elias.morecreeps.client.render.layers.LayerGooGoat;
-import fr.elias.morecreeps.common.entity.CREEPSEntityGooGoat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import fr.elias.morecreeps.client.models.CREEPSModelGooGoat;
+import fr.elias.morecreeps.client.render.layers.LayerGooGoat;
+import fr.elias.morecreeps.common.entity.CREEPSEntityG;
+import fr.elias.morecreeps.common.entity.CREEPSEntityGooGoat;
 
 public class CREEPSRenderGooGoat extends RenderLiving
 {
@@ -21,7 +23,7 @@ public class CREEPSRenderGooGoat extends RenderLiving
     {
         super(Minecraft.getMinecraft().getRenderManager(), creepsmodelgoogoat, f);
         modelBipedMain = creepsmodelgoogoat;
-        setScaleAmount(creepsmodelgoogoat);
+        scaleAmount = creepsmodelgoogoat;
         this.addLayer(new LayerGooGoat(this));
     }
 
@@ -77,13 +79,5 @@ public class CREEPSRenderGooGoat extends RenderLiving
 	protected ResourceLocation getEntityTexture(Entity entity) {
 
 		return getEntityTexture((CREEPSEntityGooGoat) entity);
-	}
-
-	public ModelBase getScaleAmount() {
-		return scaleAmount;
-	}
-
-	public void setScaleAmount(ModelBase scaleAmount) {
-		this.scaleAmount = scaleAmount;
 	}
 }

@@ -277,7 +277,7 @@ public class CREEPSEntityFoam extends Entity implements IProjectile
                     splash();
                     movingobjectposition.entityHit.setFire(0);
 
-                    if (movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, (EntityLiving)entity), 0));
+                    movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, (EntityLivingBase)entity), 0);
 
                     setDead();
                 }

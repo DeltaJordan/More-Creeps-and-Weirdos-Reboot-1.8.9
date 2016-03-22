@@ -389,17 +389,10 @@ public class CREEPSEntityCaveman extends EntityMob
         
         public void updateTask()
         {
-        	try{
         	EntityLivingBase target = CREEPSEntityCaveman.this.getAttackTarget();
         	float f = getDistanceToEntity(target);
-        	attackEntity(target, f);}
-        	
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
+        	attackEntity(target, f);
         }
-        
         
         public boolean shouldExecute()
         {
@@ -555,7 +548,7 @@ public class CREEPSEntityCaveman extends EntityMob
                 fallDistance = -25F;
             }
 
-            if ((double)f < 2.8999999999999999D && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY)
+            if ((double)f < 2.8999999999999999D && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY)
             {
                 if (hammerswing == 0.0F)
                 {
@@ -569,7 +562,7 @@ public class CREEPSEntityCaveman extends EntityMob
                 }
             }
 
-            if ((double)f < 2.3500000000000001D && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY)
+            if ((double)f < 2.3500000000000001D && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY)
             {
                 attackTime = 20;
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack);
@@ -583,11 +576,11 @@ public class CREEPSEntityCaveman extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         //int l = worldObj.getFullBlockLightValue(i, j, k);
         IBlockState i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k));
-        return (i1 == Blocks.snow.getDefaultState() || i1 == Blocks.ice.getDefaultState() || i1 == Blocks.snow.getDefaultState()) && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0;
+        return (i1 == Blocks.snow.getDefaultState() || i1 == Blocks.ice.getDefaultState() || i1 == Blocks.snow.getDefaultState()) && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0;
     }
 
     /**
@@ -753,69 +746,69 @@ public class CREEPSEntityCaveman extends EntityMob
             return "morecreeps:cavemandead";
         }
     }
-    
-    public void confetti()
-    {
-     MoreCreepsAndWeirdos.proxy.confettiA(this, worldObj);
-    }
 
     /**
      * Called when the mob's health reaches 0.
      */
-    	 public void onDeath(DamageSource damagesource)
-    	    {
-    	        Object obj = damagesource.getEntity();
-    	 
-    	        if ((obj instanceof CREEPSEntityRocket) && ((CREEPSEntityRocket)obj).owner != null)
-    	        {
-    	            obj = ((CREEPSEntityRocket)obj).owner;
-    	        }
-    	 
-    	        EntityPlayer player = (EntityPlayer) obj;
-    	        if(player != null)
-    	        {
-    	                MoreCreepsAndWeirdos.cavemancount++;
-    	            if (!((EntityPlayerMP)player).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve1caveman))
-    	            {
-    	                worldObj.playSoundAtEntity(player, "morecreeps:achievement", 1.0F, 1.0F);
-    	                player.addStat(MoreCreepsAndWeirdos.achieve1caveman, 1);
-    	                confetti();
-    	            }
-    	 
-    	            if (!((EntityPlayerMP)player).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve1caveman) && MoreCreepsAndWeirdos.cavemancount >= 10)
-    	            {
-    	                worldObj.playSoundAtEntity(player, "morecreeps:achievement", 1.0F, 1.0F);
-    	                player.addStat(MoreCreepsAndWeirdos.achieve10caveman, 1);
-    	                confetti();
-    	            }
-    	 
-    	            if (!((EntityPlayerMP)player).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve10caveman) && MoreCreepsAndWeirdos.cavemancount >= 50)
-    	            {
-    	                worldObj.playSoundAtEntity(player, "morecreeps:achievement", 1.0F, 1.0F);
-    	                player.addStat(MoreCreepsAndWeirdos.achieve50caveman, 1);
-    	                confetti();
-    	            }
-    	        }
-    	        if(!worldObj.isRemote)
-    	        {
-    	            if (rand.nextInt(10) == 0)
-    	            {
-    	                dropItem(Items.porkchop, rand.nextInt(3) + 1);
-    	            }
-    	 
-    	            if (rand.nextInt(10) == 0)
-    	            {
-    	                dropItem(MoreCreepsAndWeirdos.popsicle, rand.nextInt(3) + 1);
-    	            }
-    	 
-    	            if (rand.nextInt(8) == 0)
-    	            {
-    	                dropItem(MoreCreepsAndWeirdos.cavemanclub, 1);
-    	            }
-    	        }
-    	 
-    	        super.onDeath(damagesource);
-    	    }
+    public void onDeath(DamageSource damagesource)
+    {
+        Object obj = damagesource.getEntity();
+
+        if ((obj instanceof CREEPSEntityRocket) && ((CREEPSEntityRocket)obj).owner != null)
+        {
+            obj = ((CREEPSEntityRocket)obj).owner;
+        }
+
+        EntityPlayer player = (EntityPlayer) damagesource.getEntity();
+        if(player != null)
+        {
+        	MoreCreepsAndWeirdos.cavemancount++;
+            if (!((EntityPlayerMP)player).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve1caveman))
+            {
+                worldObj.playSoundAtEntity(player, "morecreeps:achievement", 1.0F, 1.0F);
+                player.addStat(MoreCreepsAndWeirdos.achieve1caveman, 1);
+                confetti();
+            }
+
+            if (!((EntityPlayerMP)player).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve1caveman) && MoreCreepsAndWeirdos.cavemancount >= 10)
+            {
+                worldObj.playSoundAtEntity(player, "morecreeps:achievement", 1.0F, 1.0F);
+                player.addStat(MoreCreepsAndWeirdos.achieve10caveman, 1);
+                confetti();
+            }
+
+            if (!((EntityPlayerMP)player).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve10caveman) && MoreCreepsAndWeirdos.cavemancount >= 50)
+            {
+                worldObj.playSoundAtEntity(player, "morecreeps:achievement", 1.0F, 1.0F);
+                player.addStat(MoreCreepsAndWeirdos.achieve50caveman, 1);
+                confetti();
+            }
+        }
+        if(!worldObj.isRemote)
+        {
+            if (rand.nextInt(10) == 0)
+            {
+                dropItem(Items.porkchop, rand.nextInt(3) + 1);
+            }
+
+            if (rand.nextInt(10) == 0)
+            {
+                dropItem(MoreCreepsAndWeirdos.popsicle, rand.nextInt(3) + 1);
+            }
+
+            if (rand.nextInt(8) == 0)
+            {
+                dropItem(MoreCreepsAndWeirdos.cavemanclub, 1);
+            }
+        }
+
+        super.onDeath(damagesource);
+    }
+
+    public void confetti()
+    {
+    	MoreCreepsAndWeirdos.proxy.confettiA(this, worldObj);
+    }
 
     /**
      * Get number of ticks, at least during which the living entity will be silent.

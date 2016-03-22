@@ -21,7 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import fr.elias.morecreeps.client.particles.CREEPSFxSpit;
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
@@ -186,11 +185,10 @@ public class CREEPSEntityCamel extends EntityMob
                     p_70612_1_ = 0.0F;
                     p_70612_2_ = 0.0F;
                 }
-                isJumping = ObfuscationReflectionHelper.getPrivateValue(EntityLivingBase.class, owner, "isJumping");
-                
-                if (this.onGround && isJumping)
+
+                if (this.onGround)
                 {
-                	
+                    this.motionY = 0.43;
 
                     if (this.isPotionActive(Potion.jump))
                     {
@@ -353,7 +351,7 @@ public class CREEPSEntityCamel extends EntityMob
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), 1);
         }
 
-        if ((double)f < 3.2999999999999998D - (2D - (double)modelsize) && entity.getEntityBoundingBox().maxY > entity.getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < entity.getEntityBoundingBox().maxY)
+        if ((double)f < 3.2999999999999998D - (2D - (double)modelsize) && entity.getBoundingBox().maxY > entity.getBoundingBox().minY && entity.getBoundingBox().minY < entity.getBoundingBox().maxY)
         {
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack);
         }
@@ -523,7 +521,7 @@ public class CREEPSEntityCamel extends EntityMob
         int l = worldObj.getLight(getPosition());
         int j1 = worldObj.countEntities(CREEPSEntityCamel.class);
         Block i1 = worldObj.getBlockState(new BlockPos(getPosition())).getBlock();
-        return (i1 == Blocks.sand || i1 == Blocks.dirt || i1 == Blocks.gravel) && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.carpet && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 &&worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(getPosition()) && l > 6 && rand.nextInt(40) == 0 && j1 < 25;
+        return (i1 == Blocks.sand || i1 == Blocks.dirt || i1 == Blocks.gravel) && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.carpet && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 &&worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(getPosition()) && l > 6 && rand.nextInt(40) == 0 && j1 < 25;
     }
 
     /**

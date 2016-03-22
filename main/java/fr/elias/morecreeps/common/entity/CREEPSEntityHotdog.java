@@ -181,7 +181,7 @@ public class CREEPSEntityHotdog extends EntityMob
         if (tamed && wanderstate == 0)
         {
             firenum = 0;
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(16D, 16D, 16D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(16D, 16D, 16D));
 
             for (int i = 0; i < list.size(); i++)
             {
@@ -363,7 +363,7 @@ public class CREEPSEntityHotdog extends EntityMob
 
         if (tamed && wanderstate == 0)
         {
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(16D, 16D, 16D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(16D, 16D, 16D));
 
             for (int i = 0; i < list.size(); i++)
             {
@@ -809,11 +809,11 @@ public class CREEPSEntityHotdog extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.sand && i1 != Blocks.cobblestone && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0 && l > 8;
+        return i1 != Blocks.sand && i1 != Blocks.cobblestone && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0 && l > 8;
     }
 
     /**
@@ -921,7 +921,7 @@ public class CREEPSEntityHotdog extends EntityMob
                     if (level >= 25)
                     {
                         int i = MathHelper.floor_double(entityplayer.posX);
-                        int i1 = MathHelper.floor_double(entityplayer.getEntityBoundingBox().minY);
+                        int i1 = MathHelper.floor_double(entityplayer.getBoundingBox().minY);
                         int j1 = MathHelper.floor_double(entityplayer.posZ);
                         buildHeaven(entityplayer, i + 1, i1, j1 + 1);
 

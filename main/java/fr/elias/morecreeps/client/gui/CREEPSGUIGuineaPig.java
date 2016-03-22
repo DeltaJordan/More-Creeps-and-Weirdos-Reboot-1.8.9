@@ -74,7 +74,7 @@ public class CREEPSGUIGuineaPig extends GuiScreen
         drawTexturedModalRect(j, k, 0, 0, (int)xSize_lo, (int)ySize_lo);
         drawEntityOnScreen(j + 51, k + 75, 30, (float)(j + 51) - mouseX, (float)(k + 75 - 50) - mouseY, this.mc.thePlayer);
 
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        /*GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef(j + 51, k + 75, 50F);
@@ -100,7 +100,7 @@ public class CREEPSGUIGuineaPig extends GuiScreen
         mc.thePlayer.rotationPitch = f4;
         GL11.glPopMatrix();
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);*/
 
     }
     public static void drawEntityOnScreen(int p_147046_0_, int p_147046_1_, int p_147046_2_, float p_147046_3_, float p_147046_4_, EntityLivingBase p_147046_5_)
@@ -174,7 +174,7 @@ public class CREEPSGUIGuineaPig extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l = (new Random()).nextLong();
             String s1 = namescreen.getText();
             guineapig.name = s1;
             mc.displayGuiScreen(null);
@@ -188,11 +188,12 @@ public class CREEPSGUIGuineaPig extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l1 = (new Random()).nextLong();
             String s2 = namescreen.getText();
             guineapig.name = s2;
             guineapig.wanderstate = 0;
-            guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            double moveSpeed = guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveSpeed = guineapig.speedboost <= 0 ? guineapig.baseSpeed : guineapig.baseSpeed + 0.5F;
             mc.displayGuiScreen(null);
         }
 
@@ -201,8 +202,9 @@ public class CREEPSGUIGuineaPig extends GuiScreen
             String s = namescreen.getText();
             guineapig.name = s;
             guineapig.wanderstate = 1;
-            guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            double moveSpeed = guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
 
+            moveSpeed = 0.0F;
             mc.displayGuiScreen(null);
         }
 
@@ -214,11 +216,12 @@ public class CREEPSGUIGuineaPig extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l2 = (new Random()).nextLong();
             String s3 = namescreen.getText();
             guineapig.name = s3;
             guineapig.wanderstate = 2;
-            guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            double moveSpeed = guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+            moveSpeed = guineapig.speedboost <= 0 ? guineapig.baseSpeed : guineapig.baseSpeed + 0.5F;
             mc.displayGuiScreen(null);
         }
 

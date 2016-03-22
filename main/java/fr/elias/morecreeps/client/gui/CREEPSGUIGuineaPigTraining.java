@@ -22,13 +22,14 @@ import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import fr.elias.morecreeps.common.entity.CREEPSEntityGuineaPig;
 
 public class CREEPSGUIGuineaPigTraining extends GuiScreen
 {
     private CREEPSEntityGuineaPig guineapig;
+    private GuiTextField namescreen;
+    private boolean field_28217_m;
     private float xSize_lo;
     private float ySize_lo;
 
@@ -64,7 +65,7 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
         drawTexturedModalRect(j, k, 0, 0, (int)xSize_lo, (int)ySize_lo);
         drawEntityOnScreen(j + 51, k + 75, 30, (float)(j + 51) - mouseX, (float)(k + 75 - 50) - mouseY, this.mc.thePlayer);
 
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        /*GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef(j + 51, k + 75, 50F);
@@ -83,14 +84,14 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
         mc.thePlayer.renderYawOffset = (float)Math.atan(f5 / 40F) * 20F;
         mc.thePlayer.rotationYaw = (float)Math.atan(f5 / 40F) * 40F;
         mc.thePlayer.rotationPitch = -(float)Math.atan(f6 / 40F) * 20F;
-        GL11.glTranslatef(0.0F, (float) mc.thePlayer.getYOffset(), 0.0F);
-        Minecraft.getMinecraft().getRenderManager().renderEntityWithPosYaw(mc.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        GL11.glTranslatef(0.0F, mc.thePlayer.yOffset, 0.0F);
+        RenderManager.instance.renderEntityWithPosYaw(mc.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         mc.thePlayer.renderYawOffset = f2;
         mc.thePlayer.rotationYaw = f3;
         mc.thePlayer.rotationPitch = f4;
         GL11.glPopMatrix();
         RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);*/
     }
     public static void drawEntityOnScreen(int p_147046_0_, int p_147046_1_, int p_147046_2_, float p_147046_3_, float p_147046_4_, EntityLivingBase p_147046_5_)
     {
@@ -174,13 +175,15 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
             {
                 guineapig.skillattack++;
 
-                guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage).getAttributeValue();
+                double attackStrength = guineapig.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage).getAttributeValue();
                 
                 if (guineapig.skillattack < 4)
                 {
+                    attackStrength += 2;
                 }
                 else
                 {
+                	attackStrength += 4;
                 }
 
                 world.playSoundAtEntity(entityplayersp, "morecreeps:guineapigtrain", 1.0F, 1.0F);
@@ -288,6 +291,7 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
     public boolean checkWheat()
     {
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
         int i = 0;
 
@@ -304,6 +308,7 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
         if (i >= 5)
         {
             int k = 5;
+            boolean flag = false;
             label0:
 
             for (int i1 = 0; i1 < aitemstack.length; i1++)
@@ -314,6 +319,8 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
                 {
                     continue;
                 }
+
+                int l = itemstack1.stackSize;
 
                 do
                 {
@@ -399,6 +406,7 @@ public class CREEPSGUIGuineaPigTraining extends GuiScreen
         drawString(fontRendererObj, buildStat(guineapig.skillhealing), (width / 2 - 107) + k, height / 4 + 95 + byte0, 0xff8d13);
         drawString(fontRendererObj, buildStat(guineapig.skillspeed), width / 2 + 16 + k, height / 4 + 95 + byte0, 0xff8d13);
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
         int l = 0;
 

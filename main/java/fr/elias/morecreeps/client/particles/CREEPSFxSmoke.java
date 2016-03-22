@@ -23,7 +23,7 @@ public class CREEPSFxSmoke extends EntityFX
 
     public int getFXLayer()
     {
-        return 2;
+        return 1;
     }
 
     /**

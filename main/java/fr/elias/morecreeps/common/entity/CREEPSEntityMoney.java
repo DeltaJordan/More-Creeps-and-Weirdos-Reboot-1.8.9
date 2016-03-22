@@ -8,15 +8,17 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
-public class CREEPSEntityMoney extends EntityItem
+public class CREEPSEntityMoney extends EntityThrowable
 {
     private int field_20056_b;
     private int field_20055_c;
@@ -37,7 +39,6 @@ public class CREEPSEntityMoney extends EntityItem
         setSize(0.25F, 0.25F);
         initialVelocity = 1.0D;
         bounceFactor = 0.14999999999999999D;
-        ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, this, 20, "field_145804_b", "delayBeforeCanPickup");
     }
 
     /**
@@ -160,14 +161,6 @@ public class CREEPSEntityMoney extends EntityItem
             motionZ *= 0.14999999999999999D;
         }
 
-        int delayBeforeCanPickup = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, this, "field_145804_b", "delayBeforeCanPickup");
-
-        
-        if (delayBeforeCanPickup > 0)
-        {
-            delayBeforeCanPickup--;
-        }
-
         if (!onGround)
         {
             Object obj = null;
@@ -222,9 +215,7 @@ public class CREEPSEntityMoney extends EntityItem
      */
     public void onCollideWithPlayer(EntityPlayer entityplayer)
     {
-        int delayBeforeCanPickup = ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, this, "field_145804_b", "delayBeforeCanPickup");
-
-        if (delayBeforeCanPickup == 0)
+        if (rand.nextInt(30) == 0)
         {
             if (entityplayer.inventory.addItemStackToInventory(new ItemStack(MoreCreepsAndWeirdos.money, 1, 0)))
             {
@@ -248,26 +239,38 @@ public class CREEPSEntityMoney extends EntityItem
             }
 
             boolean flag = false;
-
-            if (!((EntityPlayerMP)entityplayer).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve100bucks) && i > 99)
+            
+            //TODO : Fix the achievement problem... (find an alternative to "hasAchievementUnlocked")...
+            //29/12/2015 : Packet Needed for achievement detector... -.-
+            if(!worldObj.isRemote)
             {
-                flag = true;
-                confetti(entityplayer);
-                entityplayer.addStat(MoreCreepsAndWeirdos.achieve100bucks, 1);
-            }
+                if(!(entityplayer instanceof EntityPlayerSP))
+                {
+                    EntityPlayerMP playerMP = (EntityPlayerMP) entityplayer;
+                    if (!playerMP.getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve100bucks) && i > 99)
+                    {
+                        flag = true;
+                        confetti(entityplayer);
+                        entityplayer.addStat(MoreCreepsAndWeirdos.achieve100bucks, 1);
+                    }
 
-            if (!((EntityPlayerMP)entityplayer).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve500bucks) && i > 499)
-            {
-                flag = true;
-                confetti(entityplayer);
-                entityplayer.addStat(MoreCreepsAndWeirdos.achieve500bucks, 1);
-            }
+                    if (!playerMP.getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve500bucks) && i > 499)
+                    {
+                        flag = true;
+                        confetti(entityplayer);
+                        entityplayer.addStat(MoreCreepsAndWeirdos.achieve500bucks, 1);
+                    }
 
-            if (!((EntityPlayerMP)entityplayer).getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve1000bucks) && i > 999)
-            {
-                flag = true;
-                confetti(entityplayer);
-                entityplayer.addStat(MoreCreepsAndWeirdos.achieve1000bucks, 1);
+                    if (!playerMP.getStatFile().hasAchievementUnlocked(MoreCreepsAndWeirdos.achieve1000bucks) && i > 999)
+                    {
+                        flag = true;
+                        confetti(entityplayer);
+                        entityplayer.addStat(MoreCreepsAndWeirdos.achieve1000bucks, 1);
+                    }
+                }else{
+                	System.out.println("[More Creeps Unofficial] Class cast failed when tried to trigger achievement in this class : " + this.getClass() + ".");
+                	System.out.println("[More Creeps Unofficial] Please contact elias54 or Astromojang for this!");
+                }
             }
 
             if (flag)
@@ -321,4 +324,10 @@ public class CREEPSEntityMoney extends EntityItem
     {
     	return new ItemStack(MoreCreepsAndWeirdos.money, 1, 0);
     }
+
+	@Override
+	protected void onImpact(MovingObjectPosition p_70184_1_)
+	{
+		
+	}
 }

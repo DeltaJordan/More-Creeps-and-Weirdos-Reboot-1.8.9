@@ -1,9 +1,12 @@
 package fr.elias.morecreeps.client.render;
 
+import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
@@ -23,7 +26,7 @@ public class CREEPSRenderAtom extends RenderLiving
     {
         super(Minecraft.getMinecraft().getRenderManager(), creepsmodelatom, f);
         modelBipedMain = creepsmodelatom;
-        setScaleAmount(creepsmodelatom);
+        scaleAmount = creepsmodelatom;
         this.addLayer(new LayerAtom(this));
     }
 
@@ -60,13 +63,5 @@ public class CREEPSRenderAtom extends RenderLiving
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		return new ResourceLocation(Reference.MOD_ID, 
 				Reference.TEXTURE_PATH_ENTITES + Reference.TEXTURE_ATOM);
-	}
-
-	public ModelBase getScaleAmount() {
-		return scaleAmount;
-	}
-
-	public void setScaleAmount(ModelBase scaleAmount) {
-		this.scaleAmount = scaleAmount;
 	}
 }

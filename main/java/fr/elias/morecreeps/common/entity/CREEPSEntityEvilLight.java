@@ -48,7 +48,7 @@ public class CREEPSEntityEvilLight extends EntityLiving
         }
 
         Object obj = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
         double d = 0.0D;
 
         for (int i = 0; i < list.size(); i++)

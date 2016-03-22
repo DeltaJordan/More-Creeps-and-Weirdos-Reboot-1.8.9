@@ -124,17 +124,9 @@ public class CREEPSEntityCastleCritter extends EntityMob
         }
         public void updateTask()
         {
-        	try{
         	float f = CREEPSEntityCastleCritter.this.getDistanceToEntity(CREEPSEntityCastleCritter.this.getAttackTarget());
         	CREEPSEntityCastleCritter.this.attackEntity(CREEPSEntityCastleCritter.this.getAttackTarget(), f);
-        
-        	}
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
         }
-        
     }
     /**
      * Checks if the entity's current position is a valid location to spawn this entity.
@@ -142,10 +134,10 @@ public class CREEPSEntityCastleCritter extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0;
+        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0;
     }
 
     /**

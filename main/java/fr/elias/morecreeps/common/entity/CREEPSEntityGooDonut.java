@@ -5,20 +5,21 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
-public class CREEPSEntityGooDonut extends EntityItem
+public class CREEPSEntityGooDonut extends EntityThrowable
 {
     protected double initialVelocity;
     double bounceFactor;
     int fuse;
     boolean exploded;
-    List<?> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
 
     public CREEPSEntityGooDonut(World world)
     {
@@ -27,8 +28,7 @@ public class CREEPSEntityGooDonut extends EntityItem
         initialVelocity = 1.0D;
         bounceFactor = 0.84999999999999998D;
         exploded = false;
-        fuse = 0;
-        this.setDefaultPickupDelay();
+        fuse = 30;
     }
 
     /**
@@ -108,6 +108,7 @@ public class CREEPSEntityGooDonut extends EntityItem
     {
         double d = motionX;
         double d1 = motionY;
+        double d2 = motionZ;
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
@@ -147,8 +148,8 @@ public class CREEPSEntityGooDonut extends EntityItem
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    double f = 0.85F;
-                    worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX - 0.25D * f, posY - motionY - 0.25D * f, posZ - motionZ - 0.25D * f, motionX, motionY, motionZ);
+                    float f = 0.85F;
+                    worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX - 0.25D * (double)f, posY - motionY - 0.25D * (double)f, posZ - motionZ - 0.25D * (double)f, motionX, motionY, motionZ);
                 }
             }
 
@@ -157,17 +158,7 @@ public class CREEPSEntityGooDonut extends EntityItem
             dropItem(MoreCreepsAndWeirdos.goodonut, 1);
         }
 
-        
-
-        for (int k = 0; k < list.size(); k++)
-        {
-            Entity entity = (Entity)list.get(k);
-
-            if (entity != null && entity.canBeCollidedWith() && !(entity instanceof EntityPlayer))
-            {
-                explode();
-            }
-        }
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
     }
 
     private void explode()
@@ -175,33 +166,15 @@ public class CREEPSEntityGooDonut extends EntityItem
         if (!exploded)
         {
             exploded = true;
+            if(!worldObj.isRemote)
             worldObj.createExplosion(null, posX, posY, posZ, 3.85F, true);
+            setDead();
         }
     }
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
-    {
-    }
-
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
-    {
-    }
-
-    /**
-     * Called by a player entity when they collide with an entity
-     */
-    public void onCollideWithPlayer(EntityPlayer entityplayer)
-    {
-    }
-    
-    public ItemStack getEntityItem()
-    {
-    	return new ItemStack(MoreCreepsAndWeirdos.goodonut, 1, 0);
-    }
+	@Override
+	protected void onImpact(MovingObjectPosition p_70184_1_) {
+		// TODO Auto-generated method stub
+		
+	}
 }

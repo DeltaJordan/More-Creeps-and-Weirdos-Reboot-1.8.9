@@ -72,9 +72,9 @@ public class CREEPSEntityCastleGuard extends EntityMob
      */
     public boolean getCanSpawnHere()
     {
-    	AxisAlignedBB x = this.getEntityBoundingBox();
+    	AxisAlignedBB x = this.getBoundingBox();
     	
-        return worldObj.getDifficulty().getDifficultyId() > 0 && worldObj.checkNoEntityCollision(getEntityBoundingBox()) && worldObj.getCollidingBoundingBoxes(this,  x).size() == 0;
+        return worldObj.getDifficulty().getDifficultyId() > 0 && worldObj.checkNoEntityCollision(getBoundingBox()) && worldObj.getCollidingBoundingBoxes(this,  x).size() == 0;
     }
 
     /**
@@ -150,7 +150,7 @@ public class CREEPSEntityCastleGuard extends EntityMob
             motionY += 0.023000000044703484D;
         }
 
-        if ((double)f < 2.2999999999999998D - (1.0D - (double)modelsize) && entity.getEntityBoundingBox().maxY > entity.getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < entity.getEntityBoundingBox().maxY && !(entity instanceof CREEPSEntityCastleGuard))
+        if ((double)f < 2.2999999999999998D - (1.0D - (double)modelsize) && entity.getBoundingBox().maxY > entity.getBoundingBox().minY && entity.getBoundingBox().minY < entity.getBoundingBox().maxY && !(entity instanceof CREEPSEntityCastleGuard))
         {
             if (hammerswing == 0.0F)
             {

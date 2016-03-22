@@ -51,7 +51,7 @@ public class CREEPSEntitySnowDevil extends EntityMob
     public String name;
     public double moveSpeed;
     public double attackStrength;
-    public float health;
+    public double health;
     static final String Names[] =
     {
         "Satan", "The Butcher", "Killer", "Tad", "Death Spanker", "Death Toll", "Bruiser", "Bones", "The Devil", "Little Devil",
@@ -97,7 +97,7 @@ public class CREEPSEntitySnowDevil extends EntityMob
     public void applyEntityAttributes()
     {
     	super.applyEntityAttributes();
-    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(basehealth);
+    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
     	this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
     	this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(attackStrength);
     }
@@ -136,7 +136,7 @@ public class CREEPSEntitySnowDevil extends EntityMob
 
     public EntityLiving getClosestTarget(Entity entity, double d)
     {
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(20D, 20D, 20D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(20D, 20D, 20D));
 
         for (int i = 0; i < list.size(); i++)
         {
@@ -283,12 +283,12 @@ public class CREEPSEntitySnowDevil extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
         Block j1 = worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
-        return (i1 == Blocks.snow || j1 == Blocks.snow) && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0 && l > 6;
+        return (i1 == Blocks.snow || j1 == Blocks.snow) && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0 && l > 6;
     }
 
     /**
@@ -325,7 +325,6 @@ public class CREEPSEntitySnowDevil extends EntityMob
                     basehealth += 5;
                     attackStrength++;
                     health = basehealth;
-                    this.setHealth(health);
                     String s = basetexture.substring(0, 18);
                     s = (new StringBuilder()).append(s).append("L.png").toString();
                     texture = s;
@@ -338,7 +337,6 @@ public class CREEPSEntitySnowDevil extends EntityMob
                     basehealth += 10;
                     attackStrength += 2;
                     health = basehealth;
-                    this.setHealth(health);
                     String s1 = basetexture.substring(0, 18);
                     s1 = (new StringBuilder()).append(s1).append("G.png").toString();
                     texture = s1;
@@ -350,7 +348,6 @@ public class CREEPSEntitySnowDevil extends EntityMob
                     used = true;
                     basehealth += 20;
                     health = basehealth;
-                    this.setHealth(health);
                     attackStrength += 4;
                     String s2 = basetexture.substring(0, 18);
                     s2 = (new StringBuilder()).append(s2).append("I.png").toString();
@@ -364,7 +361,6 @@ public class CREEPSEntitySnowDevil extends EntityMob
                     used = true;
                     basehealth += 30;
                     health = basehealth;
-                    this.setHealth(health);
                     attackStrength += 10;
                     String s3 = basetexture.substring(0, 18);
                     s3 = (new StringBuilder()).append(s3).append("D.png").toString();
@@ -400,7 +396,6 @@ public class CREEPSEntitySnowDevil extends EntityMob
                 smoke();
                 tamed = true;
                 health = basehealth;
-                this.setHealth(health);
 
                 if (name.length() < 1)
                 {

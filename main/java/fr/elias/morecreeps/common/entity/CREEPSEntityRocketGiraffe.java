@@ -73,7 +73,7 @@ public class CREEPSEntityRocketGiraffe extends EntityCreature
     public String name;
     public String texture;
     public double moveSpeed;
-    public float health;
+    public double health;
     static final String Names[] =
     {
         "Rory", "Stan", "Clarence", "FirePower", "Lightning", "Rocket Jockey", "Rocket Ralph", "Tim"
@@ -99,6 +99,7 @@ public class CREEPSEntityRocketGiraffe extends EntityCreature
         floatcycle = 0.0D;
         floatmaxcycle = 0.10499999672174454D;
         tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIBreakDoor(this));
         tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 0.061D));
         tasks.addTask(5, new EntityAIWander(this, 0.25D));
         tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8F));
@@ -109,7 +110,7 @@ public class CREEPSEntityRocketGiraffe extends EntityCreature
     public void applyEntityAttributes()
     {
     	super.applyEntityAttributes();
-    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(basehealth);
+    	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
     	this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
     }
 
@@ -301,7 +302,7 @@ public class CREEPSEntityRocketGiraffe extends EntityCreature
             motionX = (d / (double)f1) * 0.40000000000000002D * 0.10000000192092896D + motionX * 0.18000000098023225D;
             motionZ = (d1 / (double)f1) * 0.40000000000000002D * 0.14000000192092896D + motionZ * 0.18000000098023225D;
 
-            if ((double)f < 2D - (2D - (double)modelsize) && entity.getEntityBoundingBox().maxY > this.getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
+            if ((double)f < 2D - (2D - (double)modelsize) && entity.getBoundingBox().maxY > this.getBoundingBox().minY && entity.getBoundingBox().minY < this.getBoundingBox().maxY)
             {
                 //attackTime = 10;
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
@@ -439,7 +440,6 @@ public class CREEPSEntityRocketGiraffe extends EntityCreature
                 MoreCreepsAndWeirdos.proxy.addChatMessage("");
                 MoreCreepsAndWeirdos.proxy.addChatMessage((new StringBuilder()).append("\2476").append(String.valueOf(name)).append(" \247fhas been tamed!").toString());
                 health = basehealth;
-                this.setHealth(health);
                 basetexture = "/mob/creeps/rocketgiraffetamed.png";
                 texture = basetexture;
             }
@@ -566,11 +566,11 @@ public class CREEPSEntityRocketGiraffe extends EntityCreature
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(new BlockPos(i, j, k));
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.snow && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0 && l > 8;
+        return i1 != Blocks.snow && i1 != Blocks.cobblestone && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0 && l > 8;
     }
 
     /**

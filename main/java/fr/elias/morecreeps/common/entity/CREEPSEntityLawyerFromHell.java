@@ -3,6 +3,7 @@ package fr.elias.morecreeps.common.entity;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,6 +20,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
@@ -32,11 +34,18 @@ import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
 public class CREEPSEntityLawyerFromHell extends EntityMob
 {
+    private boolean foundplayer;
+    private boolean stolen;
+    private PathEntity pathToEntity;
+
     /**
      * returns true if a creature has attacked recently only used for creepers and skeletons
      */
     protected boolean hasAttacked;
     protected ItemStack stolengood;
+    private double goX;
+    private double goZ;
+    private float distance;
     public int itemnumber;
     public int stolenamount;
     public boolean undead;
@@ -60,7 +69,9 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
         {
             texture = "morecreeps:textures/entity/lawyerfromhellundead.png";
         }
+        stolen = false;
         hasAttacked = false;
+        foundplayer = false;
         lawyerstate = 0;
         lawyertimer = 0;
 
@@ -252,7 +263,6 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
 		
 		public void updateTask()
 		{
-			try{
 			float f = CREEPSEntityLawyerFromHell.this.getDistanceToEntity(getAttackTarget());
 			if(f < 256F)
 			{
@@ -264,11 +274,6 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
 			if(f < 1F)
 			{
 				//CREEPSEntityLawyerFromHell.this.attackEntityAsMob(CREEPSEntityKid.this.getAttackTarget());
-			}
-			}
-			catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
 			}
 		}
     }
@@ -285,6 +290,7 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
         {
             if (MoreCreepsAndWeirdos.instance.currentfine <= 0 && !undead)
             {
+                pathToEntity = null;
                 return;
             }
 
@@ -713,6 +719,7 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
             tileentitychest2.setInventorySlotContents(l6, null);
         }
 
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
 
         for (int j8 = 0; j8 < aitemstack.length; j8++)
@@ -854,7 +861,7 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
             dropTreasure(worldObj, jailX + 8, jailY + 2, jailZ + 8);
         }
 
-        List<?> list = worldObj.getEntitiesWithinAABBExcludingEntity(entityplayersp, ((EntityPlayer)(entityplayersp)).getEntityBoundingBox().expand(4D, 4D, 4D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(entityplayersp, ((EntityPlayer)(entityplayersp)).getBoundingBox().expand(4D, 4D, 4D));
 
         for (int k10 = 0; k10 < list.size(); k10++)
         {
@@ -867,6 +874,8 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
         }
 
         MoreCreepsAndWeirdos.instance.currentfine = 0;
+        boolean flag = false;
+
         if (MoreCreepsAndWeirdos.instance.currentfine < 0)
         {
             MoreCreepsAndWeirdos.instance.currentfine = 0;
@@ -949,7 +958,7 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
     {
         if (flag)
         {
-            List<?> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getEntityBoundingBox().expand(26D, 26D, 26D));
+            List list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.getBoundingBox().expand(26D, 26D, 26D));
 
             for (int l = 0; l < list.size(); l++)
             {
@@ -1032,6 +1041,7 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
 
     public boolean suckMoney(EntityPlayer player)
     {
+        Object obj = null;
         ItemStack aitemstack[] = player.inventory.mainInventory;
         int i = 0;
 
@@ -1168,11 +1178,11 @@ public class CREEPSEntityLawyerFromHell extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         //int l = worldObj.getFullBlockLightValue(i, j, k);
         IBlockState i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k));
-        return i1 != Blocks.cobblestone.getDefaultState() && i1 != Blocks.log.getDefaultState() && i1 != Blocks.double_stone_slab.getDefaultState() && i1 != Blocks.stone_slab.getDefaultState() && i1 != Blocks.planks.getDefaultState() && i1 != Blocks.wool.getDefaultState() && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0; //&& l > 10;
+        return i1 != Blocks.cobblestone.getDefaultState() && i1 != Blocks.log.getDefaultState() && i1 != Blocks.double_stone_slab.getDefaultState() && i1 != Blocks.stone_slab.getDefaultState() && i1 != Blocks.planks.getDefaultState() && i1 != Blocks.wool.getDefaultState() && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(5) == 0; //&& l > 10;
     }
 
     /**

@@ -204,7 +204,7 @@ public class CREEPSEntityCamelJockey extends EntityMob
             fallDistance = -25F;
         }
 
-        if ((double)f < 2D && entity.getEntityBoundingBox().maxY > this.getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY && !(entity instanceof CREEPSEntityCamel))
+        if ((double)f < 2D && entity.getBoundingBox().maxY > this.getBoundingBox().minY && entity.getBoundingBox().minY < this.getBoundingBox().maxY && !(entity instanceof CREEPSEntityCamel))
         {
             //attackTime = 20;
             entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack);
@@ -217,7 +217,7 @@ public class CREEPSEntityCamelJockey extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(getPosition());
         Block i1 = worldObj.getBlockState(new BlockPos(getPosition())).getBlock();
@@ -228,7 +228,7 @@ public class CREEPSEntityCamelJockey extends EntityMob
         }
         else
         {
-            return (i1 == Blocks.sand || i1 == Blocks.dirt || i1 == Blocks.gravel) && i1 != Blocks.cobblestone && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(getPosition()) && l > 6;
+            return (i1 == Blocks.sand || i1 == Blocks.dirt || i1 == Blocks.gravel) && i1 != Blocks.cobblestone && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(getPosition()) && l > 6;
         }
     }
 

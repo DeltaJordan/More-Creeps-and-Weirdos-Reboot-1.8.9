@@ -142,13 +142,12 @@ public class CREEPSEntityGuineaPig extends EntityMob
         this.tasks.addTask(1, new EntityAIMoveTowardsRestriction(this, 0.5D));
         this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(3, new EntityAILookIdle(this));
-        
     }
     
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(basehealth);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(health);
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(attackStrength);
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(attackStrength);
@@ -196,7 +195,7 @@ public class CREEPSEntityGuineaPig extends EntityMob
 
         if (tamed && wanderstate == 0)
         {
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(16D, 16D, 16D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(16D, 16D, 16D));
 
             for (int i = 0; i < list.size(); i++)
             {
@@ -444,7 +443,6 @@ public class CREEPSEntityGuineaPig extends EntityMob
             if (health > basehealth)
             {
                 health = basehealth;
-                this.setHealth((float) health);
             }
 
             for (int i = 0; i < skillhealing; i++)
@@ -460,7 +458,6 @@ public class CREEPSEntityGuineaPig extends EntityMob
         {
             motionY += 0.028799999505281448D;
         }
-        
     }
 
     /**
@@ -622,11 +619,11 @@ public class CREEPSEntityGuineaPig extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(this.getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         int l = worldObj.getBlockLightOpacity(getPosition());
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return i1 != Blocks.cobblestone && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getEntityBoundingBox()) && worldObj.canBlockSeeSky(getPosition()) && rand.nextInt(5) == 0 && l > 8;
+        return i1 != Blocks.cobblestone && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.checkBlockCollision(getBoundingBox()) && worldObj.canBlockSeeSky(getPosition()) && rand.nextInt(5) == 0 && l > 8;
     }
 
     /**
@@ -736,7 +733,7 @@ public class CREEPSEntityGuineaPig extends EntityMob
 
                         worldObj.playSoundAtEntity(this, "random.fuse", 1.0F, 0.5F);
                         int i = MathHelper.floor_double(entityplayer.posX);
-                        int i1 = MathHelper.floor_double(entityplayer.getEntityBoundingBox().minY);
+                        int i1 = MathHelper.floor_double(entityplayer.getBoundingBox().minY);
                         int j1 = MathHelper.floor_double(entityplayer.posZ);
                         createDisco(entityplayer, i + 2, i1, j1 + 2);
                     }
@@ -833,7 +830,6 @@ public class CREEPSEntityGuineaPig extends EntityMob
                 worldObj.createExplosion(null, posX, posY, posZ, 1.1F, true);
                 interest = 0;
                 health = 0;
-                this.setHealth((float) health);
                 setDead();
             }
             else

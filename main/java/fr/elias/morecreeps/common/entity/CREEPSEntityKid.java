@@ -143,7 +143,7 @@ public class CREEPSEntityKid extends EntityAnimal
         if (ridingEntity != null && checktimer-- < 0)
         {
             checktimer = 60;
-            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(8D, 8D, 8D));
+            List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().expand(8D, 8D, 8D));
 
             for (int i = 0; i < list.size(); i++)
             {
@@ -247,7 +247,6 @@ public class CREEPSEntityKid extends EntityAnimal
 		
 		public void updateTask()
 		{
-			try{
 			float f = CREEPSEntityKid.this.getDistanceToEntity(getAttackTarget());
 			if(f < 256F)
 			{
@@ -260,11 +259,6 @@ public class CREEPSEntityKid extends EntityAnimal
 			{
 				CREEPSEntityKid.this.attackEntityAsMob(CREEPSEntityKid.this.getAttackTarget());
 			}
-			}
-			catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
 		}
     }
     
@@ -274,11 +268,11 @@ public class CREEPSEntityKid extends EntityAnimal
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         //int l = worldObj.getFullBlockLightValue(i, j, k);
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
-        return (i1 == Blocks.grass || i1 == Blocks.sand || i1 == Blocks.dirt || i1 == Blocks.gravel) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.double_stone_slab && i1 != Blocks.stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0;// && l > 6;
+        return (i1 == Blocks.grass || i1 == Blocks.sand || i1 == Blocks.dirt || i1 == Blocks.gravel) && i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.double_stone_slab && i1 != Blocks.stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(15) == 0;// && l > 6;
     }
 
     /**
@@ -325,7 +319,7 @@ public class CREEPSEntityKid extends EntityAnimal
         if (rand.nextInt(5) == 0)
         {
             int i = MathHelper.floor_double(posX);
-            int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+            int j = MathHelper.floor_double(getBoundingBox().minY);
             int k = MathHelper.floor_double(posZ);
             Block l = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
             Block i1 = worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();

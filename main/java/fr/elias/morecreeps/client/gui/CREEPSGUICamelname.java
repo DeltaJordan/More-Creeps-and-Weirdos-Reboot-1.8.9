@@ -85,7 +85,7 @@ public class CREEPSGUICamelname extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l = (new Random()).nextLong();
             String s = namescreen.getText();
             camel.name = s;
             mc.displayGuiScreen(null);
@@ -101,7 +101,7 @@ public class CREEPSGUICamelname extends GuiScreen
 
         if (c == '\r')
         {
-            actionPerformed((GuiButton) buttonList.get(0));
+            actionPerformed((GuiButton)buttonList.get(0));
         }
 
         if (i == 1)

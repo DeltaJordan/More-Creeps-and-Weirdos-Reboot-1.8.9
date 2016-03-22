@@ -6,6 +6,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 
 public class TickClientHandlerEvent
 {
@@ -43,7 +44,7 @@ public class TickClientHandlerEvent
 		{
 			world.playSoundEffect(player.posX, player.posY, player.posZ, "morecreeps:welcome", 1.0F, 1.0F);
             String randomMessage = welcome[world.rand.nextInt(welcome.length)];
-			player.addChatMessage(new ChatComponentText("\2476More Creeps and Weirdos Unofficial \247ev1 \2476loaded."));
+			player.addChatMessage(new ChatComponentText("\2476More Creeps and Weirdos Unofficial \247ev1 (unofficial) \2476loaded."));
 			player.addChatMessage(new ChatComponentText(randomMessage));
 			creepsLoaded = true;
 		}

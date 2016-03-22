@@ -1,18 +1,22 @@
 package fr.elias.morecreeps.common.entity;
 
-import java.util.UUID;
-
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -20,18 +24,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+
+import com.google.common.base.Predicate;
+
 import fr.elias.morecreeps.common.MoreCreepsAndWeirdos;
 import fr.elias.morecreeps.common.Reference;
-import fr.elias.morecreeps.common.entity.ai.EntityArmyGuyAI;
 
-public class CREEPSEntityArmyGuy extends EntityMob
+public class CREEPSEntityArmyGuy extends EntityMob implements IRangedAttackMob, IEntityAdditionalSpawnData
 {
     public ItemStack defaultHeldItem;
     public int weapon;
@@ -44,21 +50,16 @@ public class CREEPSEntityArmyGuy extends EntityMob
     public boolean shrunk;
     public boolean helmet;
     public boolean head;
-    public boolean shooting;
-    public int shootingdelay;
     public float modelsize;
     private Entity targetedEntity;
     public boolean loyal;
     public float distance;
     public int attack;
-    public ResourceLocation texture;
     public int attackTime;
 
     public CREEPSEntityArmyGuy(World world)
     {
         super(world);
-        texture = new ResourceLocation(Reference.MOD_ID, 
-        		Reference.TEXTURE_PATH_ENTITES + Reference.TEXTURE_ARMY_GUY_DEFAULT);
         armright = false;
         armleft = false;
         legright = false;
@@ -66,8 +67,6 @@ public class CREEPSEntityArmyGuy extends EntityMob
         shrunk = false;
         helmet = false;
         head = false;
-        shooting = false;
-        shootingdelay = 20;
         defaultHeldItem = new ItemStack(MoreCreepsAndWeirdos.gun, 1);
         modelsize = 1.0F;
         loyal = false;
@@ -75,20 +74,20 @@ public class CREEPSEntityArmyGuy extends EntityMob
         attackTime = 20;
         ((PathNavigateGround)this.getNavigator()).func_179688_b(true);
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityArmyGuyAI(this));
-        //fixed, just needed imported :D
-        this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.tasks.addTask(1, new EntityAIAttackOnCollide(this, EntityCreature.class, 1.0D, false));
+        this.tasks.addTask(2, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));
+        this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
+        this.tasks.addTask(5, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(2, new CREEPSEntityArmyGuy.AINearestAttackableTarget(this, EntityCreature.class, 3, false, false, IMob.mobSelector));
     }
-    
-    public void applyEntityAttributes()
+
+	public void applyEntityAttributes()
     {
     	super.applyEntityAttributes();
     	this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(70D);
-    	this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.65D);
+    	this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.45D);
     }
 
     /**
@@ -103,12 +102,6 @@ public class CREEPSEntityArmyGuy extends EntityMob
     {
         this(world);
         setPosition(d, d1, d2);
-    }
-
-    public void entityInit()
-    {
-    	super.entityInit();
-    	this.dataWatcher.addObject(17, "");
     }
     /**
      * Plays living's sound at its position
@@ -130,9 +123,6 @@ public class CREEPSEntityArmyGuy extends EntityMob
     {
         if (rand.nextInt(7) == 0)
         {
-        	
-        	//[needed for 1.8] updated sound reference and added sounds.json
-        	//done for all sounds
             return "morecreeps:army";
         }
         else
@@ -164,15 +154,10 @@ public class CREEPSEntityArmyGuy extends EntityMob
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
-        double health = this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth).getAttributeValue();
-        if (shootingdelay-- < 1)
-        {
-            shooting = false;
-        }
-
+        float health = getHealth();
         if (health < 60 && health > 50 && !helmet)
         {
-            helmet = true;
+        	helmet = true;
             worldObj.playSoundAtEntity(this, "morecreeps:armyhelmet", 1.0F, 0.95F);
             if(worldObj.isRemote)
             {
@@ -181,8 +166,8 @@ public class CREEPSEntityArmyGuy extends EntityMob
         }
         else if (health < 50 && health > 40 && !armleft)
         {
-            helmet = true;
-            armleft = true;
+        	helmet = true;
+        	armleft = true;
             worldObj.playSoundAtEntity(this, "morecreeps:armyarm", 1.0F, 0.95F);
             CREEPSEntityArmyGuyArm creepsentityarmyguyarm = new CREEPSEntityArmyGuyArm(worldObj);
             creepsentityarmyguyarm.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
@@ -200,9 +185,9 @@ public class CREEPSEntityArmyGuy extends EntityMob
         }
         else if (health < 40 && health > 30 && !legright)
         {
-            helmet = true;
-            armleft = true;
-            legright = true;
+        	helmet = true;
+        	armleft = true;
+        	legright = true;
             worldObj.playSoundAtEntity(this, "morecreeps:armyleg", 1.0F, 0.95F);
             CREEPSEntityArmyGuyArm creepsentityarmyguyarm1 = new CREEPSEntityArmyGuyArm(worldObj);
             creepsentityarmyguyarm1.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
@@ -223,10 +208,10 @@ public class CREEPSEntityArmyGuy extends EntityMob
         }
         else if (health < 30 && health > 20 && !legleft)
         {
-            helmet = true;
-            armleft = true;
-            legright = true;
-            legleft = true;
+        	helmet = true;
+        	armleft = true;
+        	legright = true;
+        	legleft = true;
             worldObj.playSoundAtEntity(this, "morecreeps:armybothlegs", 1.0F, 0.95F);
             CREEPSEntityArmyGuyArm creepsentityarmyguyarm2 = new CREEPSEntityArmyGuyArm(worldObj);
             creepsentityarmyguyarm2.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
@@ -246,11 +231,11 @@ public class CREEPSEntityArmyGuy extends EntityMob
         }
         else if (health < 20 && health > 10 && !armright)
         {
-            helmet = true;
-            armleft = true;
-            legright = true;
-            legleft = true;
-            armright = true;
+        	helmet = true;
+        	armleft = true;
+        	legright = true;
+        	legleft = true;
+        	armright = true;
             worldObj.playSoundAtEntity(this, "morecreeps:armyarm", 1.0F, 0.95F);
             CREEPSEntityArmyGuyArm creepsentityarmyguyarm3 = new CREEPSEntityArmyGuyArm(worldObj);
             creepsentityarmyguyarm3.setLocationAndAngles(posX, posY + 1.0D, posZ, rotationYaw, 0.0F);
@@ -274,12 +259,12 @@ public class CREEPSEntityArmyGuy extends EntityMob
         }
         else if (health < 10 && health > 0 && !head)
         {
-            helmet = true;
-            armleft = true;
-            legright = true;
-            legleft = true;
-            armright = true;
-            head = true;
+        	helmet = true;
+        	armleft = true;
+        	legright = true;
+        	legleft = true;
+        	armright = true;
+        	head = true;
             defaultHeldItem = null;
             worldObj.playSoundAtEntity(this, "morecreeps:armyhead", 1.0F, 0.95F);
 
@@ -289,83 +274,47 @@ public class CREEPSEntityArmyGuy extends EntityMob
             }
         }
     }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
+    public double getYOffset()
     {
-    	EntityLivingBase entityToAttack = this.getAttackTarget();
-    	float yOffset = (float) this.getYOffset();
-        if (entityToAttack instanceof CREEPSEntityArmyGuyArm)
+    	if (legleft && legright && head)
         {
-            entityToAttack = null;
-        }
-
-        if (legleft && legright && head)
-        {
-            yOffset = -1.4F + (1.0F - modelsize);
+            return -1.4D + (1.0D - (double)modelsize);
         }
         else if (legleft && legright)
         {
-            yOffset = -0.75F + (1.0F - modelsize);
+            return -0.75D + (1.0D - (double)modelsize);
         }
         else
         {
-            yOffset = 0.0F;
+            return 0.0D;
         }
-
+    }
+    public void onUpdate()
+    {
+        if (this.getAttackTarget() instanceof CREEPSEntityArmyGuyArm)
+        {
+           setAttackTarget(null);
+        }
+        if (loyal && this.getAttackTarget() != null && ((this.getAttackTarget() instanceof CREEPSEntityArmyGuy) || (this.getAttackTarget() instanceof CREEPSEntityGuineaPig) || (this.getAttackTarget() instanceof CREEPSEntityHunchback)) && ((CREEPSEntityArmyGuy)this.getAttackTarget()).loyal)
+        {
+        	setAttackTarget(null);
+        }
+        EntityLivingBase livingbase = (EntityLivingBase)this.getAttackTarget();
+        if(livingbase != null && (livingbase.getAITarget() instanceof EntityPlayer))
+        {
+        	setAttackTarget(livingbase);
+        }
+        if(!loyal && this.getAttackTarget() != null && (this.getAttackTarget() instanceof CREEPSEntityArmyGuy))
+        {
+        	setAttackTarget(null);
+        }
+    	System.out.println("[ENTITY] ArmyGuy is loyal :" + loyal);
         if (legright)
         {
-            isJumping = true;
+        	this.setJumping(true);
         }
 
         super.onUpdate();
-    }
-
-    /**
-     * Basic mob attack. Default to touch of death in EntityCreature. Overridden by each mob to define their attack.
-     */
-    public void attackEntity(Entity entity, float f)
-    {
-        if (attackTime-- < 1 && !armright)
-        {
-            attackTime = rand.nextInt(50) + 35;
-            double d = 64D;
-            targetedEntity = entity;
-
-            if (targetedEntity != null && canEntityBeSeen(targetedEntity) && (!(targetedEntity instanceof EntityPlayer) || !loyal) && !isDead && !(targetedEntity instanceof CREEPSEntityArmyGuyArm))
-            {
-                double d1 = targetedEntity.getDistanceSqToEntity(this);
-
-                if (d1 < d * d && d1 > 3D)
-                {
-                    double d2 = targetedEntity.posX - posX;
-                    double d3 = (targetedEntity.getEntityBoundingBox().minY + (double)(targetedEntity.height / 2.0F)) - (posY + (double)(height / 2.0F));
-                    double d4 = targetedEntity.posZ - posZ;
-                    renderYawOffset = rotationYaw = (-(float)Math.atan2(d2, d4) * 180F) / (float)Math.PI;
-                    worldObj.playSoundAtEntity(this, "morecreeps:bullet", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
-                    shooting = true;
-                    shootingdelay = 20;
-                    CREEPSEntityBullet creepsentitybullet = new CREEPSEntityBullet(worldObj, this, 0.0F);
-
-                    if (creepsentitybullet != null)
-                    {
-                        worldObj.spawnEntityInWorld(creepsentitybullet);
-                    }
-                }
-            }
-        }
-
-        if (onGround && legright)
-        {
-            motionY = 0.25000000596246447D;
-        }
-
-        if ((double)f < 1.8D)
-        {
-            entity.attackEntityFrom(DamageSource.causeMobDamage(this), attack);
-        }
     }
 
     private void smoke()
@@ -410,14 +359,6 @@ public class CREEPSEntityArmyGuy extends EntityMob
         nbttagcompound.setBoolean("Head", head);
         nbttagcompound.setFloat("ModelSize", modelsize);
         nbttagcompound.setBoolean("Loyal", loyal);
-        if (this.getOwnerId() == null)
-        {
-        	nbttagcompound.setString("OwnerUUID", "");
-        }
-        else
-        {
-        	nbttagcompound.setString("OwnerUUID", this.getOwnerId());
-        }
     }
 
     /**
@@ -434,14 +375,7 @@ public class CREEPSEntityArmyGuy extends EntityMob
         head = nbttagcompound.getBoolean("Head");
         modelsize = nbttagcompound.getFloat("ModelSize");
         loyal = nbttagcompound.getBoolean("Loyal");
-
-        if (loyal)
-        {
-            texture = new ResourceLocation(Reference.MOD_ID,
-            		Reference.TEXTURE_PATH_ENTITES + Reference.TEXTURE_ARMY_GUY_LOYAL);
-        }
-        
-        double health = this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth).getAttributeValue();
+        float health = getHealth();
         
         if (helmet)
         {
@@ -473,22 +407,6 @@ public class CREEPSEntityArmyGuy extends EntityMob
         {
             health = 10;
         }
-        String s = "";
-
-        if (nbttagcompound.hasKey("OwnerUUID", 8))
-        {
-            s = nbttagcompound.getString("OwnerUUID");
-        }
-        else
-        {
-            String s1 = nbttagcompound.getString("Owner");
-            s = PreYggdrasilConverter.func_152719_a(s1);
-        }
-
-        if (s.length() > 0)
-        {
-            this.setOwnerId(s);
-        }
     }
 
     /**
@@ -504,14 +422,17 @@ public class CREEPSEntityArmyGuy extends EntityMob
      */
     public void onDeath(DamageSource damagesource)
     {
-        if (rand.nextInt(5) == 0)
-        {
-            dropItem(MoreCreepsAndWeirdos.gun, 1);
-        }
-        else
-        {
-            dropItem(Items.apple, rand.nextInt(2));
-        }
+    	if(!worldObj.isRemote)
+    	{
+            if (rand.nextInt(5) == 0)
+            {
+                dropItem(MoreCreepsAndWeirdos.gun, 1);
+            }
+            else
+            {
+                dropItem(Items.apple, rand.nextInt(2));
+            }
+    	}
     }
 
     /**
@@ -521,32 +442,46 @@ public class CREEPSEntityArmyGuy extends EntityMob
     {
         return defaultHeldItem;
     }
-    
-    public String getOwnerId()
-    {
-        return this.dataWatcher.getWatchableObjectString(17);
-    }
 
-    public void setOwnerId(String ownerUuid)
+	@Override
+	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
+	{
+        double d2 = targetedEntity.posX - posX;
+        double d3 = (targetedEntity.getEntityBoundingBox().minY + (double)(targetedEntity.height / 2.0F)) - (posY + (double)(height / 2.0F));
+        double d4 = targetedEntity.posZ - posZ;
+        renderYawOffset = rotationYaw = (-(float)Math.atan2(d2, d4) * 180F) / (float)Math.PI;
+        worldObj.playSoundAtEntity(this, "morecreeps:bullet", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
+        CREEPSEntityBullet creepsentitybullet = new CREEPSEntityBullet(worldObj, this, 0.0F);
+        if(!worldObj.isRemote && !armright)
+        worldObj.spawnEntityInWorld(creepsentitybullet);
+	}
+    static class AINearestAttackableTarget extends EntityAINearestAttackableTarget
     {
-        this.dataWatcher.updateObject(17, ownerUuid);
-    }
-    
-    public EntityLivingBase getOwnerEntity()
-    {
-        try
+    	public CREEPSEntityArmyGuy armyGuy;
+        public AINearestAttackableTarget(final CREEPSEntityArmyGuy p_i45858_1_, Class p_i45858_2_, int p_i45858_3_, boolean p_i45858_4_, boolean p_i45858_5_, final Predicate p_i45858_6_)
         {
-            UUID uuid = UUID.fromString(this.getOwnerId());
-            return uuid == null ? null : this.worldObj.getPlayerEntityByUUID(uuid);
+            super(p_i45858_1_, p_i45858_2_, p_i45858_3_, p_i45858_4_, p_i45858_5_, p_i45858_6_);
+            armyGuy = p_i45858_1_;
         }
-        catch (IllegalArgumentException illegalargumentexception)
+        public boolean shouldExecute()
         {
-            return null;
+        	EntityLivingBase p_180096_1_ = (EntityLivingBase)armyGuy.getAttackTarget();
+        	if ((p_180096_1_ instanceof EntityPlayer) || (p_180096_1_ instanceof CREEPSEntityArmyGuy) || (p_180096_1_ instanceof CREEPSEntityHunchback) || (p_180096_1_ instanceof CREEPSEntityGuineaPig))
+            {
+                return false;
+            }else
+        	return super.shouldExecute();
         }
     }
+	@Override
+	public void writeSpawnData(ByteBuf buffer)
+	{
+		buffer.writeBoolean(loyal);
+	}
 
-    public boolean isOwner(EntityLivingBase entityIn)
-    {
-        return entityIn == this.getOwnerEntity();
-    }
+	@Override
+	public void readSpawnData(ByteBuf additionalData)
+	{
+		loyal = additionalData.readBoolean();
+	}
 }

@@ -1,8 +1,6 @@
 package fr.elias.morecreeps.common.items;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -27,17 +25,14 @@ public class CREEPSItemBlorpCola extends Item
         entityplayer.swingItem();
         world.playSoundAtEntity(entityplayer, "morecreeps:blorpcola", 1.0F, 1.0F);
         itemstack.stackSize--;
-        
-       
-        if (MoreCreepsAndWeirdos.colacount++ >= 10 && MoreCreepsAndWeirdos.colacount < 12 )
+
+        if (MoreCreepsAndWeirdos.colacount++ >= 10)
         {
             world.playSoundAtEntity(entityplayer, "morecreeps:achievement", 1.0F, 1.0F);
             entityplayer.addStat(MoreCreepsAndWeirdos.achievechugcola, 1);
             MoreCreepsAndWeirdos.proxy.confettiA(entityplayer, world);
         }
-	
-        
-        
+
         entityplayer.heal(healAmount);
         return itemstack;
     }

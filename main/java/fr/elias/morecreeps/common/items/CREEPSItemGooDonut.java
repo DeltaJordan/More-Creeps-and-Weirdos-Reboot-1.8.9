@@ -19,9 +19,7 @@ public class CREEPSItemGooDonut extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-    	if (!entityplayer.capabilities.isCreativeMode){
-    		itemstack.stackSize--;
-    	}
+        itemstack.stackSize--;
         entityplayer.swingItem();
 
         if (itemstack.stackSize < 1)

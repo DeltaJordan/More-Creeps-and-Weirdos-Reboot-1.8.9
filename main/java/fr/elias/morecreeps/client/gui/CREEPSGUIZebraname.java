@@ -44,6 +44,7 @@ public class CREEPSGUIZebraname extends GuiScreen
     {
         Keyboard.enableRepeatEvents(true);
         buttonList.clear();
+        byte byte0 = 10;
         buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 62 + 12, I18n.format("gui.cancel", new Object[0])));
         buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 42, "Save"));
         namescreen = new GuiTextField(2, fontRendererObj, width / 2 - 100, height / 4 + 10, 200, 20);
@@ -84,7 +85,7 @@ public class CREEPSGUIZebraname extends GuiScreen
             }
 
             field_28217_m = true;
-            (new Random()).nextLong();
+            long l = (new Random()).nextLong();
             String s = namescreen.getText();
             zebra.name = s;
             mc.displayGuiScreen(null);

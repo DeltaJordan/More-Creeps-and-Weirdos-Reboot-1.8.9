@@ -270,7 +270,7 @@ public class CREEPSEntityEvilScientist extends EntityMob
                 motionZ = 0.0D;
                 motionY = 0.30000001192092896D;
                 int l = MathHelper.floor_double(posX);
-                int k2 = MathHelper.floor_double(getEntityBoundingBox().minY);
+                int k2 = MathHelper.floor_double(getBoundingBox().minY);
                 int j4 = MathHelper.floor_double(posZ);
                 worldObj.setBlockToAir(new BlockPos(l, k2 + 2, j4));
 
@@ -305,7 +305,7 @@ public class CREEPSEntityEvilScientist extends EntityMob
             if (rand.nextInt(200) == 0)
             {
                 int i1 = MathHelper.floor_double(posX);
-                int l2 = MathHelper.floor_double(getEntityBoundingBox().minY);
+                int l2 = MathHelper.floor_double(getBoundingBox().minY);
                 int k4 = MathHelper.floor_double(posZ);
                 worldObj.addWeatherEffect(new EntityLightningBolt(worldObj, i1, l2 + 3, k4));
             }
@@ -373,7 +373,7 @@ public class CREEPSEntityEvilScientist extends EntityMob
         if (stage == 4)
         {
             int l1 = MathHelper.floor_double(posX);
-            int k3 = MathHelper.floor_double(getEntityBoundingBox().minY);
+            int k3 = MathHelper.floor_double(getBoundingBox().minY);
             int l4 = MathHelper.floor_double(posZ);
 
             for (int i5 = 0; i5 < rand.nextInt(5) + 1; i5++)
@@ -543,7 +543,7 @@ public class CREEPSEntityEvilScientist extends EntityMob
                 motionY = 0.44000000196046446D;
             }
 
-            /*if ((double)f < 2D - (1.0D - (double)modelsize) && entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY)
+            /*if ((double)f < 2D - (1.0D - (double)modelsize) && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY)
             {
                 attackTime = 10;
                 entity.attackEntityFrom(DamageSource.causeMobDamage(this), attackStrength);
@@ -624,7 +624,6 @@ public class CREEPSEntityEvilScientist extends EntityMob
 		}
         public void updateTask()
         {
-        	try{
         	--attackTime;
             EntityLivingBase entitylivingbase = this.evilscientist.getAttackTarget();
             double d0 = this.evilscientist.getDistanceSqToEntity(entitylivingbase);
@@ -649,11 +648,6 @@ public class CREEPSEntityEvilScientist extends EntityMob
                 this.evilscientist.getNavigator().clearPathEntity();
                 this.evilscientist.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 0.5D);
             //}
-        	}
-        	catch (NullPointerException ex)
-			{
-			ex.printStackTrace();
-			}
         }
     }
     
@@ -663,12 +657,12 @@ public class CREEPSEntityEvilScientist extends EntityMob
     public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(posX);
-        int j = MathHelper.floor_double(getEntityBoundingBox().minY);
+        int j = MathHelper.floor_double(getBoundingBox().minY);
         int k = MathHelper.floor_double(posZ);
         //int l = worldObj.getFullBlockLightValue(i, j, k);
         Block i1 = worldObj.getBlockState(new BlockPos(i, j - 1, k)).getBlock();
         int j1 = worldObj.countEntities(CREEPSEntityEvilScientist.class);
-        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(45) == 0 && /*l > 10 &&*/ j1 < 3;
+        return i1 != Blocks.cobblestone && i1 != Blocks.log && i1 != Blocks.stone_slab && i1 != Blocks.double_stone_slab && i1 != Blocks.planks && i1 != Blocks.wool && worldObj.getCollidingBoundingBoxes(this, getBoundingBox()).size() == 0 && worldObj.canSeeSky(new BlockPos(i, j, k)) && rand.nextInt(45) == 0 && /*l > 10 &&*/ j1 < 3;
     }
 
     /**

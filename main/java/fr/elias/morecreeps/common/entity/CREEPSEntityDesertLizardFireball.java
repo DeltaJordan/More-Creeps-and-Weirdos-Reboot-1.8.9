@@ -55,7 +55,7 @@ public class CREEPSEntityDesertLizardFireball extends Entity
      */
     public boolean isInRangeToRenderDist(double d)
     {
-        double d1 = getEntityBoundingBox().getAverageEdgeLength() * 4D;
+        double d1 = getBoundingBox().getAverageEdgeLength() * 4D;
         d1 *= 64D;
         return d < d1 * d1;
     }
@@ -139,7 +139,7 @@ public class CREEPSEntityDesertLizardFireball extends Entity
         }
 
         Entity entity = null;
-        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
         double d = 0.0D;
 
         for (int j = 0; j < list.size(); j++)
@@ -152,7 +152,7 @@ public class CREEPSEntityDesertLizardFireball extends Entity
             }
 
             float f2 = 0.3F;
-            AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f2, f2, f2);
+            AxisAlignedBB axisalignedbb = entity1.getBoundingBox().expand(f2, f2, f2);
             MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
             if (movingobjectposition1 == null)

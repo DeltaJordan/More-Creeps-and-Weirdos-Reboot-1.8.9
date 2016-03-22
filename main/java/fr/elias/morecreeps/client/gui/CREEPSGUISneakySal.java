@@ -33,6 +33,8 @@ import fr.elias.morecreeps.common.entity.CREEPSEntitySneakySal;
 public class CREEPSGUISneakySal extends GuiScreen
 {
     private CREEPSEntitySneakySal sneakysal;
+    private GuiTextField namescreen;
+    private boolean field_28217_m;
     private float xSize_lo;
     private float ySize_lo;
     public int playercash;
@@ -235,6 +237,7 @@ public class CREEPSGUISneakySal extends GuiScreen
         if (k > 1 && k < 12)
         {
             k -= 2;
+            CREEPSEntitySneakySal _tmp = sneakysal;
             int l = Math.round((float)CREEPSEntitySneakySal.salprices[sneakysal.salslots[k]] * saleprice);
             playercash = checkCash();
 
@@ -245,6 +248,7 @@ public class CREEPSGUISneakySal extends GuiScreen
             else
             {
                 removeCash(l);
+                CREEPSEntitySneakySal _tmp1 = sneakysal;
                 sneakysal.dropItem(CREEPSEntitySneakySal.salitems[sneakysal.salslots[k]], 1);
                 world.playSoundAtEntity(entityplayersp, "morecreeps:salsale", 1.0F, 1.0F);
             }
@@ -254,7 +258,9 @@ public class CREEPSGUISneakySal extends GuiScreen
     public boolean removeCash(int i)
     {
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
+        boolean flag = false;
         label0:
 
         for (int j = 0; j < aitemstack.length; j++)
@@ -292,6 +298,7 @@ public class CREEPSGUISneakySal extends GuiScreen
     public int checkCash()
     {
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        Object obj = null;
         ItemStack aitemstack[] = ((EntityPlayer)(entityplayersp)).inventory.mainInventory;
         int i = 0;
 
@@ -337,8 +344,11 @@ public class CREEPSGUISneakySal extends GuiScreen
         drawWorldBackground(0);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(new ResourceLocation("morecreeps:textures/gui/gui-screensal.png"));
+        int l = (width - xSize) / 2;
+        int i1 = (height - (ySize + 16)) / 2;
         drawTexturedModalRect(20, 20, 0, 0, xSize + 400, ySize);
         byte byte0 = -18;
+        boolean flag = false;
         playercash = checkCash();
         drawCenteredString(fontRendererObj, "\2475******* \247fWELCOME TO SAL'S SHOP \2475*******", width / 2, height / 4 - 40, 0xffffff);
         drawCenteredString(fontRendererObj, (new StringBuilder()).append("\247eYour cash : \2472$\2476 ").append(String.valueOf(playercash)).toString(), width / 2, height / 4 - 25, 0xffffff);
@@ -352,7 +362,9 @@ public class CREEPSGUISneakySal extends GuiScreen
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             GL11.glEnable(GL11.GL_COLOR_MATERIAL);
             GL11.glEnable(GL11.GL_LIGHTING);
+            CREEPSEntitySneakySal _tmp = sneakysal;
             itemRender.renderItemIntoGUI(CREEPSEntitySneakySal.itemstack[sneakysal.salslots[j1 * 2]], width / 2 - 160, height / 4 + 8 + byte0 + j1 * 30);
+            CREEPSEntitySneakySal _tmp1 = sneakysal;
             itemRender.renderItemIntoGUI(CREEPSEntitySneakySal.itemstack[sneakysal.salslots[j1 * 2 + 1]], width / 2 + 12, height / 4 + 8 + byte0 + j1 * 30);
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glDepthMask(true);
