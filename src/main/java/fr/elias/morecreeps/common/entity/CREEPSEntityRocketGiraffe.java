@@ -32,7 +32,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.sun.javafx.scene.control.behavior.KeyBinding;
-import com.sun.xml.internal.org.jvnet.staxex.NamespaceContextEx.Binding;
 
 import fr.elias.morecreeps.client.gui.CREEPSGUIGiraffename;
 import fr.elias.morecreeps.client.particles.CREEPSFxDirt;
