@@ -1,15 +1,15 @@
 [
 {
   "modid": "morecreeps",
-  "name": "More Creeps And Weirdos Unofficial",
+  "name": "More Creeps And Weirdos Reboot",
   "description": "This is the unofficial update of More Creeps And Weirdos",
   "version": "${version}",
-  "mcversion": "${mcversion}",
+  "mcversion": "1.8.9",
   "url": "",
   "updateUrl": "",
   "authorList": ["freakstritch (original author)"],
-  "credits": "freakstritch for making this awesome mod !",
-  "logoFile": "",
+  "credits": "freakstritch for making this awesome mod!",
+  "logoFile": "morecreeps_logo.png",
   "screenshots": [],
   "dependencies": []
 }

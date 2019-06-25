@@ -44,7 +44,7 @@ public class TickClientHandlerEvent
 		{
 			world.playSoundEffect(player.posX, player.posY, player.posZ, "morecreeps:welcome", 1.0F, 1.0F);
             String randomMessage = welcome[world.rand.nextInt(welcome.length)];
-			player.addChatMessage(new ChatComponentText("\2476More Creeps and Weirdos Unofficial \247ev1 (unofficial) \2476loaded."));
+			player.addChatMessage(new ChatComponentText("\2476More Creeps and Weirdos Reboot \247ev1 (unofficial) \2476loaded."));
 			player.addChatMessage(new ChatComponentText(randomMessage));
 			creepsLoaded = true;
 		}

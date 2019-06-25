@@ -4,8 +4,8 @@ public class Reference {
 	
 	//Main Stuff
 	public static final String MOD_ID = "morecreeps";
-    public static final String NAME = "More Creeps And Weirdos Unofficial";
-    public static final String VERSION = "1.0.0";
+    public static final String NAME = "More Creeps And Weirdos Reboot";
+    public static final String VERSION = "1.0.0-beta";
     
     //Entities
     public static final String TEXTURE_PATH_ENTITES = "textures/entity/";
@@ -28,6 +28,4 @@ public class Reference {
 	public static final String TEXTURE_BIGBABYBOP = "bigbabybop.png";
 	public static final String TEXTURE_BLACK_SOUL = "blacksoul.png";
 	public static final String TEXTURE_BLACK_SOUL_EYES = "blacksoulglow2.png";
-	
-
 }

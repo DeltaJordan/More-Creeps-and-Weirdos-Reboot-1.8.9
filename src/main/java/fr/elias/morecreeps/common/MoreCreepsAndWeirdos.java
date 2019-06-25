@@ -458,7 +458,23 @@ public class MoreCreepsAndWeirdos
 	public BiomeGenBase[] allBiomes()
 	{
 		return new BiomeGenBase[] {
+				BiomeGenBase.jungle,
+				BiomeGenBase.jungleHills,
+				BiomeGenBase.jungleEdge,
+				BiomeGenBase.stoneBeach,
+				BiomeGenBase.coldBeach,
+				BiomeGenBase.birchForest,
+				BiomeGenBase.birchForestHills,
+				BiomeGenBase.roofedForest,
+				BiomeGenBase.coldTaiga,
+				BiomeGenBase.coldTaigaHills,
+				BiomeGenBase.megaTaiga,
+				BiomeGenBase.megaTaigaHills,
+				BiomeGenBase.extremeHillsPlus,
+				BiomeGenBase.savanna,
+				BiomeGenBase.savannaPlateau,
 				BiomeGenBase.plains, 
+				BiomeGenBase.mesa,
 				BiomeGenBase.desert, 
 				BiomeGenBase.extremeHills, 
 				BiomeGenBase.forest, 
@@ -470,9 +486,7 @@ public class MoreCreepsAndWeirdos
 				BiomeGenBase.desertHills, 
 				BiomeGenBase.forestHills, 
 				BiomeGenBase.taigaHills, 
-				BiomeGenBase.extremeHillsEdge,
-				BiomeGenBase.jungle,
-				BiomeGenBase.stoneBeach
+				BiomeGenBase.extremeHillsEdge
 		};
 	}
 }
