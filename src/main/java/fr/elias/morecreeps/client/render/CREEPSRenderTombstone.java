@@ -54,7 +54,7 @@ public class CREEPSRenderTombstone extends RenderLiving
             WorldRenderer worldRenderer = tessellator.getWorldRenderer();
             byte byte0 = -25;
             GL11.glDisable(GL11.GL_TEXTURE_2D);
-            worldRenderer.startDrawingQuads();
+//            worldRenderer.startDrawingQuads();
             int i = fontrenderer.getStringWidth(s);
 
             if (fontrenderer.getStringWidth(s1) > i)
@@ -63,11 +63,11 @@ public class CREEPSRenderTombstone extends RenderLiving
             }
 
             int j = i / 2;
-            worldRenderer.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-            worldRenderer.addVertex(-j - 2, -1 + byte0, 0.0D);
-            worldRenderer.addVertex(-j - 2, 22 + byte0, 0.0D);
-            worldRenderer.addVertex(j + 2, 22 + byte0, 0.0D);
-            worldRenderer.addVertex(j + 2, -1 + byte0, 0.0D);
+//            worldRenderer.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+//            worldRenderer.addVertex(-j - 2, -1 + byte0, 0.0D);
+//            worldRenderer.addVertex(-j - 2, 22 + byte0, 0.0D);
+//            worldRenderer.addVertex(j + 2, 22 + byte0, 0.0D);
+//            worldRenderer.addVertex(j + 2, -1 + byte0, 0.0D);
             tessellator.draw();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, byte0 + 2, 0x20ffffff);

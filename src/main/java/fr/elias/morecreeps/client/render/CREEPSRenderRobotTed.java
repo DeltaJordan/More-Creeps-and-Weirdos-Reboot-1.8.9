@@ -166,7 +166,8 @@ public class CREEPSRenderRobotTed extends RenderLiving
 
         GL11.glEnable(GL11.GL_CULL_FACE);
         GL11.glPopMatrix();
-        passSpecialRender(creepsentityrobotted, d, d1, d2);
+        // TODO Find out what this does and fix it properly
+//        passSpecialRender(creepsentityrobotted, d, d1, d2);
     }
 
     public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)

@@ -75,13 +75,13 @@ public class CREEPSRenderCamel extends RenderLiving
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             
             
-            worldRenderer.startDrawingQuads();
+//            worldRenderer.startDrawingQuads();
             int j = fontrenderer.getStringWidth(s) / 2;
-            worldRenderer.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-            worldRenderer.addVertex(-j - 1, -1 + i, 0.0D);
-            worldRenderer.addVertex(-j - 1, 8 + i, 0.0D);
-            worldRenderer.addVertex(j + 1, 8 + i, 0.0D);
-            worldRenderer.addVertex(j + 1, -1 + i, 0.0D);
+//            worldRenderer.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+//            worldRenderer.addVertex(-j - 1, -1 + i, 0.0D);
+//            worldRenderer.addVertex(-j - 1, 8 + i, 0.0D);
+//            worldRenderer.addVertex(j + 1, 8 + i, 0.0D);
+//            worldRenderer.addVertex(j + 1, -1 + i, 0.0D);
             tessellator.draw();
             
             

@@ -69,7 +69,7 @@ public class CREEPSItemRayRay extends Item
                 return 0;
             }
             Chunk chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
-            return chunk.getHeight(x & 15, z & 15);
+            return chunk.getHeightValue(x & 15, z & 15);
         }
         return 64;
     }

@@ -163,7 +163,8 @@ public class CREEPSRenderRobotTodd extends RenderLiving
 
         GL11.glEnable(GL11.GL_CULL_FACE);
         GL11.glPopMatrix();
-        passSpecialRender(creepsentityrobottodd, d, d1, d2);
+        // TODO find out what this does and fix it properly
+//        passSpecialRender(creepsentityrobottodd, d, d1, d2);
     }
 
     /**

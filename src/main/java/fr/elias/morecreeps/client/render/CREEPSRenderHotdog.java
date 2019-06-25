@@ -68,27 +68,27 @@ public class CREEPSRenderHotdog extends RenderLiving
             float f5 = (1.0F - ((CREEPSEntityHotdog)entityliving).dogsize) * 35F;
             int i = -20 + (int)f5;
             GL11.glDisable(GL11.GL_TEXTURE_2D);
-            worldRenderer.startDrawingQuads();
+//            worldRenderer.startDrawingQuads();
             int j = fontrenderer.getStringWidth(s) / 2;
-            worldRenderer.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-            worldRenderer.addVertex(-j - 1, -1 + i, 0.0D);
-            worldRenderer.addVertex(-j - 1, 8 + i, 0.0D);
-            worldRenderer.addVertex(j + 1, 8 + i, 0.0D);
-            worldRenderer.addVertex(j + 1, -1 + i, 0.0D);
+//            worldRenderer.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+//            worldRenderer.addVertex(-j - 1, -1 + i, 0.0D);
+//            worldRenderer.addVertex(-j - 1, 8 + i, 0.0D);
+//            worldRenderer.addVertex(j + 1, 8 + i, 0.0D);
+//            worldRenderer.addVertex(j + 1, -1 + i, 0.0D);
             float f6 = ((CREEPSEntityHotdog)entityliving).getHealth();
             float f7 = ((CREEPSEntityHotdog)entityliving).getMaxHealth();
             float f8 = f6 / f7;
             float f9 = 50F * f8;
-            worldRenderer.setColorRGBA_F(1.0F, 0.0F, 0.0F, 1.0F);
-            worldRenderer.addVertex(-25F + f9, -10 + i, 0.0D);
-            worldRenderer.addVertex(-25F + f9, -6 + i, 0.0D);
-            worldRenderer.addVertex(25D, -6 + i, 0.0D);
-            worldRenderer.addVertex(25D, -10 + i, 0.0D);
-            worldRenderer.setColorRGBA_F(0.0F, 1.0F, 0.0F, 1.0F);
-            worldRenderer.addVertex(-25D, -10 + i, 0.0D);
-            worldRenderer.addVertex(-25D, -6 + i, 0.0D);
-            worldRenderer.addVertex(f9 - 25F, -6 + i, 0.0D);
-            worldRenderer.addVertex(f9 - 25F, -10 + i, 0.0D);
+//            worldRenderer.setColorRGBA_F(1.0F, 0.0F, 0.0F, 1.0F);
+//            worldRenderer.addVertex(-25F + f9, -10 + i, 0.0D);
+//            worldRenderer.addVertex(-25F + f9, -6 + i, 0.0D);
+//            worldRenderer.addVertex(25D, -6 + i, 0.0D);
+//            worldRenderer.addVertex(25D, -10 + i, 0.0D);
+//            worldRenderer.setColorRGBA_F(0.0F, 1.0F, 0.0F, 1.0F);
+//            worldRenderer.addVertex(-25D, -10 + i, 0.0D);
+//            worldRenderer.addVertex(-25D, -6 + i, 0.0D);
+//            worldRenderer.addVertex(f9 - 25F, -6 + i, 0.0D);
+//            worldRenderer.addVertex(f9 - 25F, -10 + i, 0.0D);
             tessellator.draw();
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i, 0x20ffffff);
@@ -153,14 +153,14 @@ public class CREEPSRenderHotdog extends RenderLiving
         GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(0.0F, 0.0F, -0.2F + (float)(int)f9 * 0.102F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        worldRenderer.startDrawingQuads();
+//        worldRenderer.startDrawingQuads();
 
         while (f9 > 0.0F)
         {
-        	worldRenderer.addVertexWithUV(f6 - f7, (0.0F - f8) + (float)i, 0.0D, f2, f4);
-        	worldRenderer.addVertexWithUV(0.0F - f7, (0.0F - f8) + (float)i, 0.0D, f1, f4);
-        	worldRenderer.addVertexWithUV(0.0F - f7, (1.4F - f8) + (float)i, 0.0D, f1, f3);
-        	worldRenderer.addVertexWithUV(f6 - f7, (1.4F - f8) + (float)i, 0.0D, f2, f3);
+//        	worldRenderer.addVertexWithUV(f6 - f7, (0.0F - f8) + (float)i, 0.0D, f2, f4);
+//        	worldRenderer.addVertexWithUV(0.0F - f7, (0.0F - f8) + (float)i, 0.0D, f1, f4);
+//        	worldRenderer.addVertexWithUV(0.0F - f7, (1.4F - f8) + (float)i, 0.0D, f1, f3);
+//        	worldRenderer.addVertexWithUV(f6 - f7, (1.4F - f8) + (float)i, 0.0D, f2, f3);
             f9--;
             f8--;
             f6 *= 0.9F;
@@ -171,14 +171,14 @@ public class CREEPSRenderHotdog extends RenderLiving
         GL11.glRotatef(-renderManager.playerViewY, 1.0F, 1.0F, 0.0F);
         GL11.glTranslatef(0.0F, 0.0F, -0.2F + (float)(int)f9 * 0.102F);
         GL11.glColor4f(0.0F, 0.0F, 1.0F, 1.0F);
-        worldRenderer.startDrawingQuads();
+//        worldRenderer.startDrawingQuads();
 
         while (f9 > 0.0F)
         {
-        	worldRenderer.addVertexWithUV(f6 - f7++, (0.0F - f8) + (float)i, 0.0D, f2 + 6F, f4);
-        	worldRenderer.addVertexWithUV(0.0F - f7++, (0.0F - f8) + (float)i, 0.0D, f1 + 6F, f4);
-        	worldRenderer.addVertexWithUV(0.0F - f7++, (1.4F - f8) + (float)i, 0.0D, f1 + 6F, f3);
-        	worldRenderer.addVertexWithUV(f6 - f7++, (1.4F - f8) + (float)i, 0.0D, f2 + 6F, f3);
+//        	worldRenderer.addVertexWithUV(f6 - f7++, (0.0F - f8) + (float)i, 0.0D, f2 + 6F, f4);
+//        	worldRenderer.addVertexWithUV(0.0F - f7++, (0.0F - f8) + (float)i, 0.0D, f1 + 6F, f4);
+//        	worldRenderer.addVertexWithUV(0.0F - f7++, (1.4F - f8) + (float)i, 0.0D, f1 + 6F, f3);
+//        	worldRenderer.addVertexWithUV(f6 - f7++, (1.4F - f8) + (float)i, 0.0D, f2 + 6F, f3);
             f9--;
             f8--;
             f6 *= 0.9F;
